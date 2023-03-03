@@ -1,0 +1,28 @@
+{
+  "name": "mern-stack-fed",
+  "version": "1.0.0",
+  "description": "api for fed backend services using mern stack",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Federation-Tech/mern-stack.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Federation-Tech/mern-stack/issues"
+  },
+  "homepage": "https://github.com/Federation-Tech/mern-stack#readme",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "expressjs": "^1.0.1",
+    "googleapis": "^112.0.0",
+    "mongodb": "^5.1.0",
+    "nodemailer": "^6.9.1",
+    "nodemon": "^2.0.21"
+  }
+}
