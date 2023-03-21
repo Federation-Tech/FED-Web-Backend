@@ -13,7 +13,7 @@ async function main() {
   const db = client.db(dbName);
   const collection = db.collection("vinit");
   console.log(await collection.find({}).toArray());
-  return "done.";
+  return "done";
 }
 
 main()
