@@ -6,11 +6,7 @@ const mongoose =  require('mongoose')
 const User = require('../../models/user.model')
 require('dotenv').config()
 
-mongoose.connect('mongodb://localhost:27017/fed-user');  
-
-
-//already logged in
-
+mongoose.connect('mongodb://localhost:27017/fed-user'); 
 
 //login user
 router.post('/' , async(req,res)=>{
@@ -24,18 +20,9 @@ router.post('/' , async(req,res)=>{
         const token =  jwt.sign({
             userName : result.userName,
         }, process.env.USER_SECRET_KEY,{ expiresIn: '86400s' })
-
-
-        // session = req.session;
-        // session.userid = token;
-        // console.log(req.session)
         res.json({status :'ok', user : token})
     } else{
         res.json({status : 'error' , user : false})
     }
 });
-router.post('/logout',(req,res)=>{
-    req.session.destroy();
-    res.redirect('/');
-})
 module.exports = router
