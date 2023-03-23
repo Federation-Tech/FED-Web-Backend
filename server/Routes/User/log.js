@@ -4,26 +4,9 @@ const jwt  = require('jsonwebtoken')
 const bcrypt =  require('bcryptjs')
 const mongoose =  require('mongoose')
 const User = require('../../models/user.model')
-// const cookieParser = require('cookie-parser');
-// const sessions = require('express-session');
 require('dotenv').config()
 
 mongoose.connect('mongodb://localhost:27017/fed-user');  
-const oneDay = 1000 * 60 * 60 * 24;
-
-//session middleware
-// router.use(sessions({
-//     secret: process.env.session_key ,
-//     saveUninitialized:true,
-//     cookie: { maxAge: oneDay },
-//     resave: false
-// }));
-
-// //cookie middleware
-// router.use(cookieParser());
-
-
-// let session;
 
 
 //already logged in
