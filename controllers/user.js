@@ -11,8 +11,8 @@ const login = async(req,res)=>{
     const result2 =  await User.findOne({
         mobno : req.body.username
     })
-    if(!result || !result2){return res.json({status : "error", message : "invalid credential"}) }
-    if(req.body.password === result.password && req.body.password === result2.password)
+    if(!result && !result2){return res.json({status : "error", message : "invalid credential"}) }
+    if(req.body.password === result.password || req.body.password === result2.password)
     {
         if(result.isvalid == true && result2.isvalid == true)
         {
