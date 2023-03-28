@@ -1,6 +1,7 @@
 const registrationSchema = require("../models/registration");
 const mongoose = require("mongoose");
 
+//
 const postData = async (req, res) => {
   const {
     email,
@@ -15,6 +16,7 @@ const postData = async (req, res) => {
     extraData,
   } = req.body;
 
+  //try catch
   const existingEmail = await registrationSchema.findOne({
     email: req.body.email,
   });
@@ -26,8 +28,10 @@ const postData = async (req, res) => {
       extraData = {};
     } else {
       if (email.contains("@") && mobNo.length === 10 && mobNo2.length === 10) {
+        // change karo
         try {
           const data = await registrationSchema.create({
+            // save use karo
             email,
             password,
             name,
