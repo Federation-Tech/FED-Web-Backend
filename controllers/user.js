@@ -1,29 +1,21 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const mongoose = require("mongoose");
-const User = require("../models/user.model");
+const User = require("../models/user-model");
 require("dotenv").config();
 
 const login = async (req, res) => {
-  const result = await User.findOne({
-    email: req.body.username,
-  });
-  const result2 = await User.findOne({
-    mobno: req.body.username,
-  });
-
-  if (!result && !result2) {
+  const result = await User.find({
+    $or: [{ email: req.body.username }, { mobno: req.body.username }],
+  }).exec();
+  if (!result[0]) {
     return res.json({ status: "error", message: "invalid credential" });
   }
-
-  if (
-    req.body.password === result.password ||
-    req.body.password === result2.password
-  ) {
-    if (result.isvalid == true && result2.isvalid == true) {
+  if (req.body.password == result[0].password) {
+    if (result[0].isvalid == true) {
       const token = jwt.sign(
         {
-          userName: result.userName,
+          username: result[0].name,
         },
         process.env.USER_SECRET_KEY,
         { expiresIn: "86400s" }

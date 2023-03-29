@@ -6,11 +6,11 @@ const registrationData = new Schema({
   email: { type: String, required: true, unique: true },
   name: { type: String, required: true },
   rollno: { type: String, required: true, unique: true },
-  mobno: { type: Number, required: true },
+  mobno: { type: String, required: true },
   access: { type: String, required: true },
   extradata: { type: Object, required: true }, // array of objects
   isvalid: { type: Boolean, required: true },
   img: { type: String, required: true },
 });
 
-module.exports = mongoose.model("Registration", registrationData);
+module.exports = mongoose.model("userdb", registrationData);

@@ -1,6 +1,6 @@
-const registrationSchema = require("../models/registration");
+const registrationSchema = require("../models/user-model");
 const mongoose = require("mongoose");
-const gravatar = require("gravator");
+const gravatar = require("gravatar");
 //
 const postData = async (req, res) => {
   req.body.isvalid = false;
@@ -9,47 +9,43 @@ const postData = async (req, res) => {
     email,
     password,
     name,
-    roll,
-    mobNo,
+    rollno,
+    mobno,
     access,
-    extraData,
+    extradata,
     isvalid,
     img,
   } = req.body;
-
-  //try catch
-  const existingEmail = await registrationSchema.findOne({
-    email: req.body.email,
-  });
-
-  if (existingEmail) {
-    res.status(400).json({ error: error.message });
+  if ((req.body.extradata = "")) {
+    extradata = {};
   } else {
-    if ((req.body.extraData = "")) {
-      extraData = {};
-    } else {
-      if (email.contains("@") && mobNo.length >= 10 && mobNo.length <= 13) {
-        // change karo
-        try {
-          const data = await registrationSchema.save({
-            // save use karo
-            email,
-            password,
-            name,
-            roll,
-            mobNo,
-            access,
-            extraData,
-            isvalid,
-            img,
-          });
-          res.status(200).json(data);
-        } catch (error) {
-          res.status(400).json({ error: error.message });
-        }
-      } else {
-        res.status(400).json({ error: "invalid details entered" });
+    if (
+      email.includes("@") &&
+      mobno.toString().length >= 10 &&
+      mobno.toString().length <= 13
+    ) {
+      // change karo
+      try {
+        const data = new registrationSchema({
+          // save use karo
+          email,
+          password,
+          name,
+          rollno,
+          mobno,
+          access,
+          extradata,
+          isvalid,
+          img,
+        });
+        await data.save();
+        res.status(200).json(data);
+      } catch (err) {
+        res.status(400).json({ error: err.message });
       }
+    } else {
+      res.status(400).json({ error: "invalid details entered" });
     }
   }
 };
+exports.register = postData;
