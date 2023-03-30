@@ -1,6 +1,7 @@
 const registrationSchema = require("../models/user-model");
 const mongoose = require("mongoose");
 const gravatar = require("gravatar");
+
 //
 const postData = async (req, res) => {
   req.body.isvalid = false;
