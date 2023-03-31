@@ -1,7 +1,6 @@
-const registrationSchema = require("../models/user-model");
-const mongoose = require("mongoose");
+const registrationSchema = require("../../models/user-model");
 const gravatar = require("gravatar");
-
+const verification = require("./verification");
 //
 const postData = async (req, res) => {
   req.body.isvalid = false;
@@ -40,6 +39,7 @@ const postData = async (req, res) => {
           img,
         });
         await data.save();
+        verification.mail(email, name);
         res.status(200).json(data);
       } catch (err) {
         res.status(400).json({ error: err.message });

@@ -1,12 +1,16 @@
 const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
-const controller = require("../../controllers/user");
-const registrationController = require("../../controllers/registrationController");
+const logincontroller = require("../../controllers/user/login");
+const registrationController = require("../../controllers/user/registrationController");
+const verification = require("../../controllers/user/verification");
 
 //registration
 router.post("/register", registrationController.register);
 
 //login user
-router.post("/login", controller.login);
+router.post("/login", logincontroller.login);
+
+//
+router.get("/verification/:token", verification.verify);
 module.exports = router;

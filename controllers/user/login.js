@@ -1,7 +1,5 @@
 const jwt = require("jsonwebtoken");
-const bcrypt = require("bcryptjs");
-const mongoose = require("mongoose");
-const User = require("../models/user-model");
+const User = require("../../models/user-model");
 require("dotenv").config();
 
 const login = async (req, res) => {
@@ -11,18 +9,18 @@ const login = async (req, res) => {
   if (!result[0]) {
     return res.json({ status: "error", message: "invalid credential" });
   }
-  if (req.body.password == result[0].password) {
+  if (req.body.password === result[0].password) {
     if (result[0].isvalid == true) {
       const token = jwt.sign(
         {
-          username: result[0].name,
+          username: result[0].email,
         },
-        process.env.USER_SECRET_KEY,
-        { expiresIn: "86400s" }
+        process.env.access_token_key,
+        { expiresIn: "86400s" } // one day
       );
       res.json({ status: "ok", user: token });
     } else {
-      return res.redirect("/verification");
+      return res.json({ error: "verfication error" });
     }
   } else {
     res.json({ status: "error", user: false });
