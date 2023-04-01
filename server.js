@@ -1,5 +1,5 @@
-const express = require("express");
 const cors = require("cors");
+const express = require("express");
 const mongoose = require("mongoose");
 const verfication = require("./controllers/user/verification");
 
