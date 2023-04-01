@@ -1,6 +1,7 @@
 const registrationSchema = require("../../models/user-model");
 const gravatar = require("gravatar");
 const verification = require("./verification");
+
 //
 const postData = async (req, res) => {
   req.body.isvalid = false;
@@ -49,4 +50,5 @@ const postData = async (req, res) => {
     }
   }
 };
+
 exports.register = postData;
