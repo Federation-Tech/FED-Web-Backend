@@ -13,4 +13,5 @@ router.post("/login", logincontroller.login);
 
 //
 router.get("/verification/:token", verification.verify);
+
 module.exports = router;
