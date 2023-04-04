@@ -5,8 +5,6 @@ const registrationData = new Schema({
   password: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   name: { type: String, required: true },
-  rollno: { type: String, required: true, unique: true },
-  mobno: { type: String, required: true },
   access: { type: String, required: true },
   extradata: { type: Object, required: true }, // array of objects
   isvalid: { type: Boolean, required: true },

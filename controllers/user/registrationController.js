@@ -6,26 +6,13 @@ const verification = require("./verification");
 const postData = async (req, res) => {
   console.log(`Registration request received for ${req.body.email}`);
   req.body.isvalid = false;
+  req.body.access = 0;
   req.body.img = gravatar.url(req.body.email, { protocol: "https", s: "100" });
-  const {
-    email,
-    password,
-    name,
-    rollno,
-    mobno,
-    access,
-    extradata,
-    isvalid,
-    img,
-  } = req.body;
+  const { email, password, name, access, extradata, isvalid, img } = req.body;
   if ((req.body.extradata = "")) {
     extradata = {};
   } else {
-    if (
-      email.includes("@") &&
-      mobno.toString().length >= 10 &&
-      mobno.toString().length <= 13
-    ) {
+    if (email.includes("@")) {
       // change karo
       try {
         const data = new registrationSchema({
@@ -33,8 +20,6 @@ const postData = async (req, res) => {
           email,
           password,
           name,
-          rollno,
-          mobno,
           access,
           extradata,
           isvalid,
