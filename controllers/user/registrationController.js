@@ -11,7 +11,6 @@ const postData = async (req, res) => {
   const { email, password, name, access, extradata, isvalid, img } = req.body;
   if ((req.body.extradata = "" || !req.body.extradata)) {
     req.body.extradata = {};
-    console.log("hehe");
   }
 
   if (email.includes("@")) {
@@ -28,7 +27,6 @@ const postData = async (req, res) => {
         img,
       });
       await data.save();
-      console.log(data);
       verification.mail(email, name);
       res.status(200).json({ status: "ok" });
       console.log("registration done");
