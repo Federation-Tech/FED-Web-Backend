@@ -4,6 +4,7 @@ const verification = require("./verification");
 
 //
 const postData = async (req, res) => {
+  console.log(`Registration request received for ${req.body.email}`);
   req.body.isvalid = false;
   req.body.img = gravatar.url(req.body.email, { protocol: "https", s: "100" });
   const {
@@ -42,11 +43,14 @@ const postData = async (req, res) => {
         await data.save();
         verification.mail(email, name);
         res.status(200).json(data);
+        console.log("registration done");
       } catch (err) {
-        res.status(400).json({ error: err.message });
+        console.log("registration err " + err);
+        res.status(400).json({ code: 2, error: err.message });
       }
     } else {
-      res.status(400).json({ error: "invalid details entered" });
+      console.log("invalid data entered sending err...");
+      res.status(400).json({ code: 2, error: "invalid details entered" });
     }
   }
 };

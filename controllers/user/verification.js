@@ -3,6 +3,7 @@ const db = require("../../models/user-model");
 const mailer = require("../../mailer/mailer");
 
 async function verfication(req, res) {
+  console.log("verification request received");
   var token = req.params.token;
   var vemail = await jwt.verify(token, process.env.verification_token_key);
   await db.findOneAndUpdate({ email: vemail }, { isvalid: true });
@@ -23,17 +24,5 @@ async function sendverficationmail(email, name) {
   console.log(await mailer.sendMail(mail));
 }
 
-function validate(req, res, next) {
-  if (!req) next();
-  jwt.verify(req.body.token, process.env.access_token_key, (err, user) => {
-    if (err) {
-      return res.sendStatus(403);
-    }
-    req.body.user = user;
-    next();
-  });
-}
-
 exports.verify = verfication;
 exports.mail = sendverficationmail;
-exports.validate = validate;

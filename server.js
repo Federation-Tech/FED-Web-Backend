@@ -1,9 +1,8 @@
 require("dotenv").config();
 const cors = require("cors");
 const express = require("express");
-const mongoose = require("mongoose");
 const connectDB = require("./config/db");
-const verfication = require("./controllers/user/verification");
+const validater = require("./middleware/validator");
 
 const app = express();
 
@@ -15,7 +14,7 @@ app.use(cors());
 
 app.use("/auth", require("./Routes/User/router"));
 
-app.use("/validatetest", verfication.validate, (req, res) => {
+app.use("/validatetest", validater.validate, (req, res) => {
   res.send(req.body.user);
 });
 
@@ -29,5 +28,5 @@ app.use("*", (req, res) => {
 });
 
 app.listen(process.env.PORT, () => {
-  console.log("listening to port .....");
+  console.log(`server started on port ${process.env.PORT}`);
 });

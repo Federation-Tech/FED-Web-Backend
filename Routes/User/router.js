@@ -11,7 +11,7 @@ router.post("/register", registrationController.register);
 //login user
 router.post("/login", logincontroller.login);
 
-//
+//email verification link
 router.get("/verification/:token", verification.verify);
 
 module.exports = router;

@@ -1,0 +1,13 @@
+Access Code :-
+0 - participants
+1 - director
+2 - senior member
+3 - creative team
+4 - tech team
+5 - marketing team
+6 - operations team
+
+Error Code :-
+1 - duplicate entry
+2 - wrong data
+3 - session expired

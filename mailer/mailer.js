@@ -9,7 +9,7 @@ const oauth2client = new google.auth.OAuth2(
 oauth2client.setCredentials({ refresh_token: process.env.refreshtoken });
 
 async function sendmail({
-  name = "FED KIIT",
+  name = "noreply",
   to,
   cc = "",
   bcc = "",
