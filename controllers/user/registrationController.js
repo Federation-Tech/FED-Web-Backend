@@ -11,32 +11,34 @@ const postData = async (req, res) => {
   const { email, password, name, access, extradata, isvalid, img } = req.body;
   if ((req.body.extradata = "" || !req.body.extradata)) {
     req.body.extradata = {};
-  } else {
-    if (email.includes("@")) {
-      // change karo
-      try {
-        const data = new registrationSchema({
-          // save use karo
-          email,
-          password,
-          name,
-          access,
-          extradata,
-          isvalid,
-          img,
-        });
-        await data.save();
-        verification.mail(email, name);
-        res.status(200).json({ status: "ok" });
-        console.log("registration done");
-      } catch (err) {
-        console.log("registration err " + err);
-        res.status(400).json({ code: 2, error: err.message });
-      }
-    } else {
-      console.log("invalid data entered sending err...");
-      res.status(400).json({ code: 2, error: "invalid details entered" });
+    console.log("hehe");
+  }
+
+  if (email.includes("@")) {
+    // change karo
+    try {
+      const data = new registrationSchema({
+        // save use karo
+        email,
+        password,
+        name,
+        access,
+        extradata,
+        isvalid,
+        img,
+      });
+      await data.save();
+      console.log(data);
+      verification.mail(email, name);
+      res.status(200).json({ status: "ok" });
+      console.log("registration done");
+    } catch (err) {
+      console.log("registration err " + err);
+      res.status(400).json({ code: 2, error: err.message });
     }
+  } else {
+    console.log("invalid data entered sending err...");
+    res.status(400).json({ code: 2, error: "invalid details entered" });
   }
 };
 
