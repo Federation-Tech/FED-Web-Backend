@@ -9,7 +9,7 @@ const postData = async (req, res) => {
   req.body.access = 0;
   req.body.img = gravatar.url(req.body.email, { protocol: "https", s: "100" });
   const { email, password, name, access, extradata, isvalid, img } = req.body;
-  if ((req.body.extradata = "")) {
+  if ((req.body.extradata = "" || !req.body.extradata)) {
     extradata = {};
   } else {
     if (email.includes("@")) {
