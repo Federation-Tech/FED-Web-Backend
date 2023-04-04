@@ -9,5 +9,6 @@ Access Code :-
 
 Error Code :-
 1 - duplicate entry
-2 - wrong data
+2 - invalid data
 3 - session expired
+4 - verfication error

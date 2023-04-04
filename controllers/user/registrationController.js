@@ -42,7 +42,7 @@ const postData = async (req, res) => {
         });
         await data.save();
         verification.mail(email, name);
-        res.status(200).json(data);
+        res.status(200).json({ status: "ok" });
         console.log("registration done");
       } catch (err) {
         console.log("registration err " + err);
