@@ -1,21 +1,32 @@
-const express = require("express");
+require("dotenv").config();
 const cors = require("cors");
-const app = express();
-const mongoose = require("mongoose");
+const express = require("express");
+const connectDB = require("./config/db");
+const validater = require("./middleware/validator");
 
-app.use(cors());
+const app = express();
+
+connectDB();
 
 app.use(express.json());
 
-// app.use(express.urlencoded({ extended: false }));
-mongoose.connect("mongodb://localhost:27017/fed-user");
-app.use("/user", require("./Routes/User/router"));
-app.get("*", (req, res) => {
-  res.status(404);
-  res.send("404 not found");
-  console.log("error 404");
+app.use(cors());
+
+app.use("/auth", require("./Routes/User/router"));
+
+app.use("/validatetest", validater.validate, (req, res) => {
+  res.send(req.body.user);
 });
 
-app.listen(8080, () => {
-  console.log("listening to port .....");
+app.get("/AsUrbqAPHuicUMy3", (req, res) => {
+  return res.status(404).send("Hello Server");
+});
+
+app.use("*", (req, res) => {
+  console.log("error 404");
+  return res.status(404).send("404 not found");
+});
+
+app.listen(process.env.PORT, () => {
+  console.log(`server started on port ${process.env.PORT}`);
 });

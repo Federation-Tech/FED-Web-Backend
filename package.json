@@ -10,16 +10,19 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bcryptjs": "^2.4.3",
+    "bcrypt": "^5.1.0",
+    "config": "^3.3.9",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
-    "gravatar": "^1.8.2",
-    "gravator": "^1.0.2",
     "express-session": "^1.17.3",
     "express-validator": "^6.15.0",
+    "googleapis": "^114.0.0",
+    "gravatar": "^1.8.2",
+    "gravator": "^1.0.2",
     "jsonwebtoken": "^9.0.0",
-    "mongoose": "^7.0.2"
+    "mongoose": "^7.0.2",
+    "nodemailer": "^6.9.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.21"
