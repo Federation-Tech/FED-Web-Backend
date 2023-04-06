@@ -13,6 +13,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use("/auth", require("./Routes/User/router"));
+app.use("/profile", require("./Routes/profile/router"));
 
 app.use("/validatetest", validater.validate, (req, res) => {
   res.send(req.body.user);
