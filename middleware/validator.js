@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+
 function validate(req, res, next) {
   if (!req) next();
   jwt.verify(req.body.token, process.env.access_token_key, (err, user) => {
@@ -9,4 +10,5 @@ function validate(req, res, next) {
     next();
   });
 }
+
 exports.validate = validate;
