@@ -1,4 +1,5 @@
 const User = require("../../models/user-model");
+
 async function getdata(req, res) {
   try {
     var result = await User.find({ email: req.body.user.username }).exec();
