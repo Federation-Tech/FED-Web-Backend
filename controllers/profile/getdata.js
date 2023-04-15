@@ -18,4 +18,5 @@ async function getdata(req, res) {
     console.log(err);
   }
 }
+
 exports.getdata = getdata;
