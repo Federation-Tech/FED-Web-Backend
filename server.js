@@ -3,7 +3,7 @@ const cors = require("cors");
 const express = require("express");
 const connectDB = require("./config/db");
 const validater = require("./middleware/validator");
-
+const cookieParser = require('cookie-parser');
 const app = express();
 
 connectDB();
@@ -11,7 +11,7 @@ connectDB();
 app.use(express.json());
 
 app.use(cors());
-
+app.use(cookieParser());
 app.use("/auth", require("./Routes/User/router"));
 app.use("/profile", require("./Routes/profile/router"));
 

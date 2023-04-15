@@ -19,7 +19,8 @@ const login = async (req, res) => {
         process.env.access_token_key,
         { expiresIn: "86400s" } // one day
       );
-      res.json({ status: "ok", user: token });
+      res.cookie('auth_token' , token);
+      res.json({ status: "ok"});
       console.log("login success");
     } else {
       console.log("user not verified");
