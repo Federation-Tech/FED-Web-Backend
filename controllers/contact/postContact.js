@@ -1,5 +1,8 @@
-const contactData = require("../../models/contact-us");
 var moment = require("moment");
+
+// models
+const contactData = require("../../models/contact-us");
+
 async function postcontact(req, res, next) {
   try {
     const { name, email, message } = req.body;
