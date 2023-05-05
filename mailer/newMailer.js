@@ -11,6 +11,8 @@ const sendEmail = async (req, res) => {
   try {
     console.log(name, email, message);
 
+    mailer(name, email, message);
+
     res.status(202).json({ message: "Send" });
   } catch (error) {
     console.log(error);
@@ -28,7 +30,7 @@ const mailer = (name, email, message) => {
       service: "gmail",
       auth: {
         user: "noreply.fedkiit@gmail.com",
-        pass: "yloejahwnqyuuqdn",
+        pass: "fedkiitcampus11",
       },
     });
 
@@ -51,10 +53,10 @@ const mailer = (name, email, message) => {
     transporter.sendMail(mailOptions, function (error, info) {
       if (error) {
         console.log(error);
-        res.status(304).send();
+        // res.status(304).send();
       } else {
         console.log("Email sent: " + info.response);
-        res.status(200).send();
+        // res.status(200).send();
       }
     });
   } catch (e) {
