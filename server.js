@@ -18,6 +18,8 @@ app.use(
   })
 );
 app.use(cookieParser());
+
+// Routes
 app.use("/auth", require("./Routes/User/router"));
 app.use("/profile", require("./Routes/profile/router"));
 app.use("/contact", require("./Routes/contact/router"));
@@ -30,6 +32,7 @@ app.get("/AsUrbqAPHuicUMy3", (req, res) => {
   return res.status(404).send("Hello Server");
 });
 
+// Error Page
 app.use("*", (req, res) => {
   console.log("error 404");
   return res.status(404).send("404 not found");
