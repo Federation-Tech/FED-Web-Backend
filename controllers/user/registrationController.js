@@ -1,6 +1,7 @@
 const registrationSchema = require("../../models/user-model");
 const gravatar = require("gravatar");
 const verification = require("./verification");
+const User = require("../../models/user-model");
 
 //
 const postData = async (req, res) => {
@@ -13,10 +14,14 @@ const postData = async (req, res) => {
     true
   );
   const { email, password, name, access, extradata, isvalid, img } = req.body;
+  const user = await User.findOne({email:email});
   if ((req.body.extradata = "" || !req.body.extradata)) {
     req.body.extradata = {};
   }
 
+  if(user){
+    return res.status(400).json({code:1,message:"User already exists"})
+  }
   if (email.includes("@")) {
     // change karo
     try {
@@ -32,11 +37,12 @@ const postData = async (req, res) => {
       });
       await data.save();
       verification.mail(email, name);
-      res.status(200).json({ status: "ok" });
       console.log("registration done");
+
+      return res.status(200).json({ status: "ok" });
     } catch (err) {
       console.log("registration err " + err);
-      res.status(400).json({ code: 2, error: err.message });
+     return res.status(400).json({ code: 2, error: err.message });
     }
   } else {
     console.log("invalid data entered sending err...");

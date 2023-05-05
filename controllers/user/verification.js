@@ -8,7 +8,7 @@ async function verfication(req, res) {
   var vemail = await jwt.verify(token, process.env.verification_token_key);
   await db.findOneAndUpdate({ email: vemail }, { isvalid: true });
   res.send(
-    "<h1 style='test-align:center'>You Are Verified Please visit <a href ='https://www.google.com'>Login Page</a> to login to your account</h1>"
+    "<h1 style='test-align:center'>You Are Verified Please visit Login Page</h1>"
   );
 }
 
