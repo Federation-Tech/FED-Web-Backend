@@ -1,5 +1,5 @@
 const nodemailer = require("nodemailer");
-const { check, validationResult } = require("express-validator");
+const { validationResult } = require("express-validator");
 
 const sendEmail = async (req, res) => {
   const errors = validationResult(req);
