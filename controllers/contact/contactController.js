@@ -15,7 +15,9 @@ async function postcontact(req, res, next) {
   }
 }
 
-const getContact = async (req, res, next) => {};
+const getContact = async (req, res, next) => {
+  console.log("getContact");
+};
 
 exports.postcontact = postcontact;
 exports.getContact = getContact;
