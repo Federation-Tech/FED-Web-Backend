@@ -30,13 +30,13 @@ const mailer = (name, email, message) => {
       service: "gmail",
       auth: {
         user: "noreply.fedkiit@gmail.com",
-        pass: "fedkiitcampus11",
+        pass: "lrxtlcmmqvmlmcxg",
       },
     });
 
     var mailOptions = {
       from: "noreply.fedkiit@gmail.com",
-      to: "noreply.fedkiit@gmail.com",
+      to: email,
       subject: "Sending Email using Node.js for Password Updation",
       // text: otp
       html: `<div>
@@ -53,10 +53,10 @@ const mailer = (name, email, message) => {
     transporter.sendMail(mailOptions, function (error, info) {
       if (error) {
         console.log(error);
-        // res.status(304).send();
+        res.status(304).send();
       } else {
         console.log("Email sent: " + info.response);
-        // res.status(200).send();
+        res.status(200).send();
       }
     });
   } catch (e) {
