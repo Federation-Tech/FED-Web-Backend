@@ -6,7 +6,7 @@ const verification = require("./verification");
 const postData = async (req, res) => {
   console.log(`Registration request received for ${req.body.email}`);
   req.body.isvalid = false;
-  req.body.access = 0;
+  req.body.access = 1;
   req.body.img = gravatar.url(
     req.body.email,
     { s: "100", r: "x", d: "retro" },
