@@ -14,4 +14,5 @@ async function postcontact(req, res, next) {
     res.sendStatus(400);
   }
 }
+
 module.exports = postcontact;
