@@ -9,7 +9,7 @@ async function getdata(req, res) {
       data.name = result[0].name;
       data.profileimg = result[0].img;
       data.accesscode = result[0].access;
-      res.json(data);
+      res.status(200).json(data);
     } else {
       throw { errcode: 401, msg: { code: 2, msg: "Invalid email" } };
     }
