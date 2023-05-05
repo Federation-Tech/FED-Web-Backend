@@ -22,7 +22,18 @@ async function postcontact(req, res, next) {
 }
 
 const getContact = async (req, res, next) => {
-  console.log("getContact");
+  try {
+    const contactUsData = await contactData.find();
+
+    if (contactUsData) {
+      return res.status(202).json(contactUsData);
+    } else {
+      return res.status(304).json({ msg: "Unaccepted Error" });
+    }
+  } catch (error) {
+    res.status(500).json({ msg: "error" });
+    console.log(error);
+  }
 };
 
 exports.postcontact = postcontact;
