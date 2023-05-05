@@ -10,7 +10,7 @@ const sendEmail = async (req, res) => {
   const { name, email, message } = req.body;
   try {
     console.log(name, email, message);
-    mailer(name, email, message);
+
     res.status(202).json({ message: "Send" });
   } catch (error) {
     console.log(error);
