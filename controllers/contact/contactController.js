@@ -2,7 +2,7 @@ var moment = require("moment");
 const { validationResult } = require("express-validator");
 
 // models
-const contactData = require("../../models/contact-us");
+const contactData = require("../../models/contactUs");
 
 async function postcontact(req, res, next) {
   const errors = validationResult(req);
@@ -26,7 +26,9 @@ const getContact = async (req, res, next) => {
     const contactUsData = await contactData.find();
 
     if (contactUsData) {
-      return res.status(202).json(contactUsData);
+      return res
+        .status(202)
+        .json({ contactUsData, lenght: contactUsData.length });
     } else {
       return res.status(304).json({ msg: "Unaccepted Error" });
     }
