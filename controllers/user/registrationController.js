@@ -15,7 +15,9 @@ const postData = async (req, res) => {
     true
   );
   const { email, password, name, access, extradata, isvalid, img } = req.body;
+
   const user = await User.findOne({ email: email });
+
   if ((req.body.extradata = "" || !req.body.extradata)) {
     req.body.extradata = {};
   }
@@ -36,8 +38,11 @@ const postData = async (req, res) => {
         isvalid,
         img,
       });
+
       await data.save();
+
       verification.mail(email, name);
+
       console.log("registration done");
 
       return res.status(200).json({ status: "ok" });
