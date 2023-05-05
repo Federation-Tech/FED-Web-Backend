@@ -4,12 +4,15 @@ require("dotenv").config();
 
 const login = async (req, res) => {
   console.log(`login request received ${req.body.username}`);
+
   const result = await User.find({
     email: req.body.username,
   }).exec();
+
   if (!result[0]) {
     return res.status(401).json({ code: 2, message: "invalid credential" });
   }
+
   if (req.body.password === result[0].password) {
     if (result[0].isvalid == true) {
       const token = jwt.sign(
@@ -19,7 +22,7 @@ const login = async (req, res) => {
         process.env.access_token_key,
         { expiresIn: "86400s" } // one day
       );
-      res.json({ status: "ok",token:token});
+      res.json({ status: "ok", token: token });
       console.log("login success");
     } else {
       console.log("user not verified");
