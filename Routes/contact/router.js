@@ -15,7 +15,7 @@ router.post(
   contactController.postcontact
 );
 
-// Private (Admin) || Get || Contact Us
+// Private (Admin) || Get || Contact Us ------------- pending admin validation
 router.get("/getContact", contactController.getContact);
 
 module.exports = router;
