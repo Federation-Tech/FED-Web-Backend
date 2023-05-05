@@ -1,22 +1,26 @@
-require("dotenv").config();
 const cors = require("cors");
 const express = require("express");
 const connectDB = require("./config/db");
+const cookieParser = require("cookie-parser");
 const validater = require("./middleware/validator");
-const cookieParser = require('cookie-parser');
 const app = express();
+
+require("dotenv").config();
 
 connectDB();
 
 app.use(express.json());
 
-app.use(cors({
-  credentials: true,
-  origin:"http://127.0.0.1:5173"}));
+app.use(
+  cors({
+    credentials: true,
+    origin: "http://127.0.0.1:5173",
+  })
+);
 app.use(cookieParser());
 app.use("/auth", require("./Routes/User/router"));
 app.use("/profile", require("./Routes/profile/router"));
-app.use("/contact",require("./Routes/contact/router"))
+app.use("/contact", require("./Routes/contact/router"));
 
 app.use("/validatetest", validater.validate, (req, res) => {
   res.send(req.body.user);
