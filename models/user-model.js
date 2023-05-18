@@ -9,6 +9,23 @@ const registrationData = new Schema({
   isvalid: { type: Boolean, required: true },
   password: { type: String, required: true },
   img: { type: String, required: true },
+  social: {
+    github: {
+      type: String,
+      default: "",
+      required: true,
+    },
+    linkedin: {
+      type: String,
+      default: "",
+      required: true,
+    },
+    instagram: {
+      type: String,
+      default: "",
+      required: true,
+    },
+  },
 });
 
 module.exports = mongoose.model("userdb", registrationData);
