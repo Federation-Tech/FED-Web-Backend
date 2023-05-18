@@ -11,7 +11,7 @@ const postData = async (req, res) => {
   req.body.access = 1;
   req.body.img = gravatar.url(
     req.body.email,
-    { s: "100", r: "x", d: "retro" },
+    { s: "200", r: "pg", d: "mm" },
     true
   );
   const { email, password, name, access, extradata, isvalid, img } = req.body;
