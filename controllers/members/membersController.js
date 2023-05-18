@@ -13,7 +13,9 @@ const addMembers = async (req, res) => {
   const { name, access, email, img } = req.body;
 
   try {
-    res.status(202).json({ name, access, email, img });
+    res
+      .status(202)
+      .json({ name, email, access, img, isvalid: false, password: 123 });
   } catch (err) {
     console.log(err);
     res.status(505).json({ msg: "error", err });
