@@ -28,6 +28,7 @@ app.use("/contact", require("./Routes/contact/router"));
 app.use("/oauthplayground", (req, res) => {
   console.log(req.body);
 });
+
 app.use("/validatetest", validater.validate, (req, res) => {
   res.send(req.body.user);
 });
