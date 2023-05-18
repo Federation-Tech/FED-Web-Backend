@@ -20,10 +20,10 @@ const registrationData = new Schema({
     required: true,
   },
   // array of objects
-  extradata: {
-    type: Array,
-    required: true,
-  },
+  // extradata: {
+  //   type: Array,
+  //   required: true,
+  // },
   isvalid: {
     type: Boolean,
     required: true,
