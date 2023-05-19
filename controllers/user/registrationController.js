@@ -23,13 +23,12 @@ const postData = async (req, res) => {
   }
 
   if (user) {
+    console.log("User already exists");
     return res.status(400).json({ code: 1, message: "User already exists" });
   }
   if (email.includes("@")) {
-    // change karo
     try {
       const data = new registrationSchema({
-        // save use karo
         email,
         password,
         name,
