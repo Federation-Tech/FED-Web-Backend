@@ -2,8 +2,8 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const registrationData = new Schema({
-  Name: { type: String, required: true },
-  Email: { type: String, required: true, unique: true },
+  email: { type: String, required: true, unique: true },
+  name: { type: String, required: true },
   access: { type: String, required: true },
   extradata: { type: Array, required: true }, // array of objects
   isvalid: { type: Boolean, required: true },

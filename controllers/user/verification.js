@@ -6,7 +6,7 @@ async function verfication(req, res) {
   console.log("verification request received");
   var token = req.params.token;
   var vemail = await jwt.verify(token, process.env.verification_token_key);
-  await db.findOneAndUpdate({ Email: vemail }, { isvalid: true });
+  await db.findOneAndUpdate({ email: vemail }, { isvalid: true });
   res.send(
     `<h1 style="text-align: center">
     You Are Verified Please visit

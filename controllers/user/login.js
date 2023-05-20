@@ -6,7 +6,7 @@ const login = async (req, res) => {
   console.log(`login request received ${req.body.username}`);
 
   const result = await User.find({
-    Email: req.body.username,
+    email: req.body.username,
   }).exec();
 
   if (!result[0]) {
@@ -17,7 +17,7 @@ const login = async (req, res) => {
     if (result[0].isvalid == true) {
       const token = jwt.sign(
         {
-          username: result[0].Email,
+          username: result[0].email,
         },
         process.env.access_token_key,
         { expiresIn: "86400s" } // one day
