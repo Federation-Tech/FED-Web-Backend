@@ -5,7 +5,7 @@ const User = require("../../models/user-model");
 
 //
 const postData = async (req, res) => {
-  console.log(`Registration request received for ${req.body.email}`);
+  console.log(`Registration request received for ${req.body.Email}`);
 
   req.body.isvalid = false;
   req.body.access = 1;
@@ -14,9 +14,23 @@ const postData = async (req, res) => {
     { s: "100", r: "x", d: "retro" },
     true
   );
-  const { email, password, name, access, extradata, isvalid, img } = req.body;
+  const {
+    Email,
+    password,
+    Name,
+    access,
+    extradata,
+    isvalid,
+    img,
+    RollNumber,
+    School,
+    College,
+    MobileNo,
+    selected,
+  } = req.body;
+ 
 
-  const user = await User.findOne({ email: email });
+  const user = await User.findOne({ Email: Email });
 
   if ((req.body.extradata = "" || !req.body.extradata)) {
     req.body.extradata = {};
@@ -26,21 +40,26 @@ const postData = async (req, res) => {
     console.log("User already exists");
     return res.status(400).json({ code: 1, message: "User already exists" });
   }
-  if (email.includes("@")) {
+  if (Email.includes("@")) {
     try {
       const data = new registrationSchema({
-        email,
+        Email,
         password,
-        name,
+        Name,
         access,
         extradata,
         isvalid,
         img,
+        RollNumber,
+        School,
+        College,
+        MobileNo,
+        selected
       });
 
       await data.save();
 
-      verification.mail(email, name);
+      verification.mail(Email, Name);
 
       console.log("registration done");
 
