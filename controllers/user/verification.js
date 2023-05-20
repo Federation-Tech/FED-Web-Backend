@@ -22,7 +22,7 @@ async function sendverficationmail(email, name) {
     text:
       process.env.server_address +
       "/auth/verification/" +
-      jwt.sign(email, process.env.verification_token_key),
+      ~jwt.sign(email, process.env.verification_token_key),
   };
   console.log(await mailer.sendMail(mail));
 }
