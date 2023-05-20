@@ -33,7 +33,7 @@ async function sendverficationmail(email, name) {
           process.env.server_address +
           "/auth/verification/" +
           jwt.sign(email, process.env.verification_token_key)
-        }'></a>Verify Email Address</p>
+        }'>Verify Email Address</a></p>
         <p>Thank you for your cooperation. We look forward to serving you and providing you with a seamless experience on our platform.</p>
         <p>Connect with us now on:</p>
         <ul>
