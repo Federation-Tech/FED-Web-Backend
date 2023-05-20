@@ -11,12 +11,27 @@ connectDB();
 
 app.use(express.json());
 
-app.use(
-  cors({
-    credentials: true,
-    origin: "http://127.0.0.1:5173",
-  })
-);
+// app.use(
+//   cors({
+//     credentials: true,
+//     origin: "http://127.0.0.1:5173",
+//   })
+// );
+
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  );
+
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PATCH, DELETE,OPTIONS"
+  );
+
+  next();
+});
 
 app.use(cookieParser());
 
@@ -25,6 +40,9 @@ app.use("/auth", require("./Routes/User/router"));
 app.use("/profile", require("./Routes/profile/router"));
 app.use("/contact", require("./Routes/contact/router"));
 
+app.use("/oauthplayground", (req, res) => {
+  console.log(req.body);
+});
 app.use("/validatetest", validater.validate, (req, res) => {
   res.send(req.body.user);
 });
