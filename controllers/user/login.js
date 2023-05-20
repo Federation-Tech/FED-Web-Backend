@@ -26,7 +26,14 @@ const login = async (req, res) => {
       console.log("login success");
       console.log(result);
 
-      res.json({ status: "ok", token: token, result });
+      res.json({
+        status: "ok",
+        token: token,
+        access: result[0].access,
+        img: result[0].img,
+        name: result[0].name,
+        email: result[0].email,
+      });
     } else {
       console.log("user not verified");
       return res.status(403).json({ code: 4, error: "verfication error" });
