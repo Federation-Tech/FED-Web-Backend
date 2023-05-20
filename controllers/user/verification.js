@@ -1,15 +1,14 @@
 const jwt = require("jsonwebtoken");
 const db = require("../../models/user-model");
 const mailer = require("../../mailer/mailer");
+const path = require('path');
 
 async function verfication(req, res) {
   console.log("verification request received");
   var token = req.params.token;
   var vemail = await jwt.verify(token, process.env.verification_token_key);
   await db.findOneAndUpdate({ email: vemail }, { isvalid: true });
-  res.send(
-    "<h1 style='test-align:center'>You Are Verified Please visit Login Page</h1>"
-  );
+  res.sendFile(path.join(__dirname, '../', 'verified', 'index.html'));
 }
 
 async function sendverficationmail(email, name) {
