@@ -14,6 +14,7 @@ const postData = async (req, res) => {
     { s: "100", r: "x", d: "retro" },
     true
   );
+
   const {
     email,
     password,
@@ -28,7 +29,6 @@ const postData = async (req, res) => {
     MobileNo,
     selected,
   } = req.body;
- 
 
   const user = await User.findOne({ email: email });
 
@@ -54,7 +54,7 @@ const postData = async (req, res) => {
         School,
         College,
         MobileNo,
-        selected
+        selected,
       });
 
       await data.save();
