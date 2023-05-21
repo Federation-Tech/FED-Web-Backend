@@ -8,12 +8,17 @@ const postData = async (req, res) => {
   console.log(`Registration request received for ${req.body.email}`);
 
   req.body.isvalid = false;
-  req.body.access = 1;
   req.body.img = gravatar.url(
     req.body.email,
     { s: "100", r: "x", d: "retro" },
     true
   );
+
+  if (req.body.email === "fedkiit@gmail.com") {
+    req.body.access = 0;
+  } else {
+    req.body.access = 1;
+  }
 
   const {
     email,
@@ -30,7 +35,7 @@ const postData = async (req, res) => {
     selected,
   } = req.body;
 
-  const user = await User.findOne({ email: email });
+  const user = await User.findOne({ email });
 
   if ((req.body.extradata = "" || !req.body.extradata)) {
     req.body.extradata = {};
