@@ -27,4 +27,13 @@ router.post(
   sendMail.sendEmail
 );
 
+//send otp
+router.post("/sendotp");
+
+//validate otp
+router.post("/validate");
+
+//change password
+router.post("/changepassword");
+
 module.exports = router;
