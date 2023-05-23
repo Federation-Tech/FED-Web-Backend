@@ -20,15 +20,27 @@ async function sendmail({
 }) {
   try {
     const accesstoken = await oauth2client.getAccessToken();
-    const transport = mailer.createTransport({
+    // const transport = mailer.createTransport({
+    //   service: "gmail",
+    //   auth: {
+    //     type: "oauth2",
+    //     user: "noreply.fedkiit@gmail.com",
+    //     clientId: process.env.clientid,
+    //     refreshToken: process.env.refreshtoken,
+    //     accessToken: accesstoken,
+    //     clientSecret: process.env.clientsecret,
+    //   },
+    // });
+    var transport = nodemailer.createTransport({
+      // host: 'smtp.gmail',
+      // port: 465,
+      // secure: true,
+      host: "smtp.ethereal.email",
+      name: "google.com",
       service: "gmail",
       auth: {
-        type: "oauth2",
         user: "noreply.fedkiit@gmail.com",
-        clientId: process.env.clientid,
-        refreshToken: process.env.refreshtoken,
-        accessToken: accesstoken,
-        clientSecret: process.env.clientsecret,
+        pass: "lrxtlcmmqvmlmcxg",
       },
     });
     const mailoption = {

@@ -13,18 +13,31 @@ const sendotp = async (req, res) => {
   }
   try {
     const otp = Math.floor(100000 + Math.random() * 900000);
-    const data = new db({
-      email,
-      otp,
-    });
-    await data.save();
+    // const data = new db({
+    //   email,
+    //   otp,
+    // });
+    // await data.save();
+
+    await db.updateOne(
+      { email: email },
+      {
+        $set: {
+          email: email,
+          otp: otp,
+        },
+      },
+      { upsert: true }
+    );
+
     mailer.sendMail({
       to: email,
       subject: "Please verify your otp",
       text: `Please enter the following otp '${otp}' for proceeding forward`,
     });
 
-    console.log("OTP sent");
+    // console.log("OTP sent");
+    console.log("OTP sent: ", otp);
 
     return res.status(200).json({ status: "ok" });
   } catch (err) {
