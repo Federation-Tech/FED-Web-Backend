@@ -5,6 +5,7 @@ const { check } = require("express-validator");
 
 // Controllers
 const logincontroller = require("../../controllers/user/login");
+const forgetPasswordcontroller = require("../../controllers/user/forgetPassword");
 const registrationController = require("../../controllers/user/registrationController");
 const verification = require("../../controllers/user/verification");
 const sendMail = require("./../../mailer/newMailer");
@@ -28,12 +29,12 @@ router.post(
 );
 
 //send otp
-router.post("/sendotp");
+router.post("/sendotp", forgetPasswordcontroller.sendotp);
 
 //validate otp
-router.post("/validate");
+router.post("/validate", forgetPasswordcontroller.verifyotp);
 
 //change password
-router.post("/changepassword");
+// router.post("/changepassword");
 
 module.exports = router;

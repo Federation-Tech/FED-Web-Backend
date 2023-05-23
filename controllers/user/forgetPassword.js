@@ -3,9 +3,10 @@ const User = require("../../models/user-model");
 const db = require("../../models/forgetPassword");
 
 const sendotp = async (req, res) => {
-  const email = await User.findOne({
+  const result = await User.findOne({
     email: req.body.email,
   });
+  const email = result.email;
 
   if (!email) {
     return res.status(401).json({ message: "Email doesn't exist" });
@@ -55,3 +56,6 @@ const verifyotp = async (req, res) => {
     res.status(403).json({ error: "incorrect otp" });
   }
 };
+
+exports.sendotp = sendotp;
+exports.verifyotp = verifyotp;
