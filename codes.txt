@@ -1,12 +1,11 @@
 Access Code :-
 0 - admin
-1 - participants
+1 - participants/User
 2 - director
-3 - senior member
-4 - creative team
-5 - tech team
-6 - marketing team
-7 - operations team
+3 - creative team
+4 - tech team
+5 - marketing team
+6 - operations team
 
 Error Code :-
 1 - duplicate entry
