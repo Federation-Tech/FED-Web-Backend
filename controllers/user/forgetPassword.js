@@ -77,13 +77,14 @@ const resetpassword = async (req, res) => {
   const result = await User.findOne({
     email: req.body.email,
   });
-  const email = result.email;
+  
 
-  if (!email) {
+  if (!result) {
     return res.status(401).json({ message: "Email doesn't exist" });
   }
   try {
     // const otp = Math.floor(100000 + Math.random() * 900000);
+    const email = result.email;
 
     await User.updateOne(
       { email: email },
