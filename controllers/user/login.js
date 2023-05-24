@@ -33,6 +33,7 @@ const login = async (req, res) => {
         img: result[0].img,
         name: result[0].name,
         email: result[0].email,
+        result
       });
     } else {
       console.log("user not verified");

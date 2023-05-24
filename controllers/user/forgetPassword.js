@@ -6,9 +6,11 @@ const sendotp = async (req, res) => {
   const result = await User.findOne({
     email: req.body.email,
   });
-  const email = result.email;
+  console.log(req.body.email);
 
-  if (!email) {
+  // console.log(email);
+
+  if (!result) {
     return res.status(401).json({ message: "Email doesn't exist" });
   }
   try {
@@ -18,6 +20,7 @@ const sendotp = async (req, res) => {
     //   otp,
     // });
     // await data.save();
+    const email = result.email;
 
     await db.updateOne(
       { email: email },
