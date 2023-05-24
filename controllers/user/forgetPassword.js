@@ -70,5 +70,54 @@ const verifyotp = async (req, res) => {
   }
 };
 
+const resetpassword = async (req, res) => {
+  const result = await User.findOne({
+    email: req.body.email,
+  });
+  const email = result.email;
+
+  if (!email) {
+    return res.status(401).json({ message: "Email doesn't exist" });
+  }
+  try {
+    // const otp = Math.floor(100000 + Math.random() * 900000);
+
+    await User.updateOne(
+      { email: email },
+      {
+        $set: {
+          email: email,
+          password: req.body.password,
+          name: result.name,
+          access: result.access,
+          extradata: result.extradata,
+          isvalid: result.isvalid,
+          img: result.img,
+          RollNumber: result.RollNumber,
+          School: result.School,
+          College: result.College,
+          MobileNo: result.MobileNo,
+          selected: result.selected,
+        },
+      },
+      { upsert: true }
+    );
+
+    mailer.sendMail({
+      to: email,
+      subject: "Password Reset",
+      text: "Your password has been successfully reset. Thank You",
+    });
+
+    console.log("Password Reset");
+
+    return res.status(200).json({ status: "ok" });
+  } catch (err) {
+    console.log("error: ", err);
+    return res.status(400).json({ error: err.message });
+  }
+};
+
 exports.sendotp = sendotp;
 exports.verifyotp = verifyotp;
+exports.resetpassword = resetpassword;

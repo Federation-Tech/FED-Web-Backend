@@ -35,6 +35,6 @@ router.post("/sendotp", forgetPasswordcontroller.sendotp);
 router.post("/validate", forgetPasswordcontroller.verifyotp);
 
 //change password
-// router.post("/changepassword");
+router.post("/changepassword", forgetPasswordcontroller.resetpassword);
 
 module.exports = router;
