@@ -10,7 +10,7 @@ const postData = async (req, res) => {
   req.body.isvalid = false;
   req.body.img = gravatar.url(
     req.body.email,
-    { s: "100", r: "x", d: "retro" },
+    { s: "200", r: "pg", d: "mm" },
     true
   );
 
