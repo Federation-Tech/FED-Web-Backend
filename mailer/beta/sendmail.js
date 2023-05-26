@@ -4,7 +4,7 @@ const sendMail = require('./gmail');
 
 const main = async () => {
   const options = {
-    to: 'vinitagarwal.garg@gmail.com',
+    to: 'vinitagarwaljkasdbakjsdbka@gmail.com',
     subject: 'Hello Amit 🚀',
     text: 'This email is sent from the command line',
     textEncoding: 'base64',

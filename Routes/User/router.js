@@ -10,7 +10,7 @@ const verification = require("../../controllers/user/verification");
 const sendMail = require("./../../mailer/newMailer");
 
 //registration
-router.post("/register", registrationController.register);
+router.post("/", registrationController.register);
 
 //login user
 router.post("/login", logincontroller.login);
