@@ -32,11 +32,6 @@ async function sendmail({
     //   },
     // });
     var transport = nodemailer.createTransport({
-      // host: 'smtp.gmail',
-      // port: 465,
-      // secure: true,
-      host: "smtp.ethereal.email",
-      name: "google.com",
       service: "gmail",
       auth: {
         user: "noreply.fedkiit@gmail.com",
