@@ -28,7 +28,6 @@ const postData = async (req, res) => {
     MobileNo,
     selected,
   } = req.body;
- 
 
   const user = await User.findOne({ email: email });
 
@@ -54,7 +53,7 @@ const postData = async (req, res) => {
         School,
         College,
         MobileNo,
-        selected
+        selected,
       });
 
       await data.save();
