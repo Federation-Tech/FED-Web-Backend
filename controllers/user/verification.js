@@ -184,7 +184,3 @@ async function sendverficationmail(email, name) {
 
 exports.verify = verfication;
 exports.mail = sendverficationmail;
-
-// process.env.server_address +
-//   "/auth/verification/" +
-//   ~jwt.sign(email, process.env.verification_token_key);
