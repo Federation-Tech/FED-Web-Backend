@@ -65,6 +65,7 @@ const postData = async (req, res) => {
       await data.save();
 
       verification.mail(email, name);
+      
 
       console.log("registration done");
 
