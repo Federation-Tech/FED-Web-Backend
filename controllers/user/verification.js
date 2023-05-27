@@ -179,6 +179,7 @@ async function sendverficationmail(email, name) {
     </body>
     </html>`,
   };
+
   console.log(await mailer.sendMail(mail));
 }
 
