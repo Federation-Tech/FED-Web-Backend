@@ -12,7 +12,6 @@ const showMembers = async (req, res) => {
 const addMembers = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    // console.log("error");
     return res.status(400).json({ errors: errors.array() });
   }
 
