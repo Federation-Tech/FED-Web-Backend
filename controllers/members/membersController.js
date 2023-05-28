@@ -50,7 +50,7 @@ const addMembers = async (req, res) => {
       isvalid: true,
       password: hashedPassword,
       img: img,
-      extradata: "",
+      extradata: {},
       RollNumber: "",
       School: "",
       College: "",
@@ -58,7 +58,9 @@ const addMembers = async (req, res) => {
       selected: "",
     });
 
-    await data.save();
+    console.log(data);
+    let res = await data.save();
+    console.log(res);
 
     console.log("+ Member Added");
 
