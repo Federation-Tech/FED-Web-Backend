@@ -58,6 +58,8 @@ const addMembers = async (req, res) => {
       selected: "",
     });
 
+    await data.save();
+
     console.log("+ Member Added");
 
     return res.status(200).json({ status: "ok" });
