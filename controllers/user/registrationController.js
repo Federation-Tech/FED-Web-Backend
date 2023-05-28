@@ -14,11 +14,7 @@ const postData = async (req, res) => {
     true
   );
 
-  if (req.body.email === "fedkiit@gmail.com") {
-    req.body.access = 0;
-  } else {
-    req.body.access = 1;
-  }
+  req.body.access = 1;
 
   const {
     email,
