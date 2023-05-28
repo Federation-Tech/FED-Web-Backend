@@ -57,7 +57,9 @@ const addMembers = async (req, res) => {
       MobileNo: "",
       selected: "",
     });
+
     console.log("db updated");
+
     return res.status(200).json({ status: "ok" });
   } catch (err) {
     console.log(err);
