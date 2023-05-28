@@ -7,7 +7,7 @@ const { check } = require("express-validator");
 const logincontroller = require("../../controllers/user/login");
 const registrationController = require("../../controllers/user/registrationController");
 const verification = require("../../controllers/user/verification");
-const sendMail = require("./../../mailer/newMailer");
+const sendMail = require("./../../mailer/beta/newMailer");
 
 //registration
 router.post("/", registrationController.register);
