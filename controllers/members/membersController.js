@@ -11,12 +11,18 @@ const showMembers = async (req, res) => {
 
 const addMembers = async (req, res) => {
   const errors = validationResult(req);
+
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
 
   const { name, access, email, img } = req.body;
+  const user = await User.findOne({ email });
 
+  if (user) {
+    console.log("Member already exists");
+    return res.status(400).json({ code: 1, message: "Member already exists" });
+  }
   try {
     console.log("sending data to db");
     const password = passGenerator.generate({
@@ -51,13 +57,14 @@ const addMembers = async (req, res) => {
       password: hashedPassword,
       img: img,
       extradata: {},
-      RollNumber: "",
-      School: "",
-      College: "",
-      MobileNo: "",
-      selected: "",
+      RollNumber: "None",
+      School: "None",
+      College: "None",
+      MobileNo: "None",
+      selected: "None",
     });
 
+    await data.save();
     console.log("+ Member Added");
 
     return res.status(200).json({ status: "ok" });
