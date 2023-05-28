@@ -28,9 +28,9 @@ const addMembers = async (req, res) => {
       password,
       "$2b$10$Q0RPeouqYdTToq76zoccIO"
     );
-    // console.log(password);
-    // console.log(hashedPassword);
+
     console.log("Password Sent");
+
     mailer.sendMail({
       to: email,
       subject: "Member Login Details",
@@ -40,7 +40,9 @@ const addMembers = async (req, res) => {
               Email: ${email}
               Password: ${password}`,
     });
+
     console.log("Mail sent");
+
     const data = new User({
       email: email,
       name: name,
