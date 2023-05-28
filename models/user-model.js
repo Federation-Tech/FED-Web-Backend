@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const registrationData = new Schema({
-<<<<<<< HEAD
   email: { type: String, required: true, unique: true },
   name: { type: String, required: true },
   access: { type: String, required: true },
@@ -15,7 +14,6 @@ const registrationData = new Schema({
   College: { type: String, required: true },
   MobileNo: { type: String, required: true },
   selected: { type: String, required: true },
-=======
   name: {
     type: String,
     required: true,
@@ -67,7 +65,6 @@ const registrationData = new Schema({
       required: true,
     },
   },
->>>>>>> c983d949b0c83d84cc42f82e77c8a71a736a8203
 });
 
 module.exports = mongoose.model("userdb", registrationData);
