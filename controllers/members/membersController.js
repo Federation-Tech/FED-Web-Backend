@@ -58,7 +58,7 @@ const addMembers = async (req, res) => {
       selected: "",
     });
 
-    console.log("db updated");
+    console.log("+ Member Added");
 
     return res.status(200).json({ status: "ok" });
   } catch (err) {
