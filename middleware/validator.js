@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 function validate(req, res, next) {
   console.log("token is ", req.headers.auth_token);
   if (!req) next();
+
   jwt.verify(
     req.headers.auth_token,
     process.env.access_token_key,
@@ -11,7 +12,9 @@ function validate(req, res, next) {
         console.log("verification failed");
         return res.status(403).json({ code: 4 });
       }
+
       req.body.user = user;
+
       next();
     }
   );
