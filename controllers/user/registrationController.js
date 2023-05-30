@@ -10,7 +10,7 @@ const postData = async (req, res) => {
   req.body.isvalid = false;
   req.body.img = gravatar.url(
     req.body.email,
-    { s: "200", r: "pg", d: "mm" },
+    { s: "100", r: "x", d: "retro" },
     true
   );
 
@@ -63,7 +63,6 @@ const postData = async (req, res) => {
       });
 
       await data.save();
-
       verification.mail(email, name);
 
       console.log("registration done");
