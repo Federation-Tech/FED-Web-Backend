@@ -7,11 +7,13 @@ const { check } = require("express-validator");
 const logincontroller = require("../../controllers/user/login");
 const forgetPasswordcontroller = require("../../controllers/user/forgetPassword");
 const registrationController = require("../../controllers/user/registrationController");
+const googleRegistration = require("../../controllers/user/googleRegistration");
 const verification = require("../../controllers/user/verification");
 const sendMail = require("../../mailer/beta/newMailer");
 
 //registration
 router.post("/register", registrationController.register);
+router.post("/googleregister", googleRegistration.register);
 
 //login user
 router.post("/login", logincontroller.login);
