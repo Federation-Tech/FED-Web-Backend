@@ -11,11 +11,15 @@ const googleRegistration = require("../../controllers/user/googleRegistration");
 const googleSignUpverification = require("../../controllers/user/googleSignUpverification");
 const verification = require("../../controllers/user/verification");
 const sendMail = require("../../mailer/beta/newMailer");
+const sendMail = require("./../../mailer/beta/newMailer");
 
 //registration
 router.post("/register", registrationController.register);
 router.post("/googleregister", googleRegistration.register);
-router.post("/googleverification", googleSignUpverification.googleSignUpVerification);
+router.post(
+  "/googleverification",
+  googleSignUpverification.googleSignUpVerification
+);
 
 //login user
 router.post("/login", logincontroller.login);
