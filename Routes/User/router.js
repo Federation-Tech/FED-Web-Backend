@@ -10,7 +10,7 @@ const registrationController = require("../../controllers/user/registrationContr
 const googleRegistration = require("../../controllers/user/googleRegistration");
 const googleSignUpverification = require("../../controllers/user/googleSignUpverification");
 const verification = require("../../controllers/user/verification");
-const sendMail = require("../../mailer/beta/newMailer");
+
 const sendMail = require("./../../mailer/beta/newMailer");
 
 //registration

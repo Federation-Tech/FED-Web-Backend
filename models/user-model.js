@@ -14,7 +14,7 @@ const registrationData = new Schema({
   College: { type: String, required: true },
   MobileNo: { type: String, required: true },
   selected: { type: String, required: true },
-=======
+
   name: {
     type: String,
     required: true,
