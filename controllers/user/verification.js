@@ -14,7 +14,9 @@ async function verfication(req, res) {
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="icon" href="https://uploads-ssl.webflow.com/629d87f593841156e4e0d9a4/62eeaa9927e6aea4ff13590e_FedLogo.png" />
+        <meta name="keywords" content="kiit, fed, tbi, entrepreneurship, entrepreneur, society, federation, university">
+        <meta name="description" content="The Federation of Entrepreneurship Development is the student body of KIIT TBI which aims to bring all ideas, potential startups under one umbrella.">
+        <link rel="icon" type="image/x-icon" href="https://uploads-ssl.webflow.com/629d87f593841156e4e0d9a4/62eeaa9927e6aea4ff13590e_FedLogo.png" />
         <title>Federation of Entrepreneurship Development</title>
         <style>
             @import url("https://fonts.googleapis.com/css2?family=Rubik:wght@500&display=swap");
