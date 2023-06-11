@@ -81,6 +81,7 @@ const addMembers = async (req, res) => {
 };
 
 const addAlumni = async (req, res) => {
+  const sender = res.req.body.user.username;
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
@@ -89,37 +90,46 @@ const addAlumni = async (req, res) => {
 
   const { email } = req.body;
   const user = await User.findOne({ email });
+  const currentUser = await User.findOne({ email: sender });
 
-  if (!user) {
-    console.log("no member with this email");
-    return res
-      .status(400)
-      .json({ code: 1, message: "no member with this email" });
-  }
+  if (currentUser.access == 0) {
+    if (!user) {
+      console.log("no member with this email");
+      return res
+        .status(400)
+        .json({ code: 1, message: "no member with this email" });
+    }
 
-  if (user.access == 7) {
-    console.log("Already alumni");
-    return res.status(400).json({ code: 1, message: "Already alumni" });
-  }
+    if (user.access == 7) {
+      console.log("Already alumni");
+      return res.status(400).json({ code: 1, message: "Already alumni" });
+    } else if (user.access == 0) {
+      console.log("Admin");
+      return res.status(400).json({ code: 1, message: "Admin cant be alumni" });
+    }
 
-  try {
-    await User.updateOne(
-      { email: email },
-      {
-        $set: {
-          access: 7,
+    try {
+      await User.updateOne(
+        { email: email },
+        {
+          $set: {
+            access: 7,
+          },
         },
-      },
-      { upsert: true }
-    );
+        { upsert: true }
+      );
 
-    // await data.save();
-    console.log("Alumni Added");
+      // await data.save();
+      console.log("Alumni Added");
 
-    return res.status(200).json({ status: "ok" });
-  } catch (err) {
-    console.log(err);
-    res.status(400).json({ msg: "error", err });
+      return res.status(200).json({ status: "ok" });
+    } catch (err) {
+      console.log(err);
+      res.status(400).json({ msg: "error", err });
+    }
+  } else {
+    console.log("not admin");
+    return res.status(400).json({ code: 1, message: "invalid access" });
   }
 };
 
