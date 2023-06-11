@@ -1,15 +1,19 @@
 const jwt = require("jsonwebtoken");
-
+const User = require("../models/user-model");
 
 function validate(req, res, next) {
-  console.log("token is ",req.headers.auth_token)
   if (!req) next();
-  jwt.verify(req.headers.auth_token , process.env.access_token_key, (err, user) => {
+  jwt.verify(req.headers.authorization , process.env.access_token_key, async (err, user) => {
     if (err) {
       console.log("verification failed")
       return res.status(403).json({ code: 4 });
     }
-    req.body.user = user;
+    var result = await User.findOne({email:user.username})
+    if(result.isvalid){
+      req.body.user = user.username;
+    }else{
+      return res.status(403).json({ code: 4 });
+    }
     next();
   });
 }

@@ -19,4 +19,9 @@ router.post(
   memberController.addMembers
 );
 
+router.post(
+  "/delMember",
+  memberController.delMembers
+);
+
 module.exports = router;

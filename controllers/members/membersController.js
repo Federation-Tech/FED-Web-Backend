@@ -1,5 +1,5 @@
 const { validationResult } = require("express-validator");
-
+const User = require("../../models/user-model");
 const showMembers = async (req, res) => {
   res.status(202).json("people");
 };
@@ -22,5 +22,25 @@ const addMembers = async (req, res) => {
   }
 };
 
+const deleteMember = async (req, res) => {
+  try {
+    var result = await User.findOne({ email: req.body.user });
+    if (result.access == 0) {
+      await User.updateOne(
+        {
+          $and: [{ email: req.body.email }, { access: { $not: { $eq: "0" } } }],
+        },
+        { isvalid: false }
+      );
+      res.status(200).json({ msg: "ok" });
+    } else {
+      res.status(403).json({ msg: "unauthorised" });
+    }
+  } catch (err) {
+    res.status(403).json({ msg: "unauthorised", err });
+  }
+};
+
 exports.addMembers = addMembers;
 exports.showMembers = showMembers;
+exports.delMembers = deleteMember;
