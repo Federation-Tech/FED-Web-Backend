@@ -19,4 +19,10 @@ router.post(
   memberController.addMembers
 );
 
+router.post(
+  "/addAlumni",
+  [check("email", "email is required").not().isEmpty()],
+  memberController.addAlumni
+);
+
 module.exports = router;
