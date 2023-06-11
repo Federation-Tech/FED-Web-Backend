@@ -2,9 +2,12 @@ const express = require("express");
 const router = express.Router();
 const { check } = require("express-validator");
 const memberController = require("./../../controllers/members/membersController");
+const { validate } = require("../../middleware/validator");
 
 // Public || Get All Mebers Data
 router.get("/", memberController.showMembers);
+
+router.use(validate);
 
 // Private || Add Member
 router.post(
