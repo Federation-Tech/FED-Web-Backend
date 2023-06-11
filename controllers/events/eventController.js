@@ -7,7 +7,7 @@ const addEvent = async (req, res) => {
   try {
     const { title, date, image, description } = req.body;
     //validation
-    if (res.body.access == 0) {
+    if (req.body.access == 0) {
       if (!title) {
         return res.send({ error: "title is require" });
       }
@@ -54,12 +54,17 @@ const editEvent = async (req, res) => {
         getevent = await db.findById(eventId);
       } catch (err) {
         console.log(err);
+        return res
+          .status(500)
+          .json({ success: false, message: "Error finding event" });
       }
       let title, date, image, description;
       if (getevent) {
         ({ title, date, image, description } = req.body);
       } else {
-        console.log("event with this id not found");
+        return res
+          .status(404)
+          .json({ success: false, message: "Event with this id not found" });
       }
       getevent.title = title;
       getevent.date = date;
@@ -69,8 +74,10 @@ const editEvent = async (req, res) => {
         await getevent.save();
         res.status(200).json({ success: true });
       } catch (err) {
-        console.log("error saving in update event");
         console.log(err);
+        res
+          .status(500)
+          .json({ success: false, message: "Error saving updated event" });
       }
     } else {
       console.log("Access denied");
