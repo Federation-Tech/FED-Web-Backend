@@ -9,6 +9,7 @@ const forgetPasswordcontroller = require("../../controllers/user/forgetPassword"
 const registrationController = require("../../controllers/user/registrationController");
 const googleRegistration = require("../../controllers/user/googleRegistration");
 const googleSignUpverification = require("../../controllers/user/googleSignUpverification");
+const updateProfile = require("../../controllers/user/updateProfile");
 const verification = require("../../controllers/user/verification");
 const sendMail = require("../../mailer/beta/newMailer");
 
@@ -40,5 +41,8 @@ router.post("/validate", forgetPasswordcontroller.verifyotp);
 
 //change password
 router.post("/changepassword", forgetPasswordcontroller.resetpassword);
+
+//update profile
+router.post("/updateProfile", updateProfile.updateData);
 
 module.exports = router;
