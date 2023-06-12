@@ -15,7 +15,6 @@ const addEvent = async (req, res) => {
     const { title, date, image, description } = req.body;
 
     //validation
-
     if (!title) {
       return res.send({ error: "title is require" });
     }
