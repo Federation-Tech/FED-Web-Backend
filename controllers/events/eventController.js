@@ -6,6 +6,8 @@ const db = require("./../../models/event");
 const addEvent = async (req, res) => {
   try {
     const { title, date, image, description } = req.body;
+    const user = req.body.access;
+    console.log(user);
     //validation
     if (req.body.access == 1) {
       if (!title) {
