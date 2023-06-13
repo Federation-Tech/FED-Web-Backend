@@ -17,8 +17,11 @@ module.exports = (req, res, next) => {
     }
     const decodedToken = jwt.verify(token, process.env.access_token_key);
 
+    console.log(decodedToken);
+
     res.locals.userData = {
       userEmail: decodedToken.username,
+      access: decodedToken.access,
     };
     next();
   } catch (err) {
