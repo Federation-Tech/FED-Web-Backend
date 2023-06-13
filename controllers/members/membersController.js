@@ -6,7 +6,7 @@ const User = require("../../models/user-model");
 
 const showMembers = async (req, res) => {
   console.log(res.locals.userData);
-  res.status(202).json({ status: true, email: res.locals.userData });
+  res.status(202).json({ status: true, MiddleWare: res.locals.userData });
 };
 
 const addMembers = async (req, res) => {
