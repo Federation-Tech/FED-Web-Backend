@@ -1,16 +1,32 @@
 const jwt = require("jsonwebtoken");
+const HttpError = require("./../models/HttpError");
 
+module.exports = (req, res, next) => {
+  if (req.method === "OPTIONS") {
+    return next();
+  }
 
-function validate(req, res, next) {
-    if (!req) next();
-  jwt.verify(req.headers.authorization , process.env.access_token_key, (err, user) => {
-    if (err) {
-      console.log("verification failed")
-      return res.status(403).json({ code: 4 });
+  try {
+    const token = req.headers.authorization;
+
+    console.log(token);
+
+    if (!token) {
+      const error = new HttpError("Authentication failed!", 401);
+      return next(error);
     }
-    req.body.user = user;
-    next();
-  });
-}
+    const decodedToken = jwt.verify(token, process.env.access_token_key);
 
-exports.validate = validate;
+    console.log(decodedToken);
+
+    res.locals.userData = {
+      userEmail: decodedToken.username,
+      access: decodedToken.access,
+    };
+    next();
+  } catch (err) {
+    const error = new HttpError("Authentication failed!", 403);
+    console.log(err);
+    return next(error);
+  }
+};
