@@ -15,35 +15,34 @@ const addEvent = async (req, res) => {
     const { title, date, image, description } = req.body;
 
     //validation
-    if (!title) {
-      return res.send({ error: "title is require" });
+    if (res.locals.userData.access == "0") {
+      if (!title) {
+        return res.send({ error: "title is require" });
+      }
+      if (!date) {
+        return res.send({ error: "date is require" });
+      }
+      if (!image) {
+        return res.send({ error: "image is require" });
+      }
+      if (!description) {
+        return res.send({ error: "description is require" });
+      }
+
+      const newevent = await new db({
+        title,
+        date: parseDate(date),
+        image,
+        description,
+      }).save();
+      res.status(201).send({
+        success: true,
+        message: "event created successfully",
+        newevent,
+      });
+    } else {
+      console.log("User dont have admin access");
     }
-    if (!date) {
-      return res.send({ error: "date is require" });
-    }
-    if (!image) {
-      return res.send({ error: "image is require" });
-    }
-    if (!description) {
-      return res.send({ error: "description is require" });
-    }
-    // // Parse and convert the date string
-    // const dateParts = date.split(".");
-    // const day = parseInt(dateParts[0]);
-    // const month = parseInt(dateParts[1]) - 1; // Months are zero-based (0-11)
-    // const year = 2000 + parseInt(dateParts[2]); // Assuming years are in the format 'YY'
-    // const parsedDate = new Date(year, month, day);
-    const newevent = await new db({
-      title,
-      date: parseDate(date),
-      image,
-      description,
-    }).save();
-    res.status(201).send({
-      success: true,
-      message: "event created successfully",
-      newevent,
-    });
   } catch (error) {
     console.log(error);
     res.status(500).send({
@@ -58,36 +57,40 @@ const addEvent = async (req, res) => {
 const editEvent = async (req, res) => {
   try {
     const eventId = req.params.id;
-
-    let getevent;
-    try {
-      getevent = await db.findById(eventId);
-    } catch (err) {
-      console.log(err);
-      return res
-        .status(500)
-        .json({ success: false, message: "Error finding event" });
-    }
-    let title, date, image, description;
-    if (getevent) {
-      ({ title, date, image, description } = req.body);
+    //validation
+    if (res.locals.userData.access == "0") {
+      let getevent;
+      try {
+        getevent = await db.findById(eventId);
+      } catch (err) {
+        console.log(err);
+        return res
+          .status(500)
+          .json({ success: false, message: "Error finding event" });
+      }
+      let title, date, image, description;
+      if (getevent) {
+        ({ title, date, image, description } = req.body);
+      } else {
+        return res
+          .status(404)
+          .json({ success: false, message: "Event with this id not found" });
+      }
+      getevent.title = title;
+      getevent.date = parseDate(date);
+      getevent.image = image;
+      getevent.description = description;
+      try {
+        await getevent.save();
+        res.status(200).json({ success: true });
+      } catch (err) {
+        console.log(err);
+        res
+          .status(500)
+          .json({ success: false, message: "Error saving updated event" });
+      }
     } else {
-      return res
-        .status(404)
-        .json({ success: false, message: "Event with this id not found" });
-    }
-    getevent.title = title;
-    getevent.date = parseDate(date);
-    getevent.image = image;
-    getevent.description = description;
-    try {
-      await getevent.save();
-      res.status(200).json({ success: true });
-    } catch (err) {
-      console.log(err);
-      res
-        .status(500)
-        .json({ success: false, message: "Error saving updated event" });
+      console.log("User dont have admin access");
     }
   } catch (e) {
     res.status(500).json({ msg: "error" });
@@ -118,12 +121,16 @@ const getEvent = async (req, res) => {
 const deleteEvent = async (req, res) => {
   try {
     const { id } = req.params;
-
-    await db.findByIdAndDelete(id);
-    res.status(200).send({
-      success: true,
-      message: "event deleted successfully",
-    });
+    //validation
+    if (res.locals.userData.access == "0") {
+      await db.findByIdAndDelete(id);
+      res.status(200).send({
+        success: true,
+        message: "event deleted successfully",
+      });
+    } else {
+      console.log("User dont have admin access");
+    }
   } catch (error) {
     console.log(error);
     res.status(500).send({
