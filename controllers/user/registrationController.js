@@ -10,15 +10,11 @@ const postData = async (req, res) => {
   req.body.isvalid = false;
   req.body.img = gravatar.url(
     req.body.email,
-    { s: "200", r: "pg", d: "mm" },
+    { s: "100", r: "x", d: "retro" },
     true
   );
 
-  if (req.body.email === "fedkiit@gmail.com") {
-    req.body.access = 0;
-  } else {
-    req.body.access = 1;
-  }
+  req.body.access = 1;
 
   const {
     email,
@@ -63,9 +59,7 @@ const postData = async (req, res) => {
       });
 
       await data.save();
-
       verification.mail(email, name);
-      
 
       console.log("registration done");
 

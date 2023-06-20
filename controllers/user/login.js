@@ -18,6 +18,7 @@ const login = async (req, res) => {
       const token = jwt.sign(
         {
           username: result[0].email,
+          access: result[0].access,
         },
         process.env.access_token_key,
         { expiresIn: "86400s" } // one day
@@ -26,14 +27,14 @@ const login = async (req, res) => {
       console.log("login success");
       console.log(result);
 
-      res.json({
+      res.status(202).json({
         status: "ok",
         token: token,
         access: result[0].access,
         img: result[0].img,
         name: result[0].name,
         email: result[0].email,
-        result
+        result,
       });
     } else {
       console.log("user not verified");
