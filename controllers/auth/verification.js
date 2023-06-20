@@ -4,9 +4,13 @@ const mailer = require("../../mailer/mailer");
 
 async function verfication(req, res) {
   console.log("verification request received");
+
   var token = req.params.token;
+
   var vemail = await jwt.verify(token, process.env.verification_token_key);
+
   await db.findOneAndUpdate({ email: vemail }, { isvalid: true });
+
   res.send(
     `<html lang="en">
 
@@ -179,12 +183,9 @@ async function sendverficationmail(email, name) {
     </body>
     </html>`,
   };
+
   console.log(await mailer.sendMail(mail));
 }
 
 exports.verify = verfication;
 exports.mail = sendverficationmail;
-
-// process.env.server_address +
-//   "/auth/verification/" +
-//   ~jwt.sign(email, process.env.verification_token_key);
