@@ -1,7 +1,6 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/user-model");
 const HttpError = require("./../models/HttpError");
-
 module.exports = (req, res, next) => {
   if (req.method === "OPTIONS") {
     return next();
@@ -9,7 +8,6 @@ module.exports = (req, res, next) => {
 
   try {
     const token = req.headers.authorization;
-
     console.log(token);
 
     if (!token) {
@@ -17,7 +15,6 @@ module.exports = (req, res, next) => {
       return next(error);
     }
     const decodedToken = jwt.verify(token, process.env.access_token_key);
-
     console.log(decodedToken);
 
     res.locals.userData = {
