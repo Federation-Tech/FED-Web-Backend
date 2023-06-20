@@ -3,10 +3,15 @@ const passGenerator = require("generate-password");
 const bcrypt = require("bcrypt");
 const mailer = require("./../../mailer/mailer");
 const User = require("../../models/user-model");
-
 const showMembers = async (req, res) => {
-  console.log("request to show all member");
-  res.status(202).json("people");
+  const users = await User.find({});
+  var members = [];
+  for (var i = 0; i < users.length; i++) {
+    if (users[i].access != 1) {
+      members.push(users[i]);
+    }
+  }
+  res.status(202).json({ status: true, members: members });
 };
 
 const addMembers = async (req, res) => {
@@ -80,5 +85,93 @@ const addMembers = async (req, res) => {
   }
 };
 
+const addAlumni = async (req, res) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  const { email } = req.body;
+  const user = await User.findOne({ email });
+
+  if (!user) {
+    console.log("no member with this email");
+    return res
+      .status(400)
+      .json({ code: 1, message: "no member with this email" });
+  }
+
+  if (user.access == 7) {
+    console.log("Already alumni");
+    return res.status(400).json({ code: 1, message: "Already alumni" });
+  }
+
+  if (user.access == 0) {
+    console.log("Admin can't be alumni");
+    return res.status(400).json({ code: 1, message: "Admin can't be alumni" });
+  }
+
+  try {
+    await User.updateOne(
+      { email: email },
+      {
+        $set: {
+          access: 7,
+        },
+      },
+      { upsert: true }
+    );
+
+    // await data.save();
+    console.log("Alumni Added");
+
+    return res.status(200).json({ status: "ok" });
+  } catch (err) {
+    console.log(err);
+    res.status(400).json({ msg: "error", err });
+  }
+};
+
+const deleteMember = async (req, res) => {
+  try {
+    var result = await User.findOne({ email: req.body.user });
+    if (result.access == 0) {
+      await User.updateOne(
+        {
+          $and: [{ email: req.body.email }, { access: { $not: { $eq: "0" } } }],
+        },
+        { isvalid: false }
+      );
+      res.status(200).json({ msg: "ok" });
+    } else {
+      res.status(403).json({ msg: "unauthorised" });
+    }
+  } catch (err) {
+    res.status(403).json({ msg: "unauthorised", err });
+  }
+};
+
+const deleteMember = async (req, res) => {
+  try {
+    var result = await User.findOne({ email: req.body.user });
+    if (result.access == 0) {
+      await User.updateOne(
+        {
+          $and: [{ email: req.body.email }, { access: { $not: { $eq: "0" } } }],
+        },
+        { isvalid: false }
+      );
+      res.status(200).json({ msg: "ok" });
+    } else {
+      res.status(403).json({ msg: "unauthorised" });
+    }
+  } catch (err) {
+    res.status(403).json({ msg: "unauthorised", err });
+  }
+};
+
 exports.addMembers = addMembers;
 exports.showMembers = showMembers;
+exports.addAlumni = addAlumni;
+exports.delMembers = deleteMember;
