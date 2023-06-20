@@ -5,8 +5,14 @@ const mailer = require("./../../mailer/mailer");
 const User = require("../../models/user-model");
 
 const showMembers = async (req, res) => {
-  console.log(res.locals.userData);
-  res.status(202).json({ status: true, MiddleWare: res.locals.userData });
+  const users = await User.find({});
+  var members = [];
+  for (var i = 0; i < users.length; i++) {
+    if (users[i].access != 1) {
+      members.push(users[i]);
+    }
+  }
+  res.status(202).json({ status: true, members: members });
 };
 
 const addMembers = async (req, res) => {
@@ -100,6 +106,11 @@ const addAlumni = async (req, res) => {
   if (user.access == 7) {
     console.log("Already alumni");
     return res.status(400).json({ code: 1, message: "Already alumni" });
+  }
+
+  if (user.access == 0) {
+    console.log("Admin can't be alumni");
+    return res.status(400).json({ code: 1, message: "Admin can't be alumni" });
   }
 
   try {
