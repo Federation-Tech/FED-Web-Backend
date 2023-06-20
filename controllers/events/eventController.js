@@ -12,7 +12,7 @@ const parseDate = (dateString) => {
 //add event
 const addEvent = async (req, res) => {
   try {
-    const { title, date, image, description } = req.body;
+    const { title, date, image, description, registration, month } = req.body;
 
     //validation
     if (res.locals.userData.access == "0") {
@@ -28,12 +28,20 @@ const addEvent = async (req, res) => {
       if (!description) {
         return res.send({ error: "description is require" });
       }
+      if (!registration) {
+        return res.send({ error: "registration type is require" });
+      }
+      if (!month) {
+        return res.send({ error: "month is require" });
+      }
 
       const newevent = await new db({
         title,
         date: parseDate(date),
         image,
         description,
+        registration,
+        month,
       }).save();
       res.status(201).send({
         success: true,
@@ -68,9 +76,9 @@ const editEvent = async (req, res) => {
           .status(500)
           .json({ success: false, message: "Error finding event" });
       }
-      let title, date, image, description;
+      let title, date, image, description, registration, month;
       if (getevent) {
-        ({ title, date, image, description } = req.body);
+        ({ title, date, image, description, registration, month } = req.body);
       } else {
         return res
           .status(404)
@@ -80,6 +88,8 @@ const editEvent = async (req, res) => {
       getevent.date = parseDate(date);
       getevent.image = image;
       getevent.description = description;
+      getevent.registration = registration;
+      getevent.month = month;
       try {
         await getevent.save();
         res.status(200).json({ success: true });
