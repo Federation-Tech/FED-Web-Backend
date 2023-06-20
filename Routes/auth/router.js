@@ -4,22 +4,14 @@ const mongoose = require("mongoose");
 const { check } = require("express-validator");
 
 // Controllers
-<<<<<<< HEAD:Routes/auth/router.js
 const logincontroller = require("../../controllers/auth/login");
+const forgetPasswordcontroller = require("../../controllers/auth/forgetPassword");
 const registrationController = require("../../controllers/auth/registrationController");
+const googleRegistration = require("../../controllers/auth/googleRegistration");
+const googleSignUpverification = require("../../controllers/auth/googleSignUpverification");
+const updateProfile = require("../../controllers/auth/updateProfile");
 const verification = require("../../controllers/auth/verification");
-const sendMail = require("../../mailer/beta/newMailer");
-=======
-const logincontroller = require("../../controllers/user/login");
-const forgetPasswordcontroller = require("../../controllers/user/forgetPassword");
-const registrationController = require("../../controllers/user/registrationController");
-const googleRegistration = require("../../controllers/user/googleRegistration");
-const googleSignUpverification = require("../../controllers/user/googleSignUpverification");
-const updateProfile = require("../../controllers/user/updateProfile");
-const verification = require("../../controllers/user/verification");
-
 const sendMail = require("./../../mailer/beta/newMailer");
->>>>>>> beta:Routes/User/router.js
 
 //registration
 router.post("/register", registrationController.register);
@@ -29,7 +21,7 @@ router.post(
   googleSignUpverification.googleSignUpVerification
 );
 
-//login user
+//login auth
 router.post("/login", logincontroller.login);
 
 //email verification link

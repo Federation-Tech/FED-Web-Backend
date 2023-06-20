@@ -64,12 +64,4 @@ const mailer = (name, email, message) => {
     res.status(500).json("Server Error");
   }
 };
-const req = {
-  body: {
-    name: "vinit",
-    email: "vinitagarwal.garasdssadds@gmail.com",
-    message: "hello",
-  },
-};
-sendEmail(req, req);
 exports.sendEmail = sendEmail;

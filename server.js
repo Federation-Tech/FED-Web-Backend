@@ -30,7 +30,7 @@ app.use(cookieParser());
 
 // Routes
 app.use("/auth", require("./Routes/auth/router"));
-app.use("/profile",validater.validate, require("./Routes/profile/router"));
+app.use("/profile",validater, require("./Routes/profile/router"));
 app.use("/contact", require("./Routes/contact/router"));
 app.use("/member", require("./Routes/member/member"));
 //events
