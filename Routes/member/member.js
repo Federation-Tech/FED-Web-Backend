@@ -24,9 +24,14 @@ router.post(
 );
 
 router.post(
+<<<<<<< HEAD
+  "/delMember",
+  memberController.delMembers
+=======
   "/addAlumni",
   [check("email", "email is required").not().isEmpty()],
   memberController.addAlumni
+>>>>>>> beta
 );
 
 module.exports = router;

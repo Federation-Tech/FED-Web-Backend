@@ -4,6 +4,12 @@ const mongoose = require("mongoose");
 const { check } = require("express-validator");
 
 // Controllers
+<<<<<<< HEAD:Routes/auth/router.js
+const logincontroller = require("../../controllers/auth/login");
+const registrationController = require("../../controllers/auth/registrationController");
+const verification = require("../../controllers/auth/verification");
+const sendMail = require("../../mailer/beta/newMailer");
+=======
 const logincontroller = require("../../controllers/user/login");
 const forgetPasswordcontroller = require("../../controllers/user/forgetPassword");
 const registrationController = require("../../controllers/user/registrationController");
@@ -13,6 +19,7 @@ const updateProfile = require("../../controllers/user/updateProfile");
 const verification = require("../../controllers/user/verification");
 
 const sendMail = require("./../../mailer/beta/newMailer");
+>>>>>>> beta:Routes/User/router.js
 
 //registration
 router.post("/register", registrationController.register);
