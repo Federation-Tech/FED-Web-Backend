@@ -13,7 +13,6 @@ async function verfication(req, res) {
   await db.findOneAndUpdate({ email: vemail }, { isvalid: true });
   res.sendFile(path.join(__dirname, '../', 'verified', 'index.html'));
 }
-
 async function sendverficationmail(email, name) {
   var mail = {
     to: email,
