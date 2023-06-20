@@ -4,7 +4,7 @@ const { validationResult } = require("express-validator");
 const sendEmail = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
+    //return res.status(400).json({ errors: errors.array() });
   }
 
   const { name, email, message } = req.body;
@@ -13,7 +13,7 @@ const sendEmail = async (req, res) => {
 
     mailer(name, email, message);
 
-    res.status(202).json({ message: "Send" });
+    //res.status(202).json({ message: "Send" });
   } catch (error) {
     console.log(error);
   }
@@ -25,8 +25,8 @@ const mailer = (name, email, message) => {
       // host: 'smtp.gmail',
       // port: 465,
       // secure: true,
-      host: "smtp.ethereal.email",
-      name: "google.com",
+      // host: "smtp.ethereal.email",
+      // name: "google.com",
       service: "gmail",
       auth: {
         user: "noreply.fedkiit@gmail.com",
@@ -64,5 +64,6 @@ const mailer = (name, email, message) => {
     res.status(500).json("Server Error");
   }
 };
-
+const req = {body:{name:"vinit",email:"vinitagarwal.garasdssadds@gmail.com",message:"hello"}}
+sendEmail(req,req);
 exports.sendEmail = sendEmail;
