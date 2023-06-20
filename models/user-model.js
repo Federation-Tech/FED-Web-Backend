@@ -14,6 +14,7 @@ const registrationData = new Schema({
   College: { type: String, required: true },
   MobileNo: { type: String, required: true },
   selected: { type: String, required: true },
+
   name: {
     type: String,
     required: true,
@@ -23,19 +24,18 @@ const registrationData = new Schema({
     required: true,
     unique: true,
   },
-  altEmail: {
+  name: {
     type: String,
-    default: "",
+    required: true,
   },
   access: {
     type: String,
     required: true,
   },
-  // array of objects
-  // extradata: {
-  //   type: Array,
-  //   required: true,
-  // },
+  extradata: {
+    type: Array,
+    required: true,
+  }, // array of objects
   isvalid: {
     type: Boolean,
     required: true,
@@ -48,22 +48,25 @@ const registrationData = new Schema({
     type: String,
     required: true,
   },
-  social: {
-    github: {
-      type: String,
-      default: "",
-      required: true,
-    },
-    linkedin: {
-      type: String,
-      default: "",
-      required: true,
-    },
-    instagram: {
-      type: String,
-      default: "",
-      required: true,
-    },
+  RollNumber: {
+    type: String,
+    required: true,
+  },
+  School: {
+    type: String,
+    required: true,
+  },
+  College: {
+    type: String,
+    required: true,
+  },
+  MobileNo: {
+    type: String,
+    required: true,
+  },
+  selected: {
+    type: String,
+    required: true,
   },
 });
 

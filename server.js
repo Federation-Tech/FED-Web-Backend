@@ -11,13 +11,6 @@ connectDB();
 
 app.use(express.json());
 
-// app.use(
-//   cors({
-//     credentials: true,
-//     origin: "http://127.0.0.1:5173",
-//   })
-// );
-
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
@@ -39,15 +32,17 @@ app.use(cookieParser());
 app.use("/auth", require("./Routes/auth/router"));
 app.use("/profile",validater.validate, require("./Routes/profile/router"));
 app.use("/contact", require("./Routes/contact/router"));
-app.use("/member",validater.validate, require("./Routes/member/member"));
+app.use("/member", require("./Routes/member/member"));
+//events
+app.use("/event", require("./Routes/event/router"));
 
 app.use("/oauthplayground", (req, res) => {
   console.log(req.body);
 });
 
-app.use("/validatetest", validater.validate, (req, res) => {
-  res.send(req.body.user);
-});
+// app.use("/validatetest", validater.validate, (req, res) => {
+//   res.send(req.body.user);
+// });
 
 // Test Route
 app.get("/AsUrbqAPHuicUMy3", (req, res) => {

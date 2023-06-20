@@ -4,13 +4,30 @@ const mongoose = require("mongoose");
 const { check } = require("express-validator");
 
 // Controllers
+<<<<<<< HEAD:Routes/auth/router.js
 const logincontroller = require("../../controllers/auth/login");
 const registrationController = require("../../controllers/auth/registrationController");
 const verification = require("../../controllers/auth/verification");
 const sendMail = require("../../mailer/beta/newMailer");
+=======
+const logincontroller = require("../../controllers/user/login");
+const forgetPasswordcontroller = require("../../controllers/user/forgetPassword");
+const registrationController = require("../../controllers/user/registrationController");
+const googleRegistration = require("../../controllers/user/googleRegistration");
+const googleSignUpverification = require("../../controllers/user/googleSignUpverification");
+const updateProfile = require("../../controllers/user/updateProfile");
+const verification = require("../../controllers/user/verification");
+
+const sendMail = require("./../../mailer/beta/newMailer");
+>>>>>>> beta:Routes/User/router.js
 
 //registration
-router.post("/", registrationController.register);
+router.post("/register", registrationController.register);
+router.post("/googleregister", googleRegistration.register);
+router.post(
+  "/googleverification",
+  googleSignUpverification.googleSignUpVerification
+);
 
 //login user
 router.post("/login", logincontroller.login);
@@ -26,5 +43,17 @@ router.post(
   [check("name", "name is Required").not().isEmpty()],
   sendMail.sendEmail
 );
+
+//send otp
+router.post("/sendotp", forgetPasswordcontroller.sendotp);
+
+//validate otp
+router.post("/validate", forgetPasswordcontroller.verifyotp);
+
+//change password
+router.post("/changepassword", forgetPasswordcontroller.resetpassword);
+
+//update profile
+router.post("/updateProfile", updateProfile.updateData);
 
 module.exports = router;

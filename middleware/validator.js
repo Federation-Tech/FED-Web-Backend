@@ -1,21 +1,33 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/user-model");
+const HttpError = require("./../models/HttpError");
 
-function validate(req, res, next) {
-  if (!req) next();
-  jwt.verify(req.headers.authorization , process.env.access_token_key, async (err, user) => {
-    if (err) {
-      console.log("verification failed")
-      return res.status(403).json({ code: 4 });
+module.exports = (req, res, next) => {
+  if (req.method === "OPTIONS") {
+    return next();
+  }
+
+  try {
+    const token = req.headers.authorization;
+
+    console.log(token);
+
+    if (!token) {
+      const error = new HttpError("Authentication failed!", 401);
+      return next(error);
     }
-    var result = await User.findOne({email:user.username})
-    if(result.isvalid){
-      req.body.user = user.username;
-    }else{
-      return res.status(403).json({ code: 4 });
-    }
+    const decodedToken = jwt.verify(token, process.env.access_token_key);
+
+    console.log(decodedToken);
+
+    res.locals.userData = {
+      userEmail: decodedToken.username,
+      access: decodedToken.access,
+    };
     next();
-  });
-}
-
-exports.validate = validate;
+  } catch (err) {
+    const error = new HttpError("Authentication failed!", 403);
+    console.log(err);
+    return next(error);
+  }
+};

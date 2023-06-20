@@ -2,9 +2,13 @@ const express = require("express");
 const router = express.Router();
 const { check } = require("express-validator");
 const memberController = require("./../../controllers/members/membersController");
+const auth = require("./../../middleware/validator");
 
 // Public || Get All Mebers Data
 router.get("/", memberController.showMembers);
+
+// auth
+router.use(auth);
 
 // Private || Add Member
 router.post(
@@ -20,8 +24,14 @@ router.post(
 );
 
 router.post(
+<<<<<<< HEAD
   "/delMember",
   memberController.delMembers
+=======
+  "/addAlumni",
+  [check("email", "email is required").not().isEmpty()],
+  memberController.addAlumni
+>>>>>>> beta
 );
 
 module.exports = router;

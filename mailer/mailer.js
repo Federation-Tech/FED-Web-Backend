@@ -31,7 +31,7 @@ async function sendmail({
     //     clientSecret: process.env.clientsecret,
     //   },
     // });
-    var transport = nodemailer.createTransport({
+    var transport = mailer.createTransport({
       service: "gmail",
       auth: {
         user: "noreply.fedkiit@gmail.com",
