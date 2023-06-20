@@ -4,10 +4,10 @@ const mongoose = require("mongoose");
 const { check } = require("express-validator");
 
 // Controllers
-const logincontroller = require("../../controllers/user/login");
-const registrationController = require("../../controllers/user/registrationController");
-const verification = require("../../controllers/user/verification");
-const sendMail = require("./../../mailer/beta/newMailer");
+const logincontroller = require("../../controllers/auth/login");
+const registrationController = require("../../controllers/auth/registrationController");
+const verification = require("../../controllers/auth/verification");
+const sendMail = require("../../mailer/beta/newMailer");
 
 //registration
 router.post("/", registrationController.register);

@@ -36,7 +36,7 @@ app.use((req, res, next) => {
 app.use(cookieParser());
 
 // Routes
-app.use("/auth", require("./Routes/User/router"));
+app.use("/auth", require("./Routes/auth/router"));
 app.use("/profile",validater.validate, require("./Routes/profile/router"));
 app.use("/contact", require("./Routes/contact/router"));
 app.use("/member",validater.validate, require("./Routes/member/member"));
