@@ -40,10 +40,6 @@ app.use("/oauthplayground", (req, res) => {
   console.log(req.body);
 });
 
-// app.use("/validatetest", validater.validate, (req, res) => {
-//   res.send(req.body.user);
-// });
-
 // Test Route
 app.get("/AsUrbqAPHuicUMy3", (req, res) => {
   return res.status(404).send("Hello Server");
