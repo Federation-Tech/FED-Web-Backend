@@ -5,14 +5,15 @@ const mailer = require("./../../mailer/mailer");
 const User = require("../../models/user-model");
 
 const showMembers = async (req, res) => {
-  const users = await User.find({});
-  var members = [];
-  for (var i = 0; i < users.length; i++) {
-    if (users[i].access != 1) {
-      members.push(users[i]);
-    }
-  }
-  res.status(202).json({ status: true, members: members });
+  const users = await User.find({ access: { $ne: 1 } });
+  // var members = [];
+  // for (var i = 0; i < users.length; i++) {
+  //   if (users[i].access != 1) {
+  //     members.push(users[i]);
+  //   }
+  // }
+
+  res.status(202).json({ status: true, users });
 };
 
 const addMembers = async (req, res) => {
