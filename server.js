@@ -30,7 +30,7 @@ app.use(cookieParser());
 
 // Routes
 app.use("/auth", require("./Routes/auth/router"));
-app.use("/profile",validater, require("./Routes/profile/router"));
+app.use("/profile", validater, require("./Routes/profile/router"));
 app.use("/contact", require("./Routes/contact/router"));
 app.use("/member", require("./Routes/member/member"));
 //events
@@ -56,5 +56,5 @@ app.use("*", (req, res) => {
 });
 
 app.listen(process.env.PORT, () => {
-  console.log(`server started on port ${process.env.PORT}`);
+  console.log(`FED-Tech -> Server is running on Port ${process.env.PORT}`);
 });
