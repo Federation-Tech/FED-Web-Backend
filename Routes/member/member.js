@@ -23,9 +23,7 @@ router.post(
   memberController.addMembers
 );
 
-router.post(
-  "/delMember",
-  memberController.delMembers);
+router.post("/delMember", memberController.delMembers);
 
 router.post(
   "/addAlumni",
