@@ -132,7 +132,7 @@ const deleteEvent = async (req, res) => {
   try {
     const { id } = req.params;
 
-    //validation
+    // admin validation
     if (res.locals.userData.access == "0") {
       await db.findByIdAndDelete(id);
 
