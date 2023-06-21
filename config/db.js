@@ -6,9 +6,9 @@ const connectDB = async () => {
     await mongoose.connect(process.env.mongoURL, {
       useNewUrlParser: true,
     });
-    console.log("Database Connected");
+    console.log("FED-Tech -> Database Connected!!");
   } catch (error) {
-    console.log("Database connection error");
+    console.log("FED-Tech -> Database connection error 😢");
   }
 };
 
