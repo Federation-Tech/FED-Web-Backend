@@ -3,6 +3,7 @@ const passGenerator = require("generate-password");
 const bcrypt = require("bcrypt");
 const mailer = require("./../../mailer/mailer");
 const User = require("../../models/user-model");
+
 const showMembers = async (req, res) => {
   const users = await User.find({});
   var members = [];
