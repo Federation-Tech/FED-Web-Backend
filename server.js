@@ -56,5 +56,5 @@ app.use("*", (req, res) => {
 });
 
 app.listen(process.env.PORT, () => {
-  console.log(`FED-Tech -> Server is running on Port ${process.env.PORT}`);
+  console.log(`FED-TECH -> Server is running on Port ${process.env.PORT}`);
 });
