@@ -152,6 +152,7 @@ const deleteEvent = async (req, res) => {
     });
   }
 };
+
 exports.addEvent = addEvent;
 exports.editEvent = editEvent;
 exports.deleteEvent = deleteEvent;
