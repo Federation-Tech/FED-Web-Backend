@@ -131,9 +131,11 @@ const getEvent = async (req, res) => {
 const deleteEvent = async (req, res) => {
   try {
     const { id } = req.params;
+
     //validation
     if (res.locals.userData.access == "0") {
       await db.findByIdAndDelete(id);
+
       res.status(200).send({
         success: true,
         message: "event deleted successfully",
