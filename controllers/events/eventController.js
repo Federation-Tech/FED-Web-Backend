@@ -112,7 +112,7 @@ const editEvent = async (req, res) => {
 const getEvent = async (req, res) => {
   try {
     const event = await db.find({});
-    res.status(200).send({
+    res.status(202).send({
       Success: true,
       message: "all event list",
       event,
