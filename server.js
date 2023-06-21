@@ -33,7 +33,8 @@ app.use("/auth", require("./Routes/auth/router"));
 app.use("/profile", validater, require("./Routes/profile/router"));
 app.use("/contact", require("./Routes/contact/router"));
 app.use("/member", require("./Routes/member/member"));
-//events
+
+// Routes ||  events
 app.use("/event", require("./Routes/event/router"));
 
 app.use("/oauthplayground", (req, res) => {
