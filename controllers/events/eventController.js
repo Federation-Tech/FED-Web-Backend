@@ -9,6 +9,26 @@ const parseDate = (dateString) => {
   const year = parseInt(dateParts[2]);
   return new Date(year, month, day);
 };
+
+//get event
+const getEvent = async (req, res) => {
+  try {
+    const event = await db.find({});
+    res.status(202).send({
+      Success: true,
+      message: "all event list",
+      event,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      error,
+      message: "Error while getting events",
+    });
+  }
+};
+
 //add event
 const addEvent = async (req, res) => {
   try {
@@ -17,22 +37,22 @@ const addEvent = async (req, res) => {
     //validation
     if (res.locals.userData.access == "0") {
       if (!title) {
-        return res.send({ error: "title is require" });
+        return res.send({ error: "title is required" });
       }
       if (!date) {
-        return res.send({ error: "date is require" });
+        return res.send({ error: "date is required" });
       }
       if (!image) {
-        return res.send({ error: "image is require" });
+        return res.send({ error: "image is required" });
       }
       if (!description) {
-        return res.send({ error: "description is require" });
+        return res.send({ error: "description is required" });
       }
       if (!registration) {
-        return res.send({ error: "registration type is require" });
+        return res.send({ error: "registration type is required" });
       }
       if (!month) {
-        return res.send({ error: "month is require" });
+        return res.send({ error: "month is required" });
       }
 
       const newevent = await new db({
@@ -43,7 +63,8 @@ const addEvent = async (req, res) => {
         registration,
         month,
       }).save();
-      res.status(201).send({
+
+      res.status(202).send({
         success: true,
         message: "event created successfully",
         newevent,
@@ -68,6 +89,7 @@ const editEvent = async (req, res) => {
     //validation
     if (res.locals.userData.access == "0") {
       let getevent;
+
       try {
         getevent = await db.findById(eventId);
       } catch (err) {
@@ -76,7 +98,9 @@ const editEvent = async (req, res) => {
           .status(500)
           .json({ success: false, message: "Error finding event" });
       }
+
       let title, date, image, description, registration, month;
+
       if (getevent) {
         ({ title, date, image, description, registration, month } = req.body);
       } else {
@@ -105,25 +129,6 @@ const editEvent = async (req, res) => {
   } catch (e) {
     res.status(500).json({ msg: "error" });
     console.log(e);
-  }
-};
-
-//get event
-const getEvent = async (req, res) => {
-  try {
-    const event = await db.find({});
-    res.status(202).send({
-      Success: true,
-      message: "all event list",
-      event,
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(500).send({
-      success: false,
-      error,
-      message: "Error while getting events",
-    });
   }
 };
 
