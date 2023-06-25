@@ -13,3 +13,10 @@ Error Code :-
 2 - invalid data
 3 - session expired
 4 - verfication error
+
+Creidentials
+Admin = 0
+fedkiit@gmail.com
+11
+
+Creative Member
