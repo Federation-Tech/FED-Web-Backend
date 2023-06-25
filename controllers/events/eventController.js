@@ -2,13 +2,13 @@ const User = require("../../models/user-model");
 const { validationResult } = require("express-validator");
 const db = require("./../../models/event");
 
-const parseDate = (dateString) => {
-  const dateParts = dateString.split(".");
-  const day = parseInt(dateParts[0]);
-  const month = parseInt(dateParts[1]) - 1; // Months are zero-based (0-11)
-  const year = parseInt(dateParts[2]);
-  return new Date(year, month, day);
-};
+// const parseDate = (dateString) => {
+//   const dateParts = dateString.split(".");
+//   const day = parseInt(dateParts[0]);
+//   const month = parseInt(dateParts[1]) - 1; // Months are zero-based (0-11)
+//   const year = parseInt(dateParts[2]);
+//   return new Date(year, month, day);
+// };
 
 //get event
 const getEvent = async (req, res) => {
@@ -57,7 +57,7 @@ const addEvent = async (req, res) => {
 
       const newevent = await new db({
         title,
-        date: parseDate(date),
+        date,
         image,
         description,
         registration,
@@ -109,7 +109,7 @@ const editEvent = async (req, res) => {
           .json({ success: false, message: "Event with this id not found" });
       }
       getevent.title = title;
-      getevent.date = parseDate(date);
+      getevent.date = date;
       getevent.image = image;
       getevent.description = description;
       getevent.registration = registration;
