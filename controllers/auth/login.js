@@ -19,7 +19,6 @@ const login = async (req, res) => {
         {
           username: result[0].email,
           access: result[0].access,
-          access: result[0].access
         },
         process.env.access_token_key,
         { expiresIn: "86400s" } // one day
