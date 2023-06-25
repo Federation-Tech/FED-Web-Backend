@@ -24,11 +24,13 @@ const login = async (req, res) => {
       );
 
       console.log("login success");
+
       result[0].isvalid = undefined;
       result[0]["password"] = undefined;
-      // result[0]['access'] = undefined
       result[0]["__v"] = undefined;
+
       console.log(result);
+
       res.status(202).json({ status: "ok", token: token, result });
     } else {
       console.log("user not verified");
