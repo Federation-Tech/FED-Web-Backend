@@ -15,11 +15,7 @@ const sendotp = async (req, res) => {
   }
   try {
     const otp = Math.floor(100000 + Math.random() * 900000);
-    // const data = new db({
-    //   email,
-    //   otp,
-    // });
-    // await data.save();
+
     const email = result.email;
 
     await db.updateOne(
@@ -77,7 +73,6 @@ const resetpassword = async (req, res) => {
   const result = await User.findOne({
     email: req.body.email,
   });
-  
 
   if (!result) {
     return res.status(401).json({ message: "Email doesn't exist" });
