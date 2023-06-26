@@ -1,6 +1,7 @@
 const registrationSchema = require("../../models/user-model");
 const gravatar = require("gravatar");
 const User = require("../../models/user-model");
+const jwt = require('jsonwebtoken')
 
 //
 const postData = async (req, res) => {
@@ -65,7 +66,27 @@ const postData = async (req, res) => {
       
       console.log("registration done");
 
-      return res.status(200).json({ status: "ok" });
+      const user = await User.findOne({email: email});
+      if (user) {
+        const token = jwt.sign(
+          {
+            username: user.email,
+            access: user.access,
+          },
+          process.env.access_token_key,
+          { expiresIn: "86400s" } // one day
+        );
+  
+        console.log("login success");
+  
+        user.isvalid = undefined;
+        user["password"] = undefined;
+        user["__v"] = undefined;
+  
+        res.status(202).json({ status: "ok", token: token, user });
+      } else {
+        return res.json({ code: 4, message: "User does not exists" });
+      }
     } catch (err) {
       console.log("registration err " + err);
       return res.status(400).json({ code: 2, error: err.message });

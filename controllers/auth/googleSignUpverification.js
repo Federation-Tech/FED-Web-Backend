@@ -1,13 +1,27 @@
 const userSchema = require("../../models/user-model");
+const jwt = require('jsonwebtoken')
 
 async function googleSignUpVerification(req, res) {
   console.log("Email is ", req.body.email);
   try {
     const user = await userSchema.findOne({ email: req.body.email });
     if (user) {
-      return res
-        .status(200)
-        .json({ code: 1, email: user.email, password: user.password });
+      const token = jwt.sign(
+        {
+          username: user.email,
+          access: user.access,
+        },
+        process.env.access_token_key,
+        { expiresIn: "86400s" } // one day
+      );
+
+      console.log("login success");
+
+      user.isvalid = undefined;
+      user["password"] = undefined;
+      user["__v"] = undefined;
+
+      res.status(202).json({ status: "ok", token: token, user });
     } else {
       return res.json({ code: 4, message: "User does not exists" });
     }
