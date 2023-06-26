@@ -8,8 +8,6 @@ const sendotp = async (req, res) => {
   });
   console.log(req.body.email);
 
-  // console.log(email);
-
   if (!result) {
     return res.status(401).json({ message: "Email doesn't exist" });
   }
