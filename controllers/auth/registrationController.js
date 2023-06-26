@@ -3,7 +3,6 @@ const gravatar = require("gravatar");
 const verification = require("./verification");
 const User = require("../../models/user-model");
 
-//
 const postData = async (req, res) => {
   console.log(`Registration request received for ${req.body.email}`);
 
