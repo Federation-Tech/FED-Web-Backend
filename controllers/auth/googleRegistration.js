@@ -7,11 +7,11 @@ const postData = async (req, res) => {
   console.log(`Registration request received for ${req.body.email}`);
 
   req.body.isvalid = true;
-//   req.body.img = gravatar.url(
-//     req.body.email,
-//     { s: "200", r: "pg", d: "mm" },
-//     true
-//   );
+  req.body.img = gravatar.url(
+    req.body.email,
+    { s: "200", r: "pg", d: "mm" },
+    true
+  );
 
   if (req.body.email === "fedkiit@gmail.com") {
     req.body.access = 0;
@@ -62,7 +62,7 @@ const postData = async (req, res) => {
       });
 
       await data.save();
-      
+
       console.log("registration done");
 
       return res.status(200).json({ status: "ok" });
