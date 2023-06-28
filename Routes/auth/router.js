@@ -10,7 +10,7 @@ const updateProfile = require("../../controllers/auth/updateProfile");
 const googleRegistration = require("../../controllers/auth/googleRegistration");
 const forgetPasswordcontroller = require("../../controllers/auth/forgetPassword");
 const registrationController = require("../../controllers/auth/registrationController");
-const googleSignUpverification = require("../../controllers/auth/googleAuth");
+const googleAuth = require("../../controllers/auth/googleAuth");
 
 // mailer
 const sendMail = require("./../../mailer/beta/newMailer");
@@ -23,7 +23,7 @@ router.post("/googleregister", googleRegistration.register);
 router.post(
   "/googleverification",
   [check("email", "email is Required").not().isEmpty()],
-  googleSignUpverification.googleSignUpVerification
+  googleAuth.googleSignUp
 );
 
 //login auth
