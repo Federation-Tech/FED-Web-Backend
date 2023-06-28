@@ -16,22 +16,26 @@ async function googleSignUpVerification(req, res) {
     const user = await userSchema.findOne({ email });
 
     if (user) {
-      const token = jwt.sign(
-        {
-          username: email,
-          access: user.access,
-        },
-        process.env.access_token_key,
-        { expiresIn: "86400s" }
-      );
+      if (user.isvalid === true) {
+        const token = jwt.sign(
+          {
+            username: email,
+            access: user.access,
+          },
+          process.env.access_token_key,
+          { expiresIn: "86400s" }
+        );
 
-      console.log(`FED-TECH -> ${email} Login Success 🥳`);
+        console.log(`FED-TECH -> ${email} Login Success 🥳`);
 
-      user.isvalid = undefined;
-      user["password"] = undefined;
-      user["__v"] = undefined;
+        user.isvalid = undefined;
+        user["password"] = undefined;
 
-      res.status(202).json({ status: true, token, user });
+        res.status(202).json({ status: true, token, user });
+      } else {
+        console.log(`FED-TECH -> ${email} is not Verified [Google Login] `);
+        return res.json({ status: false, message: "verfication error" });
+      }
     } else {
       console.log(
         `FED-TECH -> User does not exists Requested by ${email} [Google Login] `
