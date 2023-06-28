@@ -20,6 +20,7 @@ router.post("/register", registrationController.register);
 router.post("/googleregister", googleRegistration.register);
 router.post(
   "/googleverification",
+  [check("email", "email is Required").not().isEmpty()],
   googleSignUpverification.googleSignUpVerification
 );
 
