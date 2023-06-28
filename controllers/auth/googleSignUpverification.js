@@ -1,5 +1,5 @@
-const userSchema = require("../../models/user-model");
 const jwt = require("jsonwebtoken");
+const userSchema = require("../../models/user-model");
 
 async function googleSignUpVerification(req, res) {
   const errors = validationResult(req);
