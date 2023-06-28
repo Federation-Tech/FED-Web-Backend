@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const userSchema = require("../../models/user-model");
+const { validationResult } = require("express-validator");
 
 async function googleSignUpVerification(req, res) {
   const errors = validationResult(req);
@@ -7,18 +8,20 @@ async function googleSignUpVerification(req, res) {
     return res.status(400).json({ errors: errors.array() });
   }
 
-  console.log("Email is ", req.body.email);
+  const { email } = req.body;
+
+  console.log(`FED-TECH -> Google Login Request by ${email}`);
 
   try {
-    const user = await userSchema.findOne({ email: req.body.email });
+    const user = await userSchema.findOne({ email });
     if (user) {
       const token = jwt.sign(
         {
-          username: user.email,
+          username: email,
           access: user.access,
         },
         process.env.access_token_key,
-        { expiresIn: "86400s" } // one day
+        { expiresIn: "86400s" }
       );
 
       console.log("login success");
@@ -27,7 +30,7 @@ async function googleSignUpVerification(req, res) {
       user["password"] = undefined;
       user["__v"] = undefined;
 
-      res.status(202).json({ status: "ok", token: token, user });
+      res.status(202).json({ status: true, token, user });
     } else {
       return res.json({ code: 4, message: "User does not exists" });
     }
