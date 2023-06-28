@@ -3,7 +3,7 @@ const gravatar = require("gravatar");
 const User = require("../../models/user-model");
 const { validationResult } = require("express-validator");
 
-const postData = async (req, res) => {
+const GoogleReg = async (req, res) => {
   console.log(`Registration request received for ${req.body.email}`);
 
   req.body.isvalid = true;
@@ -123,4 +123,5 @@ const googleSignUp = async (req, res) => {
   }
 };
 
+exports.GoogleReg = GoogleReg;
 exports.googleSignUp = googleSignUp;
