@@ -14,6 +14,7 @@ async function googleSignUpVerification(req, res) {
 
   try {
     const user = await userSchema.findOne({ email });
+
     if (user) {
       const token = jwt.sign(
         {
