@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const userSchema = require("../../models/user-model");
+const User = require("../../models/user-model");
 const { validationResult } = require("express-validator");
 
 const googleSignUp = async (req, res) => {
@@ -13,7 +13,7 @@ const googleSignUp = async (req, res) => {
   console.log(`FED-TECH -> Google Login Request by ${email}`);
 
   try {
-    const user = await userSchema.findOne({ email });
+    const user = await User.findOne({ email });
 
     if (user) {
       if (user.isvalid === true) {
