@@ -33,7 +33,7 @@ async function googleSignUpVerification(req, res) {
       res.status(202).json({ status: true, token, user });
     } else {
       console.log(
-        `FED-TECH -> User does not exists [Google Login] Request by ${email}`
+        `FED-TECH -> User does not exists Requested by ${email} [Google Login] `
       );
       return res.json({ status: false, message: "User does not exists" });
     }
