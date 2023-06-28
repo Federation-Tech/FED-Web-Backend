@@ -24,7 +24,7 @@ async function googleSignUpVerification(req, res) {
         { expiresIn: "86400s" }
       );
 
-      console.log("login success");
+      console.log(`FED-TECH -> ${email} Login Success 🥳`);
 
       user.isvalid = undefined;
       user["password"] = undefined;
@@ -32,7 +32,10 @@ async function googleSignUpVerification(req, res) {
 
       res.status(202).json({ status: true, token, user });
     } else {
-      return res.json({ code: 4, message: "User does not exists" });
+      console.log(
+        `FED-TECH -> User does not exists [Google Login] Request by ${email}`
+      );
+      return res.json({ status: false, message: "User does not exists" });
     }
   } catch (err) {
     console.log(err);
