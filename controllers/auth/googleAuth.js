@@ -34,13 +34,21 @@ const googleSignUp = async (req, res) => {
         res.status(202).json({ status: true, token, user });
       } else {
         console.log(`FED-TECH -> ${email} is not Verified [Google Login] `);
-        return res.json({ status: false, message: "verfication error" });
+        return res.json({
+          status: false,
+          code: 4,
+          message: "verfication error",
+        });
       }
     } else {
       console.log(
         `FED-TECH -> User does not exists Requested by ${email} [Google Login] `
       );
-      return res.json({ status: false, message: "User does not exists" });
+      return res.json({
+        status: false,
+        code: 2,
+        message: "User does not exists",
+      });
     }
   } catch (err) {
     console.log(err);
