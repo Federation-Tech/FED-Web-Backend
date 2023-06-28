@@ -5,12 +5,14 @@ const { check } = require("express-validator");
 
 // Controllers
 const logincontroller = require("../../controllers/auth/login");
+const verification = require("../../controllers/auth/verification");
+const updateProfile = require("../../controllers/auth/updateProfile");
+const googleRegistration = require("../../controllers/auth/googleRegistration");
 const forgetPasswordcontroller = require("../../controllers/auth/forgetPassword");
 const registrationController = require("../../controllers/auth/registrationController");
-const googleRegistration = require("../../controllers/auth/googleRegistration");
 const googleSignUpverification = require("../../controllers/auth/googleSignUpverification");
-const updateProfile = require("../../controllers/auth/updateProfile");
-const verification = require("../../controllers/auth/verification");
+
+// mailer
 const sendMail = require("./../../mailer/beta/newMailer");
 
 //registration
