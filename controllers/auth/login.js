@@ -32,7 +32,7 @@ const login = async (req, res) => {
 
       console.log(result);
 
-      res.status(202).json({ status: "ok", token: token, result });
+      res.status(202).json({ status: "ok", token, result });
     } else {
       console.log("user not verified");
       return res.status(403).json({ code: 4, error: "verfication error" });
