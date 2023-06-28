@@ -37,6 +37,8 @@ async function googleSignUpVerification(req, res) {
         return res.json({ status: false, message: "verfication error" });
       }
     } else {
+      console.log("------------------------------------- New User");
+
       console.log(
         `FED-TECH -> User does not exists Requested by ${email} [Google Login] `
       );
