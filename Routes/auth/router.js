@@ -1,5 +1,4 @@
 const express = require("express");
-const router = express.Router();
 const mongoose = require("mongoose");
 const { check } = require("express-validator");
 
@@ -14,6 +13,8 @@ const googleAuth = require("../../controllers/auth/googleAuth");
 
 // mailer
 const sendMail = require("./../../mailer/beta/newMailer");
+
+const router = express.Router();
 
 //registration
 router.post("/register", registrationController.register);
