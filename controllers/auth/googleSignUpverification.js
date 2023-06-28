@@ -2,7 +2,13 @@ const userSchema = require("../../models/user-model");
 const jwt = require("jsonwebtoken");
 
 async function googleSignUpVerification(req, res) {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
   console.log("Email is ", req.body.email);
+
   try {
     const user = await userSchema.findOne({ email: req.body.email });
     if (user) {
