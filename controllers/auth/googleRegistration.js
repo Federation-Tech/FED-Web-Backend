@@ -2,7 +2,6 @@ const registrationSchema = require("../../models/user-model");
 const gravatar = require("gravatar");
 const User = require("../../models/user-model");
 
-//
 const postData = async (req, res) => {
   console.log(`Registration request received for ${req.body.email}`);
 
