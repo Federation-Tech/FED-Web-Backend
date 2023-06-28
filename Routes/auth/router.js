@@ -18,6 +18,8 @@ const sendMail = require("./../../mailer/beta/newMailer");
 //registration
 router.post("/register", registrationController.register);
 router.post("/googleregister", googleRegistration.register);
+
+// Google Login || Public
 router.post(
   "/googleverification",
   [check("email", "email is Required").not().isEmpty()],
