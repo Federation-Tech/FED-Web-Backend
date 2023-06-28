@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const userSchema = require("../../models/user-model");
 const { validationResult } = require("express-validator");
 
-const googleSignUpVerification = async (req, res) => {
+const googleSignUp = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
@@ -49,4 +49,4 @@ const googleSignUpVerification = async (req, res) => {
   }
 };
 
-exports.googleSignUpVerification = googleSignUpVerification;
+exports.googleSignUp = googleSignUp;
