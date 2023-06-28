@@ -10,7 +10,7 @@ const updateProfile = require("../../controllers/auth/updateProfile");
 const googleRegistration = require("../../controllers/auth/googleRegistration");
 const forgetPasswordcontroller = require("../../controllers/auth/forgetPassword");
 const registrationController = require("../../controllers/auth/registrationController");
-const googleSignUpverification = require("../../controllers/auth/googleSignUpverification");
+const googleSignUpverification = require("../../controllers/auth/googleAuth");
 
 // mailer
 const sendMail = require("./../../mailer/beta/newMailer");
