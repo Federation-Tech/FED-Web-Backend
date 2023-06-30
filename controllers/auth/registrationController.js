@@ -32,6 +32,8 @@ const postData = async (req, res) => {
     College,
     MobileNo,
     selected,
+    linkedin,
+    github,
   } = req.body;
 
   const user = await User.findOne({ email });
@@ -59,6 +61,8 @@ const postData = async (req, res) => {
         College,
         MobileNo,
         selected,
+        linkedin,
+        github
       });
 
       await data.save();

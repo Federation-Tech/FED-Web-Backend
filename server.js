@@ -31,10 +31,11 @@ app.use(cookieParser());
 app.use("/auth", require("./Routes/auth/router"));
 app.use("/profile", validater, require("./Routes/profile/router"));
 app.use("/contact", require("./Routes/contact/router"));
-app.use("/member", require("./Routes/member/member"));
+app.use("/member",validater, require("./Routes/member/member"));
 
 // Routes ||  events
-app.use("/event", require("./Routes/event/router"));
+app.use("/event", validater, require("./Routes/event/router"));
+app.use("/form", validater, require("./Routes/form/router"));
 
 app.use("/oauthplayground", (req, res) => {
   console.log(req.body);
