@@ -6,6 +6,7 @@ const auth = require("./../../middleware/validator");
 
 // Public || Get All Mebers Data
 router.get("/", memberController.showMembers);
+router.get("/alumni", memberController.showAlumni);
 
 // auth
 router.use(auth);
