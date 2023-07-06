@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const mongoose = require("mongoose");
 const { check } = require("express-validator");
 
 // Controllers
@@ -9,7 +8,6 @@ const forgetPasswordcontroller = require("../../controllers/auth/forgetPassword"
 const registrationController = require("../../controllers/auth/registrationController");
 const googleRegistration = require("../../controllers/auth/googleRegistration");
 const googleSignUpverification = require("../../controllers/auth/googleSignUpverification");
-const updateProfile = require("../../controllers/auth/updateProfile");
 const verification = require("../../controllers/auth/verification");
 const sendMail = require("./../../mailer/beta/newMailer");
 
@@ -45,7 +43,5 @@ router.post("/validate", forgetPasswordcontroller.verifyotp);
 //change password
 router.post("/changepassword", forgetPasswordcontroller.resetpassword);
 
-//update profile
-router.post("/updateProfile", updateProfile.updateData);
 
 module.exports = router;

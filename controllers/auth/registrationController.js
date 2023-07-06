@@ -3,7 +3,6 @@ const gravatar = require("gravatar");
 const verification = require("./verification");
 const User = require("../../models/user-model");
 
-//
 const postData = async (req, res) => {
   console.log(`Registration request received for ${req.body.email}`);
 
@@ -33,6 +32,8 @@ const postData = async (req, res) => {
     College,
     MobileNo,
     selected,
+    linkedin,
+    github,
   } = req.body;
 
   const user = await User.findOne({ email });
@@ -60,6 +61,8 @@ const postData = async (req, res) => {
         College,
         MobileNo,
         selected,
+        linkedin,
+        github
       });
 
       await data.save();
