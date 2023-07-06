@@ -18,15 +18,40 @@ const formData = new Schema({
     type: String,
     required: true,
   },
-  formelement:{
-    type: Array,
+  formelement: [
+    {
+      name: {
+        type: String,
+        required: true,
+      },
+      type: {
+        type: String,
+        required: true,
+      },
+      value: {
+        type: String,
+        default: null,
+      },
+      valueToFill: {
+        type: String,
+        default: undefined,
+      },
+    },
+  ],
+  event: {
+    type: Schema.Types.ObjectId,
+    ref: "events",
     required: true,
   },
-  event:{
-    type: Schema.Types.ObjectId, 
-    ref: 'events',
-    required: true
-  }
+  active: {
+    type: Boolean,
+    default: true,
+  },
+  maxReg: {
+    type: Number,
+    required: true,
+    default: 1,
+  },
 });
 
 module.exports = mongoose.model("form", formData);

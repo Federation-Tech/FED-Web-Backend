@@ -2,7 +2,7 @@ const User = require("../../models/user-model");
 
 async function getdata(req, res) {
   try {
-    var result = await User.find({ email: req.body.user }).exec();
+    var result = await User.find({ email: req.user.email }).exec();
     if (result[0]) {
       var data = {};
       data.email = result[0].email;
