@@ -86,12 +86,14 @@ const addEvent = async (req, res) => {
 const editEvent = async (req, res) => {
   try {
     const eventId = req.params.id;
+    console.log("Event id->",eventId);
     //validation
     if (res.locals.userData.access == "0") {
       let getevent;
 
       try {
         getevent = await db.findById(eventId);
+        console.log("getEvent->",getevent);
       } catch (err) {
         console.log(err);
         return res
@@ -108,6 +110,7 @@ const editEvent = async (req, res) => {
           .status(404)
           .json({ success: false, message: "Event with this id not found" });
       }
+      console.log(req.body);
       getevent.title = title;
       getevent.date = date;
       getevent.image = image;
@@ -116,7 +119,7 @@ const editEvent = async (req, res) => {
       getevent.month = month;
       try {
         await getevent.save();
-        res.status(200).json({ success: true });
+        res.status(200).json({ success: true , event: getevent});
       } catch (err) {
         console.log(err);
         res
@@ -135,13 +138,14 @@ const editEvent = async (req, res) => {
 //delete event
 const deleteEvent = async (req, res) => {
   try {
-    const { id } = req.params;
+    const {id}  = req.params;
+    console.log("ID:",id);
 
     // admin validation
     if (res.locals.userData.access == "0") {
       await db.findByIdAndDelete(id);
 
-      res.status(200).send({
+      res.status(200).json({
         success: true,
         message: "event deleted successfully",
       });

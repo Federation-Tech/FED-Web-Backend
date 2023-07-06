@@ -3,11 +3,14 @@ const connectDB = require("./config/db");
 const cookieParser = require("cookie-parser");
 const validater = require("./middleware/validator");
 const app = express();
+const cors = require("cors");
 
 require("dotenv").config();
 
 connectDB();
 
+
+app.use(cors());
 app.use(express.json());
 
 app.use((req, res, next) => {
