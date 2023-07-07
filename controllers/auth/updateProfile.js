@@ -1,6 +1,11 @@
 const userSchema = require("../../models/user-model");
+const { validationResult } = require("express-validator");
 
 const updateData = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
   console.log(`Updation request received for ${req.body.email}`);
   try {
     const { email, name, RollNumber, School, College, MobileNo, selected } =

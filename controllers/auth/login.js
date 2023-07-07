@@ -1,8 +1,13 @@
 const jwt = require("jsonwebtoken");
 const User = require("../../models/user-model");
 require("dotenv").config();
+const { validationResult } = require("express-validator");
 
 const login = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
   console.log(`login request received ${req.body.username}`);
 
   const result = await User.find({
