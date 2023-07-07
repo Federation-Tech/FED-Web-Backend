@@ -22,7 +22,7 @@ const registrationData = new Schema({
   extradata: {
     type: Array,
     required: true,
-  }, // array of objects
+  },
   isvalid: {
     type: Boolean,
     required: true,
