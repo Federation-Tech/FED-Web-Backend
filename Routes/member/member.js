@@ -24,7 +24,14 @@ router.post(
   memberController.addMembers
 );
 
-router.post("/delMember", memberController.delMembers);
+router.post(
+  "/delMember",
+  [
+    check("user", "user is Required").not().isEmpty(),
+    check("email", "email is Required").not().isEmpty(),
+  ],
+  memberController.delMembers
+);
 
 router.post(
   "/addAlumni",

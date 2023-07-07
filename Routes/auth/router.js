@@ -17,7 +17,23 @@ const sendMail = require("./../../mailer/beta/newMailer");
 const router = express.Router();
 
 //registration
-router.post("/register", registrationController.register);
+router.post(
+  "/register",
+  [
+    check("email", "email is Required").not().isEmpty(),
+    check("password", "password is Required").not().isEmpty(),
+    check("name", "name is Required").not().isEmpty(),
+    check("access", "access is Required").not().isEmpty(),
+    check("isvalid", "isvalid is Required").not().isEmpty(),
+    check("img", "img is Required").not().isEmpty(),
+    check("RollNumber", "RollNumber is Required").not().isEmpty(),
+    check("School", "School is Required").not().isEmpty(),
+    check("College", "College is Required").not().isEmpty(),
+    check("MobileNo", "MobileNo is Required").not().isEmpty(),
+    check("selected", "selected is Required").not().isEmpty(),
+  ],
+  registrationController.register
+);
 router.post("/googleregister", googleRegistration.register);
 
 // Google Login || Public
@@ -28,7 +44,14 @@ router.post(
 );
 
 //login auth
-router.post("/login", logincontroller.login);
+router.post(
+  "/login",
+  [
+    check("username", "username is Required").not().isEmpty(),
+    check("password", "password is Required").not().isEmpty(),
+  ],
+  logincontroller.login
+);
 
 //email verification link
 router.get("/verification/:token", verification.verify);
@@ -36,22 +59,54 @@ router.get("/verification/:token", verification.verify);
 // send mail
 router.post(
   "/sendEmail",
-  [check("email", "email is Required").not().isEmpty()],
-  [check("message", "message is Required").not().isEmpty()],
-  [check("name", "name is Required").not().isEmpty()],
+  [
+    check("email", "email is Required").not().isEmpty(),
+    check("message", "message is Required").not().isEmpty(),
+    check("name", "name is Required").not().isEmpty(),
+  ],
   sendMail.sendEmail
 );
 
 //send otp
-router.post("/sendotp", forgetPasswordcontroller.sendotp);
+router.post(
+  "/sendotp",
+  [check("email", "email is Required").not().isEmpty()],
+  forgetPasswordcontroller.sendotp
+);
 
 //validate otp
-router.post("/validate", forgetPasswordcontroller.verifyotp);
+router.post(
+  "/validate",
+  [
+    check("email", "email is Required").not().isEmpty(),
+    check("otp", "otp is Required").not().isEmpty(),
+  ],
+  forgetPasswordcontroller.verifyotp
+);
 
 //change password
-router.post("/changepassword", forgetPasswordcontroller.resetpassword);
+router.post(
+  "/changepassword",
+  [
+    check("email", "email is Required").not().isEmpty(),
+    check("password", "password is Required").not().isEmpty(),
+  ],
+  forgetPasswordcontroller.resetpassword
+);
 
 //update profile
-router.post("/updateProfile", updateProfile.updateData);
+router.post(
+  "/updateProfile",
+  [
+    check("email", "email is Required").not().isEmpty(),
+    check("name", "name is Required").not().isEmpty(),
+    check("RollNumber", "RollNumber is Required").not().isEmpty(),
+    check("School", "School is Required").not().isEmpty(),
+    check("College", "College is Required").not().isEmpty(),
+    check("MobileNo", "MobileNo is Required").not().isEmpty(),
+    check("selected", "selected is Required").not().isEmpty(),
+  ],
+  updateProfile.updateData
+);
 
 module.exports = router;
