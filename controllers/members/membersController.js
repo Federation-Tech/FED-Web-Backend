@@ -6,7 +6,7 @@ const User = require("../../models/user-model");
 
 const showMembers = async (req, res) => {
   const users = await User.find({
-    access: { $nin: [1, 7] },
+    access: { $nin: [0, 1, 7] },
     isvalid: true,
   });
 
