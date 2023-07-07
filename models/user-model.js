@@ -55,6 +55,10 @@ const registrationData = new Schema({
     type: String,
     required: true,
   },
+  hashID: {
+    type: String,
+    default: "00HLk~",
+  },
 });
 
 module.exports = mongoose.model("userdb", registrationData);

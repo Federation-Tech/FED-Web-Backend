@@ -26,7 +26,7 @@ const addMembers = async (req, res) => {
     return res.status(400).json({ errors: errors.array() });
   }
 
-  const { name, access, email, img } = req.body;
+  const { name, access, email, img, hashID } = req.body;
   const user = await User.findOne({ email });
 
   if (user) {
@@ -81,6 +81,7 @@ const addMembers = async (req, res) => {
             College: "None",
             MobileNo: "None",
             selected: "None",
+            hashID: hashID,
           },
         },
         { upsert: true }
