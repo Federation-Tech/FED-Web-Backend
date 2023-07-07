@@ -19,7 +19,7 @@ router.post(
     check("access", "access is Required").not().isEmpty(),
     check("email", "email is Required").not().isEmpty(),
     check("img", "img is Required").not().isEmpty(),
-    check("hashID", "hashID is Required").not().isEmpty(),
+    check("blur", "blur is Required").not().isEmpty(),
   ],
 
   memberController.addMembers
