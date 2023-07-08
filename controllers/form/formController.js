@@ -12,7 +12,6 @@ async function getForm(req, res, next) {
     var error = new HttpError();
     error.code = 500;
     error.message = "No data found";
-    error.name = "no data found";
   }
 }
 
@@ -49,7 +48,7 @@ async function addForm(req, res, next) {
 
 
 async function updateForm(req, res, next) {
-  const { title, description, amount, priority, formdata, formid } = req.body;
+  const { title, description, amount, priority, formdata, formid,maxReg,event } = req.body;
   const { access } = res.locals.userData;
   try {
     if (access == 0) {
@@ -59,6 +58,8 @@ async function updateForm(req, res, next) {
         amount,
         priority,
         formdata,
+        maxReg,
+        event
       });
       await updatedForm.save();
       res.sendStatus(200);
@@ -96,7 +97,28 @@ async function deleteForm(req, res, next) {
   }
 }
 
+async function toggleForm(req, res, next) {
+  const { formid } = req.query;
+  const { access } = res.locals.userData;
+  try {
+    if (access == 0) {
+      formDb.findByIdAndUpdate(formid,{active:!active})
+      res.sendStatus(200);
+    } else {
+      const error = new HttpError();
+      error.code = 403;
+      error.message = "Permission Denied";
+      next(error);
+    }
+  } catch (e) {
+    error.code = 400;
+    error.message = "Invalid Data";
+    next(error);
+  }
+}
+
 exports.addForm = addForm;
 exports.getForm = getForm;
 exports.updateForm = updateForm;
 exports.deleteForm = deleteForm;
+exports.toggleForm = toggleForm;
