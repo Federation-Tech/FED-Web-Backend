@@ -8,12 +8,14 @@ module.exports = (req, res, next) => {
 
   try {
     const token = req.headers.authorization;
+    console.log("token->",token);
 
     if (!token) {
       const error = new HttpError("Authentication failed!", 401);
       return next(error);
     }
     const decodedToken = jwt.verify(token, process.env.access_token_key);
+    console.log('decoded Token ->', decodedToken );
 
     res.locals.userData = {
       userEmail: decodedToken.username,

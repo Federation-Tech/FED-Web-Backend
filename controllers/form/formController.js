@@ -20,14 +20,16 @@ async function getForm(req, res, next) {
 async function addForm(req, res, next) {
   const { title, description, amount, priority, formdata, event } = req.body;
   const { access } = res.locals.userData;
+  console.log("Req->",req.body);
+  console.log("Access->",access);
   try {
-    if (access == 0) {
+    if (access == "0") {
       const updatedForm = new formDb({
         title,
         description,
         amount,
         priority,
-        formdata,
+        formelement:formdata,
         event,
       });
       await updatedForm.save();
