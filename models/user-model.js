@@ -16,6 +16,6 @@ const registrationData = new Schema({
   selected: { type: String, required: true },
   linkedin:{type:String,default:"NA"},
   github:{type:String,default:"NA"},
-  regForm:[{type:Schema.Types.ObjectId,ref:'form',unique:true}]
+  regForm:[{type:Schema.Types.ObjectId,ref:'form'}]
 })
 module.exports = mongoose.model("userdb", registrationData);

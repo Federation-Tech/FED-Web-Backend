@@ -21,4 +21,7 @@ router.delete("/deleteForm", formController.deleteForm);
 //register Form
 router.post("/register", formRegistration.register);
 
+//register Form
+router.get("/registration", formRegistration.fetchRegistrations);
+
 module.exports = router;
