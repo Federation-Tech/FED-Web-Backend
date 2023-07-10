@@ -34,6 +34,9 @@ router.post("/login", logincontroller.login);
 router.get("/verification/:token", verification.verify);
 
 // send mail
+router.get("/resendMail/:email", verification.resendMail);
+
+// send mail
 router.post(
   "/sendEmail",
   [check("email", "email is Required").not().isEmpty()],
