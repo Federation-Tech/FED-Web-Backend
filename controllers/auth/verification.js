@@ -52,11 +52,13 @@ async function sendverficationmail(email, name) {
 }
 
 async function resendMail(req, res, next) {
+  const { email } = req.params;
   try {
-    var user = await userModel.find({ email: req.query.mail }).exec();
+    var user = await userModel.find({ email: email }).exec();
+    console.log(user);
     user.isvalid || sendverficationmail(user[0].email, user[0].name);
   } catch (err) {
-    log(err)
+    log(err);
     return res.status(500).send(err);
   }
   res.send("ok");

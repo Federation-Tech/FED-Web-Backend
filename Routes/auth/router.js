@@ -14,7 +14,10 @@ const sendMail = require("./../../mailer/beta/newMailer");
 //registration
 router.post("/register", registrationController.register);
 router.post("/googleregister", googleRegistration.register); //google sign-up
-router.post("/googleverification", googleSignUpverification.googleSignUpVerification);//google sign-in
+router.post(
+  "/googleverification",
+  googleSignUpverification.googleSignUpVerification
+); //google sign-in
 
 //login auth
 router.post("/login", logincontroller.login);
@@ -23,7 +26,7 @@ router.post("/login", logincontroller.login);
 router.get("/verification/:token", verification.verify);
 
 // send mail
-router.get("/resendMail",verification.resendMail)
+router.get("/resendMail/:email", verification.resendMail);
 
 //send otp
 router.post("/sendotp", forgetPasswordcontroller.sendotp);
@@ -33,8 +36,6 @@ router.post("/validate", forgetPasswordcontroller.verifyotp);
 
 //change password
 router.post("/changepassword", forgetPasswordcontroller.resetpassword);
-
-
 
 // router.post(
 //     "/sendEmail",
