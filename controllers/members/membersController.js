@@ -131,8 +131,7 @@ const addAlumni = async (req, res) => {
 
 const deleteMember = async (req, res) => {
   try {
-    var result = await User.findOne({ email: req.body.user });
-    if (result.access == 0) {
+    if (req.user.access == 0) {
       await User.updateOne(
         {
           $and: [{ email: req.body.email }, { access: { $not: { $eq: "0" } } }],

@@ -6,8 +6,6 @@ const app = express();
 
 require("dotenv").config();
 
-connectDB();
-
 app.use(express.json());
 
 app.use((req, res, next) => {
@@ -31,10 +29,11 @@ app.use(cookieParser());
 app.use("/auth", require("./Routes/auth/router"));
 app.use("/profile", validater, require("./Routes/profile/router"));
 app.use("/contact", require("./Routes/contact/router"));
-app.use("/member", require("./Routes/member/member"));
+app.use("/member",validater, require("./Routes/member/member"));
 
 // Routes ||  events
 app.use("/event", require("./Routes/event/router"));
+app.use("/form", validater, require("./Routes/form/router"));
 
 app.use("/oauthplayground", (req, res) => {
   console.log(req.body);
@@ -44,6 +43,9 @@ app.use("/oauthplayground", (req, res) => {
 app.get("/AsUrbqAPHuicUMy3", (req, res) => {
   return res.status(404).send("Hello Server");
 });
+app.get("/validatetest",validater,(req,res,next)=>{
+  res.send("success")
+})
 
 // Error Page
 app.use("*", (req, res) => {
@@ -51,6 +53,7 @@ app.use("*", (req, res) => {
   return res.status(404).send("404 not found");
 });
 
-app.listen(process.env.PORT, () => {
+app.listen(process.env.PORT, async () => {
+  await connectDB(process.env.database);
   console.log(`FED-TECH -> Server is running on Port ${process.env.PORT}`);
 });
