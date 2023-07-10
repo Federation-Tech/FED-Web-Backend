@@ -1,7 +1,9 @@
 const jwt = require("jsonwebtoken");
 const db = require("../../models/user-model");
 const mailer = require("../../mailer/mailer");
-const path = require('path');
+const path = require("path");
+const userModel = require("../../models/user-model");
+const { log } = require("console");
 
 async function verfication(req, res) {
   console.log("verification request received");
@@ -11,8 +13,9 @@ async function verfication(req, res) {
   var vemail = await jwt.verify(token, process.env.verification_token_key);
 
   await db.findOneAndUpdate({ email: vemail }, { isvalid: true });
-  res.sendFile(path.join(__dirname, '../', 'verified', 'index.html'));
+  res.sendFile(path.join(__dirname, "../", "verified", "index.html"));
 }
+
 async function sendverficationmail(email, name) {
   var mail = {
     to: email,
@@ -48,5 +51,16 @@ async function sendverficationmail(email, name) {
   console.log(await mailer.sendMail(mail));
 }
 
+async function resendMail(req, res, next) {
+  try {
+    var user = await userModel.find({ email: req.query.mail }).exec();
+    user.isvalid || sendverficationmail(user[0].email, user[0].name);
+  } catch (err) {
+    log(err)
+    return res.status(500).send(err);
+  }
+  res.send("ok");
+}
 exports.verify = verfication;
 exports.mail = sendverficationmail;
+exports.resendMail = resendMail;

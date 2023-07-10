@@ -1,46 +1,29 @@
 const express = require("express");
-const mongoose = require("mongoose");
+const router = express.Router();
 const { check } = require("express-validator");
 
 // Controllers
 const logincontroller = require("../../controllers/auth/login");
-const verification = require("../../controllers/auth/verification");
-const updateProfile = require("../../controllers/auth/updateProfile");
-const googleRegistration = require("../../controllers/auth/googleRegistration");
 const forgetPasswordcontroller = require("../../controllers/auth/forgetPassword");
 const registrationController = require("../../controllers/auth/registrationController");
-const googleAuth = require("../../controllers/auth/googleAuth");
-
-// mailer
+const googleRegistration = require("../../controllers/auth/googleRegistration");
+const googleSignUpverification = require("../../controllers/auth/googleSignUpverification");
+const verification = require("../../controllers/auth/verification");
 const sendMail = require("./../../mailer/beta/newMailer");
-
-const router = express.Router();
 
 //registration
 router.post("/register", registrationController.register);
-router.post("/googleregister", googleRegistration.register);
-
-// Google Login || Public
-router.post(
-  "/googleverification",
-  [check("email", "email is Required").not().isEmpty()],
-  googleAuth.googleSignUp
-);
+router.post("/googleregister", googleRegistration.register); //google sign-up
+router.post("/googleverification", googleSignUpverification.googleSignUpVerification);//google sign-in
 
 //login auth
 router.post("/login", logincontroller.login);
 
-//email verification link
+//email verification link check
 router.get("/verification/:token", verification.verify);
 
 // send mail
-router.post(
-  "/sendEmail",
-  [check("email", "email is Required").not().isEmpty()],
-  [check("message", "message is Required").not().isEmpty()],
-  [check("name", "name is Required").not().isEmpty()],
-  sendMail.sendEmail
-);
+router.get("/resendMail",verification.resendMail)
 
 //send otp
 router.post("/sendotp", forgetPasswordcontroller.sendotp);
@@ -51,7 +34,13 @@ router.post("/validate", forgetPasswordcontroller.verifyotp);
 //change password
 router.post("/changepassword", forgetPasswordcontroller.resetpassword);
 
-//update profile
-router.post("/updateProfile", updateProfile.updateData);
 
+
+// router.post(
+//     "/sendEmail",
+//     [check("email", "email is Required").not().isEmpty()],
+//     [check("message", "message is Required").not().isEmpty()],
+//     [check("name", "name is Required").not().isEmpty()],
+//     sendMail.sendEmail
+//   );
 module.exports = router;
