@@ -23,6 +23,7 @@ router.post("/login", logincontroller.login);
 router.get("/verification/:token", verification.verify);
 
 // send mail
+router.get("/resendMail",verification.resendMail)
 
 //send otp
 router.post("/sendotp", forgetPasswordcontroller.sendotp);
