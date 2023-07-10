@@ -11,13 +11,13 @@ const connectDB = async (db) => {
     await mongoose.connect(finalurl, {
       useNewUrlParser: true,
     });
+    console.log("moongoose connected")
+    await client.connect()
+    console.log("moongoClient connected")
     console.log("FED-TECH -> Database Connected!!");
   } catch (error) {
     console.log("FED-TECH -> Database connection error 😢");
   }
-  console.log("moongoose connected")
-  await client.connect()
-  console.log("moongoClient connected")
 };
 
 module.exports = connectDB;

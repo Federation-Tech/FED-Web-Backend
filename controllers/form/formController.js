@@ -38,6 +38,7 @@ async function addForm(req, res, next) {
       next(error);
     }
   } catch (e) {
+    console.log(e)
     error.code = 400;
     error.message = "Invalid Data";
     next(error);
@@ -50,7 +51,7 @@ async function updateForm(req, res, next) {
   const { access } = res.locals.userData;
   try {
     if (access == 0) {
-      const updatedForm = new formDb.findByIdAndUpdate(formid,{
+      const updatedForm = formDb.findByIdAndUpdate(formid,{
         title,
         description,
         amount,

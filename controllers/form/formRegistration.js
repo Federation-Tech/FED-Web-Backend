@@ -3,7 +3,6 @@ const client = require("../../config/db").mongoClient;
 const userDb = require("../../models/user-model");
 const formDb = require("../../models/form");
 const HttpError = require("../../models/HttpError");
-const _ = require("lodash");
 var error = new HttpError();
 error.name = "formRegistration";
 
@@ -20,7 +19,7 @@ async function registerForm(req, res, next) {
     var validReg = true;
     var user = await userDb
       .findById(reqUser._id)
-      .select("regForm")
+      .select("regForm access")
       .populate("regForm")
       .exec();
     var formUnderEventLessPriority = await formDb
@@ -39,9 +38,14 @@ async function registerForm(req, res, next) {
       });
       return result;
     });
+    console.log(validReg)
     validReg &&= user.regForm.every((element) => element._id != formid); //check for duplicate entry
+    console.log(validReg)
     validReg &&= totalRegistrationUntillNow < form.maxReg; //check for max registration
-    validReg &&= user.access == 1 // check for participant only registrations
+    console.log(validReg)
+    console.log(user.access)
+    validReg &&= user.access == "1" // check for participant only registrations
+    console.log(validReg)
     if (validReg) {
       var result = await client
         .db(form.event.title.replace(" ", "_"))
