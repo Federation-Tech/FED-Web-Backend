@@ -38,14 +38,9 @@ async function registerForm(req, res, next) {
       });
       return result;
     });
-    console.log(validReg)
     validReg &&= user.regForm.every((element) => element._id != formid); //check for duplicate entry
-    console.log(validReg)
     validReg &&= totalRegistrationUntillNow < form.maxReg; //check for max registration
-    console.log(validReg)
-    console.log(user.access)
     validReg &&= user.access == "1" // check for participant only registrations
-    console.log(validReg)
     if (validReg) {
       var result = await client
         .db(form.event.title.replace(" ", "_"))

@@ -7,8 +7,7 @@ const connectDB = async (db) => {
   try {
     console.log("DB connection started")
     var url = process.env.mongoURL
-    var finalurl = url.slice(0,url.lastIndexOf("/")+1)+db+url.slice(url.lastIndexOf("/")+1)
-    await mongoose.connect(finalurl, {
+    await mongoose.connect(url, {
       useNewUrlParser: true,
     });
     console.log("moongoose connected")

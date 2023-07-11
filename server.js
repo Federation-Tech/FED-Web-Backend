@@ -55,7 +55,7 @@ app.use("*", (req, res) => {
   return res.status(404).send("404 not found");
 });
 app.listen(process.env.PORT, async () => {
-  await connectDB(process.env.database);
+  await connectDB();
   console.log(`FED-TECH -> Server is running on Port ${process.env.PORT}`);
 });
 
