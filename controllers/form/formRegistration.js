@@ -60,7 +60,7 @@ async function registerForm(req, res, next) {
     }
   } catch (err) {
     //server error
-    console.log(err);
+    next(err)
   }
 }
 

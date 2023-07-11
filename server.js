@@ -26,7 +26,16 @@ app.use((req, res, next) => {
 });
 
 app.use(cookieParser());
-
+app.use((req,res,next)=>{
+  var log = {}
+  log.time = new Date()
+  log.url = req.url
+  log.data = req.body
+  log.header = req.headers.authorization
+  log.queries = req.query
+  log.params = req.params
+  console.log(log)
+})
 // Routes
 app.use("/auth", require("./Routes/auth/router"));
 app.use("/profile", validater, require("./Routes/profile/router"));
