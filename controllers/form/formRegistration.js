@@ -98,6 +98,7 @@ async function fetchRegistrations(req, res, next) {
       throw "";
     }
   } catch (err) {
+    error.message = err
     next(error);
   }
 }
