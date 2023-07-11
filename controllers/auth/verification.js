@@ -9,17 +9,20 @@ var error = new HttpError();
 error.name = "verification";
 
 async function verfication(req, res) {
-  try{
+  try {
     console.log("verification request received");
 
-  var token = req.params.token;
+    var token = req.params.token;
 
-  var vemail = await jwt.verify(token, process.env.verification_token_key);
+    var vemail = await jwt.verify(token, process.env.verification_token_key);
 
-  await db.findOneAndUpdate({ email: vemail }, { isvalid: true });
-  res.sendFile(
-    path.join(__dirname, "../../html-files", "verified", "index.html")
-  );
+    await db.findOneAndUpdate({ email: vemail }, { isvalid: true });
+    res.sendFile(
+      path.join(__dirname, "../../html-files", "verified", "index.html")
+    );
+  } catch (err) {
+    next(error);
+  }
 }
 
 async function sendverficationmail(email, name) {
