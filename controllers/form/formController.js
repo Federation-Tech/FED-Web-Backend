@@ -1,7 +1,18 @@
 const formDb = require("../../models/form");
 const HttpError = require("../../models/HttpError");
+const userModel = require("../../models/user-model");
 var error = new HttpError
 error.name = "formController"
+
+async function getUserForm(req,res,next){
+  try{
+    const form = await userModel.findById(req.user._id).exec()
+    res.json(form.regForm)
+  }catch(err){
+    error.message = err
+    next(error)
+  }
+}
 
 async function getForm(req, res, next) {
   const { eventid } = req.query;
@@ -121,3 +132,4 @@ exports.getForm = getForm;
 exports.updateForm = updateForm;
 exports.deleteForm = deleteForm;
 exports.toggleForm = toggleForm;
+exports.getuserform = getUserForm;

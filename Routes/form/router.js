@@ -6,6 +6,9 @@ const formRegistration = require("../../controllers/form/formRegistration");
 //get Form
 router.get("/getform", formController.getForm);
 
+//get Form
+router.get("/getuserform", formController.getuserform);
+
 //toggle Form
 router.get("/toggleform", formController.toggleForm);
 
