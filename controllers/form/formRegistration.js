@@ -8,20 +8,25 @@ error.name = "formRegistration";
 
 async function registerForm(req, res, next) {
   const { formid } = req.body;
+
   try {
     const form = await formDb.findById(formid).populate("event").exec();
+
     const totalRegistrationUntillNow = await client
       .db(form.event.title.replace(" ", "_"))
       .collection(form.title.replace(" ", "_"))
       .countDocuments();
 
     const reqUser = req.user;
+
     var validReg = true;
+
     var user = await userDb
       .findById(reqUser._id)
       .select("regForm access")
       .populate("regForm")
       .exec();
+
     var formUnderEventLessPriority = await formDb
       .find({
         $and: [{ event: form.event._id }, { priority: { $lt: form.priority } }],
@@ -38,9 +43,11 @@ async function registerForm(req, res, next) {
       });
       return result;
     });
+
     validReg &&= user.regForm.every((element) => element._id != formid); //check for duplicate entry
     validReg &&= totalRegistrationUntillNow < form.maxReg; //check for max registration
-    validReg &&= user.access == "1" // check for participant only registrations
+    validReg &&= user.access == 1; // check for participant only registrations
+
     if (validReg) {
       var result = await client
         .db(form.event.title.replace(" ", "_"))
@@ -64,30 +71,36 @@ async function registerForm(req, res, next) {
   }
 }
 
-async function fetchRegistrations(req,res,next){
-  try{
-    const {formid} = req.query
-    if(req.user.access == 0){
-      const form = await formDb.findById(formid).populate("event")
+async function fetchRegistrations(req, res, next) {
+  try {
+    const { formid } = req.query;
+    if (req.user.access == 0) {
+      const form = await formDb.findById(formid).populate("event");
       var result = await client
         .db(form.event.title.replace(" ", "_"))
         .collection(form.title.replace(" ", "_"))
-        .find()
-      result = await result.toArray()
-      var final = await Promise.all(result.map(async(registration)=>{
-        registration.userdata = await userDb.findById(registration.user).select("name email school college RollNumber MobileNo linkedin github extradata")
-        return registration
-      }))
-      return res.json(final)
-    }else{
-      error.code = 403
-      error.message = "Permission Denied"
-      throw ""
+        .find();
+      result = await result.toArray();
+      var final = await Promise.all(
+        result.map(async (registration) => {
+          registration.userdata = await userDb
+            .findById(registration.user)
+            .select(
+              "name email school college RollNumber MobileNo linkedin github extradata"
+            );
+          return registration;
+        })
+      );
+      return res.json(final);
+    } else {
+      error.code = 403;
+      error.message = "Permission Denied";
+      throw "";
     }
-  }catch(err){
-    next(error)
+  } catch (err) {
+    next(error);
   }
-
 }
+
 exports.register = registerForm;
-exports.fetchRegistrations = fetchRegistrations
+exports.fetchRegistrations = fetchRegistrations;

@@ -30,7 +30,7 @@ const login = async (req, res) => {
       delete result[0]["password"];
       delete result[0]["__v"];
 
-      res.status(202).json({ status: "ok", token, result });
+      res.status(202).json({ status: true, token, result });
     } else {
       console.log("user not verified");
       return res.status(403).json({ code: 4, error: "verfication error" });
