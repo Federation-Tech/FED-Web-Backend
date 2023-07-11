@@ -30,7 +30,57 @@ const sendotp = async (req, res) => {
     mailer.sendMail({
       to: email,
       subject: "Please verify your otp",
-      text: `Please enter the following otp '${otp}' for proceeding forward`,
+      html: `<!DOCTYPE html>
+      <html lang="en">
+      <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Document</title>
+      </head>
+      <body style="margin: 0; padding: 0; background-color: #ffffff;">
+          <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
+              <tr>
+                  <td align="center" valign="top">
+                      <img src="https://uploads-ssl.webflow.com/64ac127c9ddbf3f3a5b1b180/64ac1308de87a793459f627a_Header.png" alt="" style="max-width: 100%;">
+                  </td>
+              </tr>
+              <tr>
+                  <td align="center" valign="top" style="padding: 40px 10px;">
+                      <div>
+                          <img src="https://uploads-ssl.webflow.com/64ac127c9ddbf3f3a5b1b180/64ac53cb1ba4fe4430f66d96_image%20272.png" alt="" style="max-width: 100%;">
+                      </div>
+                      <div style="position: relative; margin-top: -220px;">
+                          <p style="font-family: 'Rubik', sans-serif; font-size: 24px; font-weight: 400;top:40px; line-height: 28px; text-align: center; color: #000000;">
+                              Hi user, I am Scarlett.
+                          </p>
+                          <p style="font-family: 'Rubik', sans-serif; font-size: 24px; font-weight: 400; line-height: 28px; text-align: center; color: #000000;">
+                              Please enter the following
+                          </p>
+                          <p style="font-family: 'Rubik', sans-serif; font-size: 50px; font-weight: 400; line-height: 28px; text-align: center; color: #000000;">
+                              OTP
+                          </p>
+                          <p style="font-family: 'Rubik', sans-serif; font-size: 50px; font-weight: 400; line-height: 28px; text-align: center; color: #000000;">
+                              '${otp}'
+                          </p>
+                          <p style="font-family: 'Rubik', sans-serif; font-size: 24px; font-weight: 400; line-height: 28px; text-align: center; color: #000000;">
+                              for proceeding forward.
+                          </p>
+                          <p style="font-family: 'Rubik', sans-serif; font-size: 22px; font-weight: 600; line-height: 26px; text-align: center; color: #000000; margin-top: 40px;">
+                              Thanking You
+                          </p>
+                          <p style="font-family: 'Rubik', sans-serif; font-size: 22px; font-weight: 600; line-height: 26px; text-align: center; color: #000000;">
+                              With Regards,
+                          </p>
+                          <p style="font-family: 'Rubik', sans-serif; font-size: 22px; font-weight: 600; line-height: 26px; text-align: center; color: #000000;">
+                              Team FED
+                          </p>
+                      </div>
+                  </td>
+              </tr>
+          </table>
+      </body>
+      </html>
+      `,
     });
 
     // console.log("OTP sent");

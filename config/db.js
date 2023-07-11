@@ -1,6 +1,6 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
-const { MongoClient} = require("mongodb");
+const { MongoClient } = require("mongodb");
 const client = new MongoClient(process.env.mongoURL);
 
 const connectDB = async (db) => {
@@ -20,4 +20,4 @@ const connectDB = async (db) => {
 };
 
 module.exports = connectDB;
-module.exports.mongoClient = client
+module.exports.mongoClient = client;

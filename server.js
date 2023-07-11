@@ -40,7 +40,7 @@ app.use((req,res,next)=>{
 app.use("/auth", require("./Routes/auth/router"));
 app.use("/profile", validater, require("./Routes/profile/router"));
 app.use("/contact", require("./Routes/contact/router"));
-app.use("/member",validater, require("./Routes/member/member"));
+app.use("/member", validater, require("./Routes/member/member"));
 
 // Routes ||  events
 app.use("/event", require("./Routes/event/router"));
@@ -54,18 +54,19 @@ app.use("/oauthplayground", (req, res) => {
 app.get("/AsUrbqAPHuicUMy3", (req, res) => {
   return res.status(404).send("Hello Server");
 });
-app.get("/validatetest",validater,(req,res,next)=>{
-  res.send("success")
-})
+app.get("/validatetest", validater, (req, res, next) => {
+  res.send("success");
+});
 
 // Error Page
 app.use("*", (req, res) => {
-  console.log("error 404");
+  console.log("FED-TECH -> Error 404 - Route Not found");
   return res.status(404).send("404 not found");
 });
 app.listen(process.env.PORT, async () => {
   await connectDB();
   console.log(`FED-TECH -> Server is running on Port ${process.env.PORT}`);
+  await connectDB(process.env.database);
 });
 
 //https setup
