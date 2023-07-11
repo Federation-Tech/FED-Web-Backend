@@ -7,7 +7,7 @@ error.name = "formController"
 async function getUserForm(req,res,next){
   try{
     const form = await userModel.findById(req.user._id).exec()
-    res.json(form.regForm)
+    res.json(form.regForm.includes(req.query.formid))
   }catch(err){
     error.message = err
     next(error)
