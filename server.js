@@ -35,6 +35,7 @@ app.use((req,res,next)=>{
   log.queries = req.query
   log.params = req.params
   console.log(log)
+  next()
 })
 // Routes
 app.use("/auth", require("./Routes/auth/router"));
