@@ -8,7 +8,7 @@ const login = async (req, res) => {
   const result = await User.find({
     email: req.body.username,
   }).exec();
-
+  console.log(result)
   if (!result[0]) {
     return res.status(401).json({ code: 2, message: "invalid credential" });
   }

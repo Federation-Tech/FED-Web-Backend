@@ -70,16 +70,4 @@ app.listen(process.env.PORT, async () => {
   await connectDB(process.env.database);
 });
 
-//https setup
-const privateKey = fs.readFileSync('/etc/letsencrypt/live/api.fedkiit.com/privkey.pem', 'utf8');
-const certificate = fs.readFileSync('/etc/letsencrypt/live/api.fedkiit.com/cert.pem', 'utf8');
-const ca = fs.readFileSync('/etc/letsencrypt/live/api.fedkiit.com/chain.pem', 'utf8');
-const credentials = {
-	key: privateKey,
-	cert: certificate,
-	ca: ca
-};
-https.createServer(credentials,app).listen(443,()=>{
-  console.log("Https server running on 443")
-})
 
