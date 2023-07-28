@@ -70,4 +70,3 @@ app.listen(process.env.PORT, async () => {
   await connectDB(process.env.database);
 });
 
-
