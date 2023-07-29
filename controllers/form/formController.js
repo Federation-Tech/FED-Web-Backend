@@ -1,7 +1,18 @@
 const formDb = require("../../models/form");
 const HttpError = require("../../models/HttpError");
+const userModel = require("../../models/user-model");
 var error = new HttpError
 error.name = "formController"
+
+async function getUserForm(req,res,next){
+  try{
+    const form = await userModel.findById(req.user._id).exec()
+    res.json(form.regForm.includes(req.query.formid))
+  }catch(err){
+    error.message = err
+    next(error)
+  }
+}
 
 async function getForm(req, res, next) {
   const { eventid } = req.query;
@@ -38,6 +49,7 @@ async function addForm(req, res, next) {
       next(error);
     }
   } catch (e) {
+    console.log(e)
     error.code = 400;
     error.message = "Invalid Data";
     next(error);
@@ -50,7 +62,7 @@ async function updateForm(req, res, next) {
   const { access } = res.locals.userData;
   try {
     if (access == 0) {
-      const updatedForm = new formDb.findByIdAndUpdate(formid,{
+      const updatedForm = formDb.findByIdAndUpdate(formid,{
         title,
         description,
         amount,
@@ -120,3 +132,4 @@ exports.getForm = getForm;
 exports.updateForm = updateForm;
 exports.deleteForm = deleteForm;
 exports.toggleForm = toggleForm;
+exports.getuserform = getUserForm;

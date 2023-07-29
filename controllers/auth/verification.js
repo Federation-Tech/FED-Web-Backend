@@ -4,18 +4,25 @@ const mailer = require("../../mailer/mailer");
 const path = require("path");
 const userModel = require("../../models/user-model");
 const { log } = require("console");
+const HttpError = require("../../models/HttpError");
+var error = new HttpError();
+error.name = "verification";
 
 async function verfication(req, res) {
-  console.log("verification request received");
+  try {
+    console.log("verification request received");
 
-  var token = req.params.token;
+    var token = req.params.token;
 
-  var vemail = await jwt.verify(token, process.env.verification_token_key);
+    var vemail = await jwt.verify(token, process.env.verification_token_key);
 
-  await db.findOneAndUpdate({ email: vemail }, { isvalid: true });
-  res.sendFile(
-    path.join(__dirname, "../../html-files", "verified", "index.html")
-  );
+    await db.findOneAndUpdate({ email: vemail }, { isvalid: true });
+    res.sendFile(
+      path.join(__dirname, "../../html-files", "verified", "index.html")
+    );
+  } catch (err) {
+    next(error);
+  }
 }
 
 async function sendverficationmail(email, name) {

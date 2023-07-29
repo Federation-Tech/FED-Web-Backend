@@ -3,7 +3,6 @@ const client = require("../../config/db").mongoClient;
 const userDb = require("../../models/user-model");
 const formDb = require("../../models/form");
 const HttpError = require("../../models/HttpError");
-const _ = require("lodash");
 var error = new HttpError();
 error.name = "formRegistration";
 
@@ -24,7 +23,7 @@ async function registerForm(req, res, next) {
 
     var user = await userDb
       .findById(reqUser._id)
-      .select("regForm")
+      .select("regForm access")
       .populate("regForm")
       .exec();
 
@@ -68,7 +67,7 @@ async function registerForm(req, res, next) {
     }
   } catch (err) {
     //server error
-    console.log(err);
+    next(err)
   }
 }
 
@@ -99,6 +98,7 @@ async function fetchRegistrations(req, res, next) {
       throw "";
     }
   } catch (err) {
+    error.message = err
     next(error);
   }
 }

@@ -31,30 +31,16 @@ const getEvent = async (req, res) => {
 
 //add event
 const addEvent = async (req, res) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
   try {
     const { title, date, image, description, registration, month } = req.body;
 
     //validation
     if (res.locals.userData.access == "0") {
-      if (!title) {
-        return res.send({ error: "title is required" });
-      }
-      if (!date) {
-        return res.send({ error: "date is required" });
-      }
-      if (!image) {
-        return res.send({ error: "image is required" });
-      }
-      if (!description) {
-        return res.send({ error: "description is required" });
-      }
-      if (!registration) {
-        return res.send({ error: "registration type is required" });
-      }
-      if (!month) {
-        return res.send({ error: "month is required" });
-      }
-
       const newevent = await new db({
         title,
         date,
@@ -84,6 +70,11 @@ const addEvent = async (req, res) => {
 
 //edit event
 const editEvent = async (req, res) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
   try {
     const eventId = req.params.id;
     //validation
