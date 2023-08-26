@@ -2,8 +2,13 @@ const registrationSchema = require("../../models/user-model");
 const gravatar = require("gravatar");
 const User = require("../../models/user-model");
 const jwt = require("jsonwebtoken");
+const { validationResult } = require("express-validator");
 
 const postData = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
   console.log(`Registration request received for ${req.body.email}`);
 
   req.body.isvalid = true;

@@ -6,6 +6,7 @@ const auth = require("./../../middleware/validator");
 
 // Public || Get All Mebers Data
 router.get("/", memberController.showMembers);
+router.get("/alumni", memberController.showAlumni);
 
 // auth
 router.use(auth);
@@ -18,12 +19,20 @@ router.post(
     check("access", "access is Required").not().isEmpty(),
     check("email", "email is Required").not().isEmpty(),
     check("img", "img is Required").not().isEmpty(),
+    check("blur", "blur is Required").not().isEmpty(),
   ],
 
   memberController.addMembers
 );
 
-router.post("/delMember", memberController.delMembers);
+router.post(
+  "/delMember",
+  [
+    check("user", "user is Required").not().isEmpty(),
+    check("email", "email is Required").not().isEmpty(),
+  ],
+  memberController.delMembers
+);
 
 router.post(
   "/addAlumni",

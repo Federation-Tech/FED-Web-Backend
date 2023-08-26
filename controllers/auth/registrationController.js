@@ -2,6 +2,7 @@ const registrationSchema = require("../../models/user-model");
 const gravatar = require("gravatar");
 const verification = require("./verification");
 const User = require("../../models/user-model");
+const { validationResult } = require("express-validator");
 
 const postData = async (req, res) => {
   console.log(`Registration request received for ${req.body.email}`);
