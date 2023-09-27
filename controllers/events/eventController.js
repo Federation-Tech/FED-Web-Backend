@@ -14,7 +14,7 @@ const db = require("./../../models/event");
 const getEvent = async (req, res) => {
   try {
     const event = await db.find({});
-    res.status(202).send({
+    res.status(200).send({
       Success: true,
       message: "all event list",
       event,
