@@ -3,7 +3,6 @@ const passGenerator = require("generate-password");
 const bcrypt = require("bcrypt");
 const mailer = require("./../../mailer/mailer");
 const User = require("../../models/user-model");
-
 const showMembers = async (req, res) => {
   const users = await User.find({
     access: { $nin: [0, 1, 7] },
@@ -64,7 +63,6 @@ const addMembers = async (req, res) => {
       });
 
       console.log("Mail sent");
-
       await User.updateOne(
         { email: req.body.email },
         {
