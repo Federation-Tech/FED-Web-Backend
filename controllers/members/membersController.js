@@ -168,7 +168,7 @@ const deleteMember = async (req, res) => {
         {
           $and: [{ email: req.body.email }, { access: { $not: { $eq: "0" } } }],
         },
-        { isvalid: false }
+        { access: "1" }
       );
       res.status(200).json({ msg: "ok" });
     } else {
