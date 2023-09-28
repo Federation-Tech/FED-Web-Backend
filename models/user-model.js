@@ -14,8 +14,9 @@ const registrationData = new Schema({
   College: { type: String, required: true },
   MobileNo: { type: String, required: true },
   selected: { type: String, required: true },
-  linkedin:{type:String,default:"NA"},
-  github:{type:String,default:"NA"},
-  regForm:[{type:Schema.Types.ObjectId,ref:'form'}]
-})
+  linkedin: { type: String, default: "NA" },
+  github: { type: String, default: "NA" },
+  blur: { type: String, default: "LTF~EiR5%hs,_NIV%MW=pdt7-oX9" },
+  regForm: [{ type: Schema.Types.ObjectId, ref: "form", unique: true }],
+});
 module.exports = mongoose.model("userdb", registrationData);

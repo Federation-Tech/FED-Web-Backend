@@ -1,12 +1,16 @@
 const mailer = require("./../../mailer/mailer");
 const User = require("../../models/user-model");
 const db = require("../../models/forgetPassword");
+const { validationResult } = require("express-validator");
 
 const sendotp = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
   const result = await User.findOne({
-    email: req.body.email,
+    email: { $regex: req.body.email, $options: 'i' },
   });
-  console.log(req.body.email);
 
   if (!result) {
     return res.status(401).json({ message: "Email doesn't exist" });
@@ -17,7 +21,7 @@ const sendotp = async (req, res) => {
     const email = result.email;
 
     await db.updateOne(
-      { email: email },
+      { email: { $regex: email, $options: 'i' } },
       {
         $set: {
           email: email,
@@ -94,11 +98,15 @@ const sendotp = async (req, res) => {
 };
 
 const verifyotp = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
   console.log("verifictaion of otp");
 
   const result = await db
     .find({
-      email: req.body.email,
+      email: { $regex: req.body.email, $options: 'i' },
     })
     .exec();
 
@@ -118,8 +126,12 @@ const verifyotp = async (req, res) => {
 };
 
 const resetpassword = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
   const result = await User.findOne({
-    email: req.body.email,
+    email: { $regex: req.body.email, $options: 'i' },
   });
 
   if (!result) {
@@ -130,7 +142,7 @@ const resetpassword = async (req, res) => {
     const email = result.email;
 
     await User.updateOne(
-      { email: email },
+      { email: { $regex: email, $options: 'i' } },
       {
         $set: {
           email: email,

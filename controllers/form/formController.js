@@ -28,7 +28,7 @@ async function getForm(req, res, next) {
 
 
 async function addForm(req, res, next) {
-  const { title, description, amount, priority, formelement, event } = req.body;
+  const { title="", description="", amount=0, priority=0, formelement=[], event="", maxReg=0 } = req.body;
   const { access } = res.locals.userData;
   try {
     if (access == 0) {
@@ -39,6 +39,7 @@ async function addForm(req, res, next) {
         priority,
         formelement,
         event,
+        maxReg
       });
       await updatedForm.save();
       res.sendStatus(200);
@@ -92,7 +93,7 @@ async function deleteForm(req, res, next) {
   const { access } = res.locals.userData;
   try {
     if (access == 0) {
-      formDb.findByIdAndDelete(formid)
+      await formDb.findByIdAndDelete(formid)
       res.sendStatus(200);
     } else {
       const error = new HttpError();
@@ -112,7 +113,9 @@ async function toggleForm(req, res, next) {
   const { access } = res.locals.userData;
   try {
     if (access == 0) {
-      formDb.findByIdAndUpdate(formid,{active:!active})
+      var {active} = await formDb.findById(formid).select(["active"])
+      console.log(active)
+      var result = await formDb.findByIdAndUpdate(formid,{active:!active})
       res.sendStatus(200);
     } else {
       const error = new HttpError();
@@ -122,7 +125,7 @@ async function toggleForm(req, res, next) {
     }
   } catch (e) {
     error.code = 400;
-    error.message = "Invalid Data";
+    error.message = e;
     next(error);
   }
 }
