@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const crypto = require("crypto")
-app.use(express.json())
+app.use(express.json({type: 'application/json'}))
 app.use("/push", (req,res)=>{
     res.status(202).send("ok")
     console.log(req.headers)
