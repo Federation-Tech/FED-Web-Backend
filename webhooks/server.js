@@ -1,8 +1,10 @@
 const express = require("express");
 const app = express();
 app.use("/push", (req,res)=>{
+    res.status(202).send("ok")
     console.log(req.headers)
-    console.log(verifySignature("123",req.headers,req.body))
+    console.log(req)
+    console.log(verifySignature("123",req.headers[x-hub-signature-256],req.body))
 });
 
 app.listen(7000, async () => {
