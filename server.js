@@ -69,4 +69,3 @@ app.listen(process.env.PORT, async () => {
   console.log(`FED-TECH -> Server is running on Port ${process.env.PORT}`);
 });
 
-
