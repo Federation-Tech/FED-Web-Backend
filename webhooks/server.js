@@ -1,5 +1,14 @@
 const express = require("express");
+const crypto = require('crypto')
+const bodyParser = require('body-parser')
 const app = express();
+const secret = "vinit";
+
+// For these headers, a sigHashAlg of sha1 must be used instead of sha256
+// GitHub: X-Hub-Signature
+// Gogs:   X-Gogs-Signature
+const sigHeaderName = 'X-Hub-Signature-256'
+const sigHashAlg = 'sha256'
 app.use(bodyParser.json({
     verify: (req, res, buf, encoding) => {
       if (buf && buf.length) {
