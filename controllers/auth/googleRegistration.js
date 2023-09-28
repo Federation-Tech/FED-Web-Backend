@@ -2,8 +2,13 @@ const registrationSchema = require("../../models/user-model");
 const gravatar = require("gravatar");
 const User = require("../../models/user-model");
 const jwt = require("jsonwebtoken");
+const { validationResult } = require("express-validator");
 
 const postData = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
   console.log(`Registration request received for ${req.body.email}`);
 
   req.body.isvalid = true;
@@ -29,7 +34,7 @@ const postData = async (req, res) => {
     img,
   } = req.body;
 
-  const user = await User.findOne({ email });
+  const user = await User.findOne({ email:{ $regex: email, $options: 'i' } });
 
   if ((req.body.extradata = "" || !req.body.extradata)) {
     req.body.extradata = {};
@@ -60,7 +65,7 @@ const postData = async (req, res) => {
 
       console.log("registration done");
 
-      const user = await User.findOne({ email: email });
+      const user = await User.findOne({ email: { $regex: email, $options: 'i' } });
       if (user) {
         const token = jwt.sign(
           {

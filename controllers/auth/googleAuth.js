@@ -13,7 +13,7 @@ const googleSignUp = async (req, res) => {
   console.log(`FED-TECH -> Google Login Request by ${email}`);
 
   try {
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email:{ $regex: email, $options: 'i' } });
 
     if (user) {
       if (user.isvalid === true) {
