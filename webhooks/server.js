@@ -7,8 +7,9 @@ const secret = "vinit";
 // For these headers, a sigHashAlg of sha1 must be used instead of sha256
 // GitHub: X-Hub-Signature
 // Gogs:   X-Gogs-Signature
-const sigHeaderName = 'x-hub-signature'
-const sigHashAlg = 'sha1'
+const sigHeaderName = 'x-hub-signature-256'
+const sigHashAlg = 'sha256'
+app.use(express.json())
 app.use(bodyParser.json({
     verify: (req, res, buf, encoding) => {
       if (buf && buf.length) {
