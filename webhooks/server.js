@@ -3,11 +3,10 @@ const app = express();
 const crypto = require("crypto")
 var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: false}));
-app.use(express.json({type: 'application/json'}))
 app.use("/push", (req,res)=>{
     res.status(202).send("ok")
     console.log(req.headers)
-    console.log(req.body)
+    console.log(req.body.payload)
     console.log(verify_signature(req))
 });
 
