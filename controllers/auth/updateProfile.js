@@ -12,7 +12,7 @@ const updateData = async (req, res) => {
       req.body;
 
     if (email.includes("@") && email.includes(".")) {
-      const filter = { email: email };
+      const filter = { email: { $regex: email, $options: 'i' } };
       const options = { upsert: true };
       const updateDoc = {
         $set: {

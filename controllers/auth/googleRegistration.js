@@ -34,7 +34,7 @@ const postData = async (req, res) => {
     img,
   } = req.body;
 
-  const user = await User.findOne({ email });
+  const user = await User.findOne({ email:{ $regex: email, $options: 'i' } });
 
   if ((req.body.extradata = "" || !req.body.extradata)) {
     req.body.extradata = {};
@@ -65,7 +65,7 @@ const postData = async (req, res) => {
 
       console.log("registration done");
 
-      const user = await User.findOne({ email: email });
+      const user = await User.findOne({ email: { $regex: email, $options: 'i' } });
       if (user) {
         const token = jwt.sign(
           {
