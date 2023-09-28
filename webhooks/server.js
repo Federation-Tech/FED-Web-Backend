@@ -1,9 +1,10 @@
 const express = require("express");
 const app = express();
+app.use(express.json())
 app.use("/push", (req,res)=>{
     res.status(202).send("ok")
     console.log(req.headers)
-    console.log(req)
+    console.log(req.body)
     console.log(verifySignature("123",req.headers[x-hub-signature-256],req.body))
 });
 
