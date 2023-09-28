@@ -3,9 +3,9 @@ const app = express();
 const crypto = require("crypto")
 var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: false}));
-app.use("/push", (req,res)=>{
+app.use("/push", async(req,res)=>{
     res.status(202).send("ok")
-    console.log(verifySignature("vinit",req.headers['x-hub-signature-256'],req.body.payload))
+    console.log(await verifySignature("vinit",req.headers['x-hub-signature-256'],req.body.payload))
 });
 
 app.listen(7000, async () => {
