@@ -1,58 +1,24 @@
 const express = require("express");
 const app = express();
+const crypto = require("crypto")
 app.use(express.json())
 app.use("/push", (req,res)=>{
     res.status(202).send("ok")
     console.log(req.headers)
     console.log(req.body)
-    console.log(verifySignature("123",req.headers[x-hub-signature-256],req.body))
+    console.log(verifySignature(req))
 });
 
 app.listen(7000, async () => {
   console.log(`FED-TECH -> Server is running on Port`);
 });
 
-let encoder = new TextEncoder();
-
-async function verifySignature(secret, header, payload) {
-    let parts = header.split("=");
-    let sigHex = parts[1];
-
-    let algorithm = { name: "HMAC", hash: { name: 'SHA-256' } };
-
-    let keyBytes = encoder.encode(secret);
-    let extractable = false;
-    let key = await crypto.subtle.importKey(
-        "raw",
-        keyBytes,
-        algorithm,
-        extractable,
-        [ "sign", "verify" ],
-    );
-
-    let sigBytes = hexToBytes(sigHex);
-    let dataBytes = encoder.encode(payload);
-    let equal = await crypto.subtle.verify(
-        algorithm.name,
-        key,
-        sigBytes,
-        dataBytes,
-    );
-
-    return equal;
-}
-
-function hexToBytes(hex) {
-    let len = hex.length / 2;
-    let bytes = new Uint8Array(len);
-
-    let index = 0;
-    for (let i = 0; i < hex.length; i += 2) {
-        let c = hex.slice(i, i + 2);
-        let b = parseInt(c, 16);
-        bytes[index] = b;
-        index += 1;
-    }
-
-    return bytes;
-}
+const verify_signature = (req) => {
+    const signature = crypto
+      .createHmac("sha256", "123")
+      .update(JSON.stringify(req.body))
+      .digest("hex");
+    let trusted = Buffer.from(`sha256=${signature}`, 'ascii');
+    let untrusted =  Buffer.from(req.headers.get("x-hub-signature-256"), 'ascii');
+    return crypto.timingSafeEqual(trusted, untrusted);
+  };
