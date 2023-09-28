@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
 const crypto = require("crypto")
+var bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.json({type: 'application/json'}))
 app.use("/push", (req,res)=>{
     res.status(202).send("ok")
