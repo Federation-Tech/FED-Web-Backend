@@ -17,6 +17,8 @@ app.use(bodyParser.json({
     },
   }))
 app.post("/push",verifyPostData, async(req,res)=>{
+    console.log(req.headers)
+    console.log(req.body)
     res.status(202).send("ok")
 });
 
