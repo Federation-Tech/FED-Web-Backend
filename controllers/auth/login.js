@@ -11,9 +11,8 @@ const login = async (req, res) => {
   console.log(`login request received ${req.body.username}`);
 
   const result = await User.find({
-    email: req.body.username,
+    email: { $regex: req.body.username, $options: 'i' }, //making the search insensitive
   }).exec();
-  console.log(result)
   if (!result[0]) {
     return res.status(401).json({ code: 2, message: "invalid credential" });
   }

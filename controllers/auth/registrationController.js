@@ -37,7 +37,7 @@ const postData = async (req, res) => {
     github,
   } = req.body;
 
-  const user = await User.findOne({ email });
+  const user = await User.findOne({ email:{ $regex: email, $options: 'i' } });
 
   if ((req.body.extradata = "" || !req.body.extradata)) {
     req.body.extradata = {};
