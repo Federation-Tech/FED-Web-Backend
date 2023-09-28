@@ -9,24 +9,19 @@ const secret = "vinit";
 // Gogs:   X-Gogs-Signature
 const sigHeaderName = 'x-hub-signature-256'
 const sigHashAlg = 'sha256'
-app.use(express.json())
-// app.use(bodyParser.json({
-//     verify: (req, res, buf, encoding) => {
-//       if (buf && buf.length) {
-//         req.rawBody = buf.toString(encoding || 'utf8');
-//       }
-//     },
-//   }))
-app.post("/push", async(req,res)=>{
+var githubMiddleware = require('github-webhook-middleware')({
+  secret: "vinit"});
+app.post("/push",githubMiddleware, async(req,res)=>{
     console.log(req.headers)
     console.log(req.body)
-    verifyPostData(req,res)
     res.status(202).send("ok")
 });
 
 app.listen(7000, async () => {
   console.log(`FED-TECH -> Server is running on Port`);
 });
+
+
 
 function verifyPostData(req, res) {
     
