@@ -41,7 +41,7 @@ app.post("/push", githubMiddleware, async (req, res) => {
   }
   res.status(202).send("ok");
 });
-
+//test commit
 app.listen(7000, async () => {
   console.log(`FED-TECH -> Githook Server is running on Port 7000`);
 });
