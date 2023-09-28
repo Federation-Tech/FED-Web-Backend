@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const crypto = require("crypto")
 var bodyParser = require('body-parser');
-const sigHeaderName = 'X-Hub-Signature-256'
+const sigHeaderName = 'x-hub-signature-256'
 const sigHashAlg = 'sha256'
 const secret = "vinit";
 app.use(bodyParser.json({
@@ -12,6 +12,7 @@ app.use(bodyParser.json({
       }
     },
   }))
+  
 app.use("/push",verifyPostData, async(req,res)=>{
     res.status(202).send("ok")
 });
