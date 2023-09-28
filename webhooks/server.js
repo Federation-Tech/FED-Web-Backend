@@ -1,19 +1,8 @@
 const express = require("express");
 const app = express();
-const crypto = require("crypto")
-var bodyParser = require('body-parser');
-const sigHeaderName = 'x-hub-signature-256'
-const sigHashAlg = 'sha256'
-const secret = "vinit";
-app.use(bodyParser.json({
-    verify: (req, res, buf, encoding) => {
-      if (buf && buf.length) {
-        req.rawBody = buf.toString(encoding || 'utf8');
-      }
-    },
-  }))
-  
-app.use("/push",verifyPostData, async(req,res)=>{
+import { verifySecret } from "verify-github-webhook-secret";
+app.use("/push", async(req,res)=>{
+    console.log(verifySecret(req,"vinit"))
     res.status(202).send("ok")
 });
 
