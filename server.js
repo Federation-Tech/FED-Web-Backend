@@ -67,6 +67,5 @@ app.use("*", (req, res) => {
 app.listen(process.env.PORT, async () => {
   await connectDB();
   console.log(`FED-TECH -> Server is running on Port ${process.env.PORT}`);
-  await connectDB(process.env.database);
 });
 

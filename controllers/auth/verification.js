@@ -16,7 +16,7 @@ async function verfication(req, res) {
 
     var vemail = await jwt.verify(token, process.env.verification_token_key);
 
-    await db.findOneAndUpdate({ email: vemail }, { isvalid: true });
+    await db.findOneAndUpdate({ email: { $regex: vemail, $options: 'i' } }, { isvalid: true });
     res.sendFile(
       path.join(__dirname, "../../html-files", "verified", "index.html")
     );
@@ -234,7 +234,7 @@ async function sendverficationmail(email, name) {
 async function resendMail(req, res, next) {
   const { email } = req.params;
   try {
-    var user = await userModel.find({ email: email }).exec();
+    var user = await userModel.find({ email: { $regex: email, $options: 'i' } }).exec();
     console.log(user);
     user.isvalid || sendverficationmail(user[0].email, user[0].name);
   } catch (err) {
