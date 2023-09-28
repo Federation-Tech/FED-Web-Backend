@@ -5,8 +5,6 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: false}));
 app.use("/push", (req,res)=>{
     res.status(202).send("ok")
-    console.log(req.headers)
-    console.log(req.body.payload)
     console.log(verify_signature(req))
 });
 
@@ -17,7 +15,7 @@ app.listen(7000, async () => {
 const verify_signature = (req) => {
     const signature = crypto
       .createHmac("sha256", "vinit")
-      .update(JSON.stringify(req.body))
+      .update(JSON.stringify(req.body.payload))
       .digest("hex");
     let trusted = Buffer.from(`sha256=${signature}`, 'ascii');
     let untrusted =  Buffer.from(req.headers["x-hub-signature-256"], 'ascii');
