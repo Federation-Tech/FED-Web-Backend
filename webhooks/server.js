@@ -6,7 +6,7 @@ app.use("/push", (req,res)=>{
     res.status(202).send("ok")
     console.log(req.headers)
     console.log(req.body)
-    console.log(verifySignature(req))
+    console.log(verify_signature(req))
 });
 
 app.listen(7000, async () => {
