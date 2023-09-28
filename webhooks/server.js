@@ -1,8 +1,13 @@
 const express = require("express");
 const app = express();
-import { verifySecret } from "verify-github-webhook-secret";
-app.use("/push", async(req,res)=>{
-    console.log(verifySecret(req,"vinit"))
+app.use(bodyParser.json({
+    verify: (req, res, buf, encoding) => {
+      if (buf && buf.length) {
+        req.rawBody = buf.toString(encoding || 'utf8');
+      }
+    },
+  }))
+app.post("/push",verifyPostData, async(req,res)=>{
     res.status(202).send("ok")
 });
 
@@ -11,6 +16,7 @@ app.listen(7000, async () => {
 });
 
 function verifyPostData(req, res, next) {
+    
     if (!req.rawBody) {
       return next('Request body empty')
     }
