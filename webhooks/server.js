@@ -15,7 +15,7 @@ app.listen(7000, async () => {
 
 const verify_signature = (req) => {
     const signature = crypto
-      .createHmac("sha256", "123")
+      .createHmac("sha256", "vinit")
       .update(JSON.stringify(req.body))
       .digest("hex");
     let trusted = Buffer.from(`sha256=${signature}`, 'ascii');
