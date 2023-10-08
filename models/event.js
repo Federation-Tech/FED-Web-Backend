@@ -20,11 +20,6 @@ const events = new Schema({
   registration: {
     type: String,
     required: true,
-    enum: ["Online", "Offline"],
-  },
-  month: {
-    type: String,
-    require: true,
-  },
+  }
 });
 module.exports = mongoose.model("events", events);

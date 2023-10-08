@@ -32,12 +32,11 @@ const getEvent = async (req, res) => {
 //add event
 const addEvent = async (req, res) => {
   const errors = validationResult(req);
-
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
   try {
-    const { title, date, image, description, registration, month } = req.body;
+    const { title, date, image, description, registration } = req.body;
 
     //validation
     if (res.locals.userData.access == "0") {
@@ -47,7 +46,6 @@ const addEvent = async (req, res) => {
         image,
         description,
         registration,
-        month,
       }).save();
 
       res.status(202).send({

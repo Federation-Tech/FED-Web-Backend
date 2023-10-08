@@ -19,7 +19,6 @@ router.post(
     check("image", "image is Required").not().isEmpty(),
     check("description", "description is Required").not().isEmpty(),
     check("registration", "registration is Required").not().isEmpty(),
-    check("month", "month is Required").not().isEmpty(),
   ],
   eventController.addEvent
 );
@@ -33,7 +32,6 @@ router.patch(
     check("image", "image is Required").not().isEmpty(),
     check("description", "description is Required").not().isEmpty(),
     check("registration", "registration is Required").not().isEmpty(),
-    check("month", "month is Required").not().isEmpty(),
   ],
   eventController.editEvent
 );
