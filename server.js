@@ -41,7 +41,7 @@ app.use((req,res,next)=>{
 app.use("/auth", require("./Routes/auth/router"));
 app.use("/profile", validater, require("./Routes/profile/router"));
 app.use("/contact", require("./Routes/contact/router"));
-app.use("/member", validater, require("./Routes/member/member"));
+app.use("/member", require("./Routes/member/member"));
 
 // Routes ||  events
 app.use("/event", require("./Routes/event/router"));
