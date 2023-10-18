@@ -33,6 +33,7 @@ app.post("/push", githubMiddleware, async (req, res) => {
       //   }
       // );
     }
+    
     if (branch == betaBranch) {
       // var yourscript = exec(
       //   `sh ${shDir} "${betaDir}" ${betaBranch}`,
