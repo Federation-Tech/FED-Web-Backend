@@ -1,12 +1,12 @@
 const express = require("express");
 const app = express();
 const secret = "vinit";
-
 const shDir = "/root/FED-Web-Backend/webhooks/gitpull.sh"
 const mainDir = "/root/FED-Web-Backend";
 const mainBranch = "main";
 const betaDir = "/root/beta/FED-Web-Backend";
 const betaBranch = "beta";
+
 var githubMiddleware = require("github-webhook-middleware")({
   secret: secret,
 });
