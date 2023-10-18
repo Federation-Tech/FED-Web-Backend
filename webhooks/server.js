@@ -19,7 +19,7 @@ app.post("/push", githubMiddleware, async (req, res) => {
   if (req.body.repository.name == "FED-Web-Backend") {
     var branch = req.body.ref.split("/")[2];
     if (branch == mainBranch) {
-      var temp = cp.spawn(`sh ${shDir}`,[mainDir,mainBranch]);
+      var temp = cp.spawn(`sh`,[shDir,mainDir,mainBranch]);
       temp.stdout.on('data',(data)=>{
         console.log("out:",data)
       })
@@ -46,7 +46,7 @@ app.post("/push", githubMiddleware, async (req, res) => {
       //     }
       //   }
       // );
-      var temp = cp.spawn(`sh ${shDir}`,[betaDir,betaBranch]);
+      var temp = cp.spawn(`sh`,[shDir,betaDir,betaBranch]);
       temp.stdout.on('data',(data)=>{
         console.log("out:",data)
       })
