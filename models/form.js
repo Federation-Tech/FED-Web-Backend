@@ -56,7 +56,7 @@ const formData = new Schema({
     required: true,
     default: 0,
   },
-  form: {
+  upi: {
     type: String,
     default: null,
   },
