@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const secret = "vinit";
-const shDir = "/root/FED-Web-Backend/webhooks/gitpull.sh"
+const shDir = "/root/beta/FED-Web-Backend/webhooks/gitpull.sh"
 const mainDir = "/root/FED-Web-Backend";
 const mainBranch = "main";
 const betaDir = "/root/beta/FED-Web-Backend";
@@ -33,7 +33,7 @@ app.post("/push", githubMiddleware, async (req, res) => {
       //   }
       // );
     }
-    
+
     if (branch == betaBranch) {
       // var yourscript = exec(
       //   `sh ${shDir} "${betaDir}" ${betaBranch}`,
