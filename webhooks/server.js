@@ -47,7 +47,6 @@ app.post("/push", githubMiddleware, async (req, res) => {
       //     }
       //   }
       // );
-
       cp.spawnSync(`sh ${shDir} "${mainDir}" ${mainBranch}`, function(err, stdout, stderr) {
         // handle err, stdout, stderr
         console.log(stdout);
