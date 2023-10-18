@@ -11,6 +11,7 @@ var githubMiddleware = require("github-webhook-middleware")({
 });
 const { exec } = require("child_process");
 app.post("/push", githubMiddleware, async (req, res) => {
+  console.log("Branch Called ",req.body.ref.split("/")[2])
   if (req.body.repository.name == "FED-Web-Backend") {
     var branch = req.body.ref.split("/")[2];
     if (branch == mainBranch) {
