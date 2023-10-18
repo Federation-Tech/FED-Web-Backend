@@ -45,7 +45,7 @@ app.use("/member", require("./Routes/member/member"));
 
 // Routes ||  events
 app.use("/event", require("./Routes/event/router"));
-app.use("/form", validater, require("./Routes/form/router"));
+app.use("/form", require("./Routes/form/router"));
 
 app.use("/oauthplayground", (req, res) => {
   console.log(req.body);
