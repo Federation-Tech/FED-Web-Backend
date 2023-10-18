@@ -8,8 +8,6 @@ const betaDir = "/root/beta/FED-Web-Backend";
 const betaBranch = "beta";
 var cp = require('child_process');
 
-
-
 var githubMiddleware = require("github-webhook-middleware")({
   secret: secret,
 });
