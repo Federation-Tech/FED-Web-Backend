@@ -17,14 +17,7 @@ app.post("/push", githubMiddleware, async (req, res) => {
   if (req.body.repository.name == "FED-Web-Backend") {
     var branch = req.body.ref.split("/")[2];
     if (branch == mainBranch) {
-      cp.spawnSync(`sh ${shDir}`,[mainDir,mainBranch], function(err, stdout, stderr) {
-        // handle err, stdout, stderr
-        console.log(stdout);
-        console.log(stderr);
-        if (err !== null) {
-          console.log(`exec error: ${err}`);
-        }
-      });
+      cp.spawnSync(`sh ${shDir}`,[mainDir,mainBranch]);
       // var yourscript = exec(
       //   `sh ${shDir} "${mainDir}" ${mainBranch}`,
       //   (error, stdout, stderr) => {
@@ -47,14 +40,7 @@ app.post("/push", githubMiddleware, async (req, res) => {
       //     }
       //   }
       // );
-      cp.spawnSync(`sh ${shDir}`,[betaDir,betaBranch], function(err, stdout, stderr) {
-        // handle err, stdout, stderr
-        console.log(stdout);
-        console.log(stderr);
-        if (err !== null) {
-          console.log(`exec error: ${err}`);
-        }
-      });
+      cp.spawnSync(`sh ${shDir}`,[betaDir,betaBranch]);
     }
   }
   res.status(202).send("ok");
