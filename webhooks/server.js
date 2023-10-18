@@ -19,7 +19,7 @@ app.post("/push", githubMiddleware, async (req, res) => {
     if (branch == mainBranch) {
       var temp = cp.spawn(`sh`,[shDir,mainDir,mainBranch]);
       temp.stdout.on('data',(data)=>{
-        console.log("out:",data)
+        console.log("out:",data.toString())
       })
       // var yourscript = exec(
       //   `sh ${shDir} "${mainDir}" ${mainBranch}`,
@@ -46,7 +46,7 @@ app.post("/push", githubMiddleware, async (req, res) => {
       // );
       var temp = cp.spawn(`sh`,[shDir,betaDir,betaBranch]);
       temp.stdout.on('data',(data)=>{
-        console.log("out:",data)
+        console.log("out:",data.toString())
       })
     }
   }
