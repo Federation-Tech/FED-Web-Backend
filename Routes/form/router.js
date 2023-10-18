@@ -7,12 +7,12 @@ const validator = require("../../middleware/validator")
 router.get("/getactiveform", formController.getactiveform)
 //delete member
 router.get("/deletemember", formRegistration.deleteMember);
-//validate leader
-router.get("/verifyleader",validator, formRegistration.verifyleader);
-
 
 //private
 router.use(validator)
+//validate leader
+router.get("/verifyleader",validator, formRegistration.verifyleader);
+
 //get Form
 router.get("/getform", formController.getForm);
 

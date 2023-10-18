@@ -29,7 +29,7 @@ async function getForm(req, res, next) {
 
 
 async function addForm(req, res, next) {
-  const { title="", description="", amount=0, priority=0, formelement=[], event="", maxReg=0,isTeam=false,teamsize=0 } = req.body;
+  const { title="", description="", amount=0, priority=0, formelement=[],upi="", event="", maxReg=0,isTeam=false,teamsize=0 } = req.body;
   const { access } = res.locals.userData;
   try {
     if (access == 0) {
@@ -37,6 +37,7 @@ async function addForm(req, res, next) {
         title,
         description,
         amount,
+        upi,
         priority,
         formelement,
         event,
