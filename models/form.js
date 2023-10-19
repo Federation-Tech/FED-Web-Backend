@@ -60,6 +60,14 @@ const formData = new Schema({
     type: String,
     default: null,
   },
+  img: {
+    type: String,
+    default: null,
+  },
+  date: {
+    type: String,
+    default: null,
+  },
 });
 
 module.exports = mongoose.model("form", formData);

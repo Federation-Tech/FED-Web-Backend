@@ -29,7 +29,7 @@ async function getForm(req, res, next) {
 
 
 async function addForm(req, res, next) {
-  const { title="", description="", amount=0, priority=0, formelement=[],upi="", event="", maxReg=0,isTeam=false,teamsize=0 } = req.body;
+  const { title="", description="", amount=0, priority=0, formelement=[],upi="", event="", maxReg=0,isTeam=false,teamsize=0,img="",date="" } = req.body;
   const { access } = res.locals.userData;
   try {
     if (access == 0) {
@@ -43,7 +43,9 @@ async function addForm(req, res, next) {
         event,
         maxReg,
         isTeam,
-        teamsize
+        teamsize,
+        img,
+        date
       });
       await updatedForm.save();
       res.sendStatus(200);
@@ -149,8 +151,9 @@ async function toggleForm(req, res, next) {
 
 //public 
 async function getactiveform(req,res,next){
+  const { upcomming } = req.query
   try {
-      var result = await formDb.find({active:true}).populate("event").select("title description amount formelement event isTeam active")
+      var result = await formDb.find().limit(10).populate("event")
       res.json(result);
   } catch (e) {
     var error = new HttpError
