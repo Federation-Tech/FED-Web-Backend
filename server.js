@@ -37,6 +37,7 @@ app.use((req, res, next) => {
   console.log(log);
   next();
 });
+
 // Routes
 app.use("/auth", require("./Routes/auth/router"));
 app.use("/profile", validater, require("./Routes/profile/router"));
