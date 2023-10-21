@@ -55,6 +55,7 @@ app.use("/oauthplayground", (req, res) => {
 app.get("/AsUrbqAPHuicUMy3", (req, res) => {
   return res.status(404).send("Hello Server");
 });
+
 app.get("/validatetest", validater, (req, res, next) => {
   res.send("success");
 });
@@ -66,6 +67,6 @@ app.use("*", (req, res) => {
 });
 
 app.listen(process.env.PORT, async () => {
-  await connectDB();
   console.log(`FED-TECH -> Server is running on Port ${process.env.PORT}`);
+  await connectDB();
 });
