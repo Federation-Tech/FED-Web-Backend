@@ -4,8 +4,8 @@ const userModel = require("../../models/user-model");
 
 async function getUserForm(req,res,next){
   try{
-    const form = await userModel.findById(req.user._id).exec()
-    res.json(form.regForm.includes(req.query.formid))
+    const form = await userModel.findById(req.user._id).select("regForm").exec()
+    res.json(form.regForm)
   }catch(err){
     var error = new HttpError
     error.name = "formController"
