@@ -97,6 +97,10 @@ async function registerForm(req, res, next) {
         })
       }
       res.send("ok");
+      console.log(totalRegistrationUntillNow + 1 >= form.maxReg)
+      if(totalRegistrationUntillNow + 1 >= form.maxReg){
+        formDb.updateOne({_id:form.id},{$set:{active:false}}).exec()
+      }
     } else {
       var error = new HttpError();
       error.name = "formRegistration";
