@@ -14,8 +14,8 @@ async function registerForm(req, res, next) {
     const form = await formDb.findById(formid).populate("event").exec();
 
     const totalRegistrationUntillNow = await client
-      .db(form.event.title.replace(" ", "_"))
-      .collection(form.title.replace(" ", "_"))
+      .db(form.event.title.replace(" ", "_").replace(".","_"))
+      .collection(form.title.replace(" ", "_").replace(".","_"))
       .countDocuments();
     const reqUser = req.user;
 
@@ -40,15 +40,15 @@ async function registerForm(req, res, next) {
         validReg &&=(teamleader.regForm).includes(form._id)
 
         var teamleaderReg = await client
-        .db(form.event.title.replace(" ", "_"))
-        .collection(form.title.replace(" ", "_"))
+        .db(form.event.title.replace(" ", "_").replace(".","_"))
+        .collection(form.title.replace(" ", "_").replace(".","_"))
         .findOne({$and:[{user:teamleader._id},{"submision.teamleader":teamleader.email}]})
         validReg &&= teamleaderReg != null
         errormsg = errormsg?errormsg:(validReg?undefined:"team leader failed")
         //check if the team is full
         var teamcount = await client
-        .db(form.event.title.replace(" ", "_"))
-        .collection(form.title.replace(" ", "_"))
+        .db(form.event.title.replace(" ", "_").replace(".","_"))
+        .collection(form.title.replace(" ", "_").replace(".","_"))
         .find({"submision.teamleader":req.body.teamleader})
         .toArray()
         validReg &&= teamcount.length < form.teamsize 
@@ -73,8 +73,8 @@ async function registerForm(req, res, next) {
     errormsg = errormsg?errormsg:errormsg?errormsg:(validReg?undefined:"Invalid access")
     if (validReg) {
       var result = await client
-        .db(form.event.title.replace(" ", "_"))
-        .collection(form.title.replace(" ", "_"))
+        .db(form.event.title.replace(" ", "_").replace(".","_"))
+        .collection(form.title.replace(" ", "_").replace(".","_"))
         .insertOne({
           submision: req.body,
           user: req.user._id,
@@ -122,8 +122,8 @@ async function fetchRegistrations(req, res, next) {
     if (req.user.access == 0) {
       const form = await formDb.findById(formid).populate("event");
       var result = await client
-        .db(form.event.title.replace(" ", "_"))
-        .collection(form.title.replace(" ", "_"))
+        .db(form.event.title.replace(" ", "_").replace(".","_"))
+        .collection(form.title.replace(" ", "_").replace(".","_"))
         .find();
       result = await result.toArray();
       var final = await Promise.all(
@@ -161,8 +161,8 @@ async function deleteMember(req,res,next){
     const decodedToken = jwt.verify(token, process.env.access_token_key);
     var tobedeleteuser = await userDb.findOne({email:decodedToken.membertodelete})
     var result = await client
-    .db(decodedToken.event.replace(" ", "_"))
-    .collection(decodedToken.form.replace(" ", "_"))
+    .db(decodedToken.event.replace(" ", "_").replace(".","_"))
+    .collection(decodedToken.form.replace(" ", "_").replace(".","_"))
     .updateOne({user:tobedeleteuser._id},{$set:{"submision.teamleader":decodedToken.membertodelete,"submision.teamname":"N\A"}});
     if(result.modifiedCount == 0){
       return res.sendFile(
@@ -201,8 +201,8 @@ async function verifyleader(req,res,next){
     validReg &&= teamleader != null; //search if the user exists
     validReg &&= teamleader.regForm.includes(form._id);
     var teamleaderReg = teamleader != null ?await client
-      .db(form.event.title.replace(" ", "_"))
-      .collection(form.title.replace(" ", "_"))
+      .db(form.event.title.replace(" ", "_").replace(".","_"))
+      .collection(form.title.replace(" ", "_").replace(".","_"))
       .findOne({
         $and: [
           { user: teamleader._id },
@@ -218,8 +218,8 @@ async function verifyleader(req,res,next){
     validReg && (successmsg = teamleaderReg.submision.teamname);
     //check if the team is full
     var teamcount = await client
-      .db(form.event.title.replace(" ", "_"))
-      .collection(form.title.replace(" ", "_"))
+      .db(form.event.title.replace(" ", "_").replace(".","_"))
+      .collection(form.title.replace(" ", "_").replace(".","_"))
       .find({ "submision.teamleader": teamleadermail })
       .toArray();
     validReg &&= teamcount.length < form.teamsize;
@@ -241,12 +241,12 @@ async function getTeamDetails(req,res,next){
     const { formid } = req.query
     var form = await formDb.findById(formid).populate("event")
     var userSubmission = await client
-    .db(form.event.title.replace(" ", "_"))
-    .collection(form.title.replace(" ", "_"))
+    .db(form.event.title.replace(" ", "_").replace(".","_"))
+    .collection(form.title.replace(" ", "_").replace(".","_"))
     .findOne({user:req.user._id})
     var team = await client
-    .db(form.event.title.replace(" ", "_"))
-    .collection(form.title.replace(" ", "_"))
+    .db(form.event.title.replace(" ", "_").replace(".","_"))
+    .collection(form.title.replace(" ", "_").replace(".","_"))
     .find({"submision.teamleader":userSubmission.submision.teamleader})
     .toArray()
     var final = []
