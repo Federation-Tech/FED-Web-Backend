@@ -21,7 +21,7 @@ async function getUserFormDetails(req,res,next){
       var formDetails = await formDb.findById(formid).select("title date img isTeam active event").populate("event").exec()
       final.push(formDetails)
     }  
-    res.json(final)
+    res.json(final.reverse())
   }catch(err){
     var error = new HttpError
     error.name = "formController"
@@ -169,7 +169,7 @@ async function getactiveform(req,res,next){
   const { upcomming } = req.query
   try {
       var result = await formDb.find().limit(10).populate("event")
-      res.json(result);
+      res.json(result.reverse());
   } catch (e) {
     var error = new HttpError
     error.name = "formController" 
