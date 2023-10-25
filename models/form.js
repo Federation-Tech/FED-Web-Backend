@@ -32,10 +32,6 @@ const formData = new Schema({
         type: String,
         default: null,
       },
-      valueToFill: {
-        type: String,
-        default: undefined,
-      },
     },
   ],
   event: {
@@ -47,10 +43,30 @@ const formData = new Schema({
     type: Boolean,
     default: true,
   },
+  isTeam: {
+    type: Boolean,
+    default: false,
+  },
+  teamsize: {
+    type: Number,
+    default: 0,
+  },
   maxReg: {
     type: Number,
     required: true,
     default: 0,
+  },
+  upi: {
+    type: String,
+    default: null,
+  },
+  img: {
+    type: String,
+    default: null,
+  },
+  date: {
+    type: String,
+    default: null,
   },
 });
 
