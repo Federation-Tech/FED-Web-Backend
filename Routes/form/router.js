@@ -18,6 +18,8 @@ router.get("/getform", formController.getForm);
 
 //get Form
 router.get("/getuserform", formController.getuserform);
+router.get("/getuserformdetails", formController.getuserformdetails);
+router.get("/getteamdetails", formRegistration.getTeamDetails);
 
 //toggle Form
 router.get("/toggleform", formController.toggleForm);

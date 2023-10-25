@@ -13,6 +13,22 @@ async function getUserForm(req,res,next){
     next(error)
   }
 }
+async function getUserFormDetails(req,res,next){
+  try{
+    const form = await userModel.findById(req.user._id).select("regForm").exec()
+    var final = []
+    for(const formid of form.regForm){
+      var formDetails = await formDb.findById(formid).select("title date img isTeam active event").populate("event").exec()
+      final.push(formDetails)
+    }  
+    res.json(final)
+  }catch(err){
+    var error = new HttpError
+    error.name = "formController"
+    error.message = err
+    next(error)
+  }
+}
 
 async function getForm(req, res, next) {
   const { eventid } = req.query;
@@ -130,7 +146,6 @@ async function toggleForm(req, res, next) {
   try {
     if (access == 0) {
       var {active} = await formDb.findById(formid).select(["active"])
-      console.log(active)
       var result = await formDb.findByIdAndUpdate(formid,{active:!active})
       res.sendStatus(200);
     } else {
@@ -171,4 +186,5 @@ exports.updateForm = updateForm;
 exports.deleteForm = deleteForm;
 exports.toggleForm = toggleForm;
 exports.getuserform = getUserForm;
+exports.getuserformdetails = getUserFormDetails;
 exports.getactiveform = getactiveform

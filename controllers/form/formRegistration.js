@@ -5,6 +5,7 @@ const formDb = require("../../models/form");
 const HttpError = require("../../models/HttpError");
 const mailer = require("../../mailer/mailer")
 const jwt = require("jsonwebtoken");
+const path = require("path");
 
 async function registerForm(req, res, next) {
   const { formid } = req.body;
@@ -77,6 +78,7 @@ async function registerForm(req, res, next) {
         .insertOne({
           submision: req.body,
           user: req.user._id,
+          submisionDate:new Date().toLocaleString()
         });
       await userDb.findByIdAndUpdate(reqUser._id, {
         $push: { regForm: formid },
@@ -87,22 +89,10 @@ async function registerForm(req, res, next) {
         html:`Thank you for registering into our event ${form.title}. we have successfully received your details.<br><br><span valign="bottom">This is a system generated mail, final confirmation mail will be sent soon.</span>`
       })
       if(form.isTeam && req.body.teamleader != req.user.email){
-        const token = jwt.sign(
-          {
-            teamleader: teamleader.email,
-            membertodelete: req.user.email,
-            team:teamcount[0].submision.teamname,
-            form:form.title,
-            event:form.event.title
-          },
-          process.env.access_token_key
-        );
         mailer.sendMail({
           to:teamleader.email,
           subject:`Team alert for ${form.title}`,
           html:`This is to inform you that ${req.user.name} have registered under your team ${teamcount[0].submision.teamname} using the email ${req.user.email}.
-          <br><br><br>To Remove the member kindly click on the link below:<br>
-          ${process.env.server_address}/form/deletemember?token=${token}
           <br><br><span valign="bottom">This is a system generated mail, final confirmation mail will be sent soon.<span>`
         })
       }
@@ -171,7 +161,9 @@ async function deleteMember(req,res,next){
     .collection(decodedToken.form.replace(" ", "_"))
     .updateOne({user:tobedeleteuser._id},{$set:{"submision.teamleader":decodedToken.membertodelete,"submision.teamname":"N\A"}});
     if(result.modifiedCount == 0){
-      return res.send("Member was already deleted")
+      return res.sendFile(
+        path.join(__dirname, "../../html-files", "member", "index.html")
+      );
     }
     mailer.sendMail({
       to:decodedToken.membertodelete,
@@ -181,7 +173,9 @@ async function deleteMember(req,res,next){
       <br><br>If you think this was an error kindly contact the FED through executives or mail us at fedkiit@gmail.com.
       <span valign="bottom">This is a system generated mail, final confirmation mail will be sent soon.<span>`
     })
-    res.send("Member was deleted")
+    res.sendFile(
+      path.join(__dirname, "../../html-files", "member", "index.html")
+    );
   } catch (err) {
     var error = new HttpError
     error.message = err
@@ -195,7 +189,6 @@ async function verifyleader(req,res,next){
   var validReg = true;
   var successmsg = "";
   var errormsg = undefined;
-  console.log(teamleadermail)
   try {
     const form = await formDb.findById(formid).populate("event");
     var teamleader = await userDb.findOne({
@@ -239,9 +232,51 @@ async function verifyleader(req,res,next){
     next(error);
   }
 }
-
+async function getTeamDetails(req,res,next){
+  try{
+    const { formid } = req.query
+    var form = await formDb.findById(formid).populate("event")
+    var userSubmission = await client
+    .db(form.event.title.replace(" ", "_"))
+    .collection(form.title.replace(" ", "_"))
+    .findOne({user:req.user._id})
+    var team = await client
+    .db(form.event.title.replace(" ", "_"))
+    .collection(form.title.replace(" ", "_"))
+    .find({"submision.teamleader":userSubmission.submision.teamleader})
+    .toArray()
+    var final = []
+    for(const participant of team){
+      var participantMail = await userDb.findById(participant.user)
+      const token = jwt.sign(
+        {
+          teamleader: participant.submision.teamleader,
+          membertodelete: participantMail.email,
+          team:userSubmission.submision.teamname,
+          form:form.title,
+          event:form.event.title
+        },
+        process.env.access_token_key
+      );
+      var temp = {}
+      if(participant.submision.teamleader == req.user.email && participantMail.email != req.user.email){
+          temp.token = `${process.env.server_address}/form/deletemember?token=${token}`
+      }
+      temp.email = participantMail.email
+      temp.name = participantMail.name
+      final.push(temp)
+    }
+    res.json(final)
+  }catch(err){
+    var error = new HttpError
+    error.message = err
+    error.code = 500
+    next(error)
+  }
+}
 
 exports.register = registerForm;
 exports.fetchRegistrations = fetchRegistrations;
 exports.deleteMember = deleteMember;
 exports.verifyleader = verifyleader;
+exports.getTeamDetails = getTeamDetails
