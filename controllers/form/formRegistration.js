@@ -86,7 +86,7 @@ async function registerForm(req, res, next) {
       mailer.sendMail({
         to:req.user.email,
         subject:`Confirmation of ${form.title} Registration`,
-        html:`Thank you for registering into our event ${form.title}. we have successfully received your details.<br><br><span valign="bottom">This is a system generated mail, final confirmation mail will be sent soon.</span>`
+        html:`Thank you for registering into our event ${form.title}. we have successfully received your details.Your successful registration depends on your successful payment, you'll receive a final confirmation mail for the same<br><br><span valign="bottom">This is a system generated mail, kindly contact contact@fedkiit.com</span>`
       })
       if(form.isTeam && req.body.teamleader != req.user.email){
         mailer.sendMail({
