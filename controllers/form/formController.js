@@ -61,7 +61,8 @@ async function addForm(req, res, next) {
         isTeam,
         teamsize,
         img,
-        date
+        date,
+        mail
       });
       await updatedForm.save();
       res.sendStatus(200);
