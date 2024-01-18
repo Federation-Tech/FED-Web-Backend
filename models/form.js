@@ -32,6 +32,10 @@ const formData = new Schema({
         type: String,
         default: null,
       },
+      required:{
+        type:Boolean,
+        default:true,
+      }
     },
   ],
   event: {
