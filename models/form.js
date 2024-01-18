@@ -68,6 +68,10 @@ const formData = new Schema({
     type: String,
     default: null,
   },
+  mail:{
+    type: String,
+    default: null,
+  }
 });
 
 module.exports = mongoose.model("form", formData);
