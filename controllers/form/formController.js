@@ -45,7 +45,7 @@ async function getForm(req, res, next) {
 
 
 async function addForm(req, res, next) {
-  const { title="", description="", amount=0, priority=0, formelement=[],upi="", event="", maxReg=0,isTeam=false,teamsize=0,img="",date="",mail="" } = req.body;
+  const { title="", description="", amount=0, priority=0, formelement=[],upi="", event="", maxReg=0,isTeam=false,teamsize=0,img="",date="", mail="" } = req.body;
   const { access } = res.locals.userData;
   try {
     if (access == 0) {
@@ -62,7 +62,7 @@ async function addForm(req, res, next) {
         teamsize,
         img,
         date,
-        mail
+        mail,
       });
       await updatedForm.save();
       res.sendStatus(200);

@@ -32,6 +32,10 @@ const formData = new Schema({
         type: String,
         default: null,
       },
+      required:{
+        type:Boolean,
+        default:true,
+      }
     },
   ],
   event: {
@@ -68,10 +72,10 @@ const formData = new Schema({
     type: String,
     default: null,
   },
-  mail:{
+  mail: {
     type: String,
     default: null,
-  }
+  },
 });
 
 module.exports = mongoose.model("form", formData);
