@@ -64,7 +64,7 @@ app.get("/validatetest", validater, (req, res, next) => {
 // Error Page
 app.use("*", (req, res) => {
   console.log("FED-TECH -> Error 404 - Route Not found");
-  return res.status(404).send("404 not found");
+  return res.status(200).send("404 not found");
 });
 
 app.listen(process.env.PORT, async () => {
