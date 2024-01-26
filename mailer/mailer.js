@@ -34,8 +34,8 @@ async function sendmail({
     var transport = mailer.createTransport({
       service: "gmail",
       auth: {
-        user: "noreply.fedkiit@gmail.com",
-        pass: "lrxtlcmmqvmlmcxg",
+        user: process.env.user,
+        pass: process.env.app_password,
       },
     });
     const mailoption = {
