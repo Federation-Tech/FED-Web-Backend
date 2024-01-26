@@ -19,7 +19,7 @@ module.exports = async (req, res, next) => {
     };
 
     //validity check
-    var user = await User.findOne({email:decodedToken.username}).exec()
+    var user = await User.findOne({email: { $regex: decodedToken.username, $options: 'i' }}).exec()
     if(!user.isvalid){
       const error = new HttpError("Verification Error!", 403);
       return next(error);
