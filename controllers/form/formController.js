@@ -169,7 +169,7 @@ async function toggleForm(req, res, next) {
 async function getactiveform(req,res,next){
   const { upcomming } = req.query
   try {
-      var result = await formDb.find().limit(10).populate("event")
+      var result = await (await formDb.find().populate("event")).slice(-10)
       res.json(result.reverse());
   } catch (e) {
     var error = new HttpError
