@@ -1,3 +1,18 @@
+// const express = require('express');
+// const app = express();
+
+// const MY_CONSTANT_VALUE = 'some value';
+
+// app.get('/api/constant', (req, res) => {
+//   res.json({ constantValue: MY_CONSTANT_VALUE });
+// });
+
+// app.listen(3000, () => {
+//   console.log('Server is running on port 3000');
+// });
+
+const express = require('express');
+const app = express();
 const { ObjectId } = require("mongodb");
 const client = require("../../config/db").mongoClient;
 const userDb = require("../../models/user-model");
@@ -7,19 +22,38 @@ const mailer = require("../../mailer/mailer");
 const jwt = require("jsonwebtoken");
 const path = require("path");
 
+// Define middleware
+app.use(express.json());
+
 async function registerForm(req, res, next) {
   const { formid } = req.body;
 
   try {
     const form = await formDb.findById(formid).populate("event").exec();
 
+    // const totalRegistrationUntillNow = 'some value';
     const totalRegistrationUntillNow = await client
       .db(form.event.title.replace(" ", "_").replace(".", "_"))
       .collection(form.title.replace(" ", "_").replace(".", "_"))
       .countDocuments();
     const reqUser = req.user;
-
     var validReg = true;
+
+    // Modified till line 56
+    app.get('/api/constant', async (req, res, next) => {
+      try {
+          const formid = req.query.formid;
+          const form = await formDb.findById(formid).populate("event").exec();
+          const totalRegistrationUntillNow = await client
+              .db(form.event.title.replace(" ", "_").replace(".", "_"))
+              .collection(form.title.replace(" ", "_").replace(".", "_"))
+              .countDocuments();
+  
+          res.json({ constantValue: totalRegistrationUntillNow });
+      } catch (error) {
+          next(error);
+      }
+    });
 
     var user = await userDb
       .findById(reqUser._id)

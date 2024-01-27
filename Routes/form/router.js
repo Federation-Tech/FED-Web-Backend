@@ -39,5 +39,8 @@ router.post("/register", formRegistration.register);
 //register Form
 router.get("/registration", formRegistration.fetchRegistrations);
 
+//count registrations
+// router.get("/api/constant", formRegistration.getConstantValue);
+
 
 module.exports = router;
