@@ -7,20 +7,38 @@ const mailer = require("../../mailer/mailer");
 const jwt = require("jsonwebtoken");
 const path = require("path");
 
+async function totalRegistrations(req, res, next) {
+    const { formid } = req.query;
+
+    try {
+        const form = await formDb.findById(formid).populate("event").exec();
+        const totalRegistrationUntillNow = await client
+            .db(form.event.title.replace(" ", "_").replace(".", "_"))
+            .collection(form.title.replace(" ", "_").replace(".", "_"))
+            .countDocuments();
+
+        res.json(totalRegistrationUntillNow);
+
+    } catch (error) {
+        error.name = "countRegistrations";
+        next(error);
+    }
+}
+
+
 async function registerForm(req, res, next) {
   const { formid } = req.body;
 
   try {
     const form = await formDb.findById(formid).populate("event").exec();
 
+    // const totalRegistrationUntillNow = 'some value';
     const totalRegistrationUntillNow = await client
       .db(form.event.title.replace(" ", "_").replace(".", "_"))
       .collection(form.title.replace(" ", "_").replace(".", "_"))
       .countDocuments();
     const reqUser = req.user;
-
     var validReg = true;
-
     var user = await userDb
       .findById(reqUser._id)
       .select("regForm access")
@@ -325,6 +343,7 @@ async function getTeamDetails(req, res, next) {
   }
 }
 
+exports.totalRegistrations = totalRegistrations;
 exports.register = registerForm;
 exports.fetchRegistrations = fetchRegistrations;
 exports.deleteMember = deleteMember;
