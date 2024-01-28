@@ -40,7 +40,7 @@ router.post("/register", formRegistration.register);
 router.get("/registration", formRegistration.fetchRegistrations);
 
 //count registrations
-// router.get("/api/constant", formRegistration.getConstantValue);
+router.get("/countRegistrations", formRegistration.totalRegistrations);
 
 
 module.exports = router;
