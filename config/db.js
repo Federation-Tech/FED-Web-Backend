@@ -1,4 +1,3 @@
-require("dotenv").config();
 const mongoose = require("mongoose");
 const { MongoClient } = require("mongodb");
 const client = new MongoClient(process.env.mongoURL);

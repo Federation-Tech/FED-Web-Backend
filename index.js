@@ -1,3 +1,6 @@
+
+console.log(process.env.vinit)
+require("dotenv").config();
 const express = require("express");
 const connectDB = require("./config/db");
 const cookieParser = require("cookie-parser");
@@ -5,8 +8,6 @@ const validater = require("./middleware/validator");
 const app = express();
 const fs = require("fs");
 const https = require("https");
-
-require("dotenv").config();
 
 app.use(express.json());
 
