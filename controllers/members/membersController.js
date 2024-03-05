@@ -31,6 +31,8 @@ const addMembers = async (req, res) => {
   if (user) {
     if (user.isvalid == true) {
       console.log("Member already exists");
+      user.access = access
+      await user.save()
       return res
         .status(400)
         .json({ code: 1, message: "Member already exists" });
