@@ -29,10 +29,8 @@ const addMembers = async (req, res) => {
   const user = await User.findOne({ email });
 
   if (user) {
-    if (user.isvalid == true) {
+    if (user.isvalid == true && user.access != 1) {
       console.log("Member already exists");
-      user.access = access
-      await user.save()
       return res
         .status(400)
         .json({ code: 1, message: "Member already exists" });
