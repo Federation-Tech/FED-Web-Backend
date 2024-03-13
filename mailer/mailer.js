@@ -49,8 +49,10 @@ async function sendmail({
       attachment: attachment,
     };
     var result = await transport.sendMail(mailoption);
+    console.log("Email Sent to ",to,result)
     return result;
   } catch (error) {
+    console.log("Email Sent Failes to ",to,error)
     return error;
   }
 }
