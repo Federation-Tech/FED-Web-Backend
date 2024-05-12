@@ -3,6 +3,7 @@ const router = express.Router();
 const formController = require("../../controllers/form/formController");
 const formRegistration = require("../../controllers/form/formRegistration");
 const validator = require("../../middleware/validator")
+const uploadImage = require("../../middleware/multer")
 
 router.get("/getactiveform", formController.getactiveform)
 //delete member
@@ -34,7 +35,8 @@ router.patch("/updateForm", formController.updateForm);
 router.delete("/deleteForm", formController.deleteForm);
 
 //register Form
-router.post("/register", formRegistration.register);
+// router.post("/register", uploadImage.single('image'),formRegistration.register);
+router.post("/register",formRegistration.register);
 
 //register Form
 router.get("/registration", formRegistration.fetchRegistrations);

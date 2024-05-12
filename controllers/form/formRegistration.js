@@ -27,8 +27,9 @@ async function totalRegistrations(req, res, next) {
 
 
 async function registerForm(req, res, next) {
-  const { formid } = req.body;
 
+  const { formid, img } = req.body;
+  
   try {
     const form = await formDb.findById(formid).populate("event").exec();
 
@@ -114,15 +115,32 @@ async function registerForm(req, res, next) {
       : validReg
       ? undefined
       : "Invalid access";
+
+    // Check if the transaction ID is unique
+    const txnIdExists = (validReg && req.body.txnid != undefined ) ? await client
+    .db(form.event.title.replace(" ", "_").replace(".", "_"))
+    .collection(form.title.replace(" ", "_").replace(".", "_"))
+    .findOne({ "submision.txnid": req.body.txnid }) : null;
+    validReg &&= !txnIdExists;
+    errormsg = errormsg ? errormsg : validReg ? undefined : "Duplicate Transaction_ID";
+
     if (validReg) {
+      if(req.file != undefined){
+        // Set the file name as modified by multer middleware
+        req.body.txnImg = req.file.filename;
+      }
+
       var result = await client
         .db(form.event.title.replace(" ", "_").replace(".", "_"))
         .collection(form.title.replace(" ", "_").replace(".", "_"))
         .insertOne({
           submision: req.body,
           user: req.user._id,
+          txnimg : img,
           submisionDate: new Date().toLocaleString(),
         });
+
+
       await userDb.findByIdAndUpdate(reqUser._id, {
         $push: { regForm: formid },
       });
