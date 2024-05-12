@@ -28,7 +28,7 @@ async function totalRegistrations(req, res, next) {
 
 async function registerForm(req, res, next) {
 
-  const { formid, img } = req.body;
+  const { formid } = req.body;
   
   try {
     const form = await formDb.findById(formid).populate("event").exec();
@@ -136,7 +136,6 @@ async function registerForm(req, res, next) {
         .insertOne({
           submision: req.body,
           user: req.user._id,
-          txnimg : img,
           submisionDate: new Date().toLocaleString(),
         });
 
