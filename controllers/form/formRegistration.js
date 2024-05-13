@@ -116,12 +116,12 @@ async function registerForm(req, res, next) {
       : "Invalid access";
 
     // Check if the transaction ID is unique
-    const txnIdExists = (validReg && req.body.txnid != undefined ) ? await client
-    .db(form.event.title.replace(" ", "").replace(".", ""))
-    .collection(form.title.replace(" ", "").replace(".", ""))
-    .findOne({ "submision.txnid": req.body.txnid }) : null;
-    validReg &&= !txnIdExists;
-    errormsg = errormsg ? errormsg : validReg ? undefined : "Duplicate Transaction_ID";
+    // const txnIdExists = (validReg && req.body.txnid != undefined ) ? await client
+    // .db(form.event.title.replace(" ", "").replace(".", ""))
+    // .collection(form.title.replace(" ", "").replace(".", ""))
+    // .findOne({ "submision.txnid": req.body.txnid }) : null;
+    // validReg &&= !txnIdExists;
+    // errormsg = errormsg ? errormsg : validReg ? undefined : "Duplicate Transaction_ID";
 
     if (validReg) {
       var result = await client
